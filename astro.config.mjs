@@ -23,6 +23,12 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Research',
+          items: [
+            { label: 'Papers & Projects', slug: 'research' },
+          ],
+        },
+        {
           label: 'Projects',
           items: [
             { label: 'LocoLLM', link: 'https://locollm.org' },

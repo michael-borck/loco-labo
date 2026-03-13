@@ -10,9 +10,10 @@ These projects have scaffolded repositories and are under active development.
 
 | Paper | Description | Status |
 |-------|-------------|--------|
-| **Cognitive Strategy Transfer** | Framework for understanding how cognitive strategies transfer across AI-assisted learning contexts | In progress |
+| **Cognitive Strategy Transfer** | Framework for understanding how cognitive strategies transfer across AI-assisted learning contexts (4-paper series) | In progress |
 | **DSR AI Education Simulation** | Design science research on AI-powered education simulations | In progress |
-| **Keep Asking** | Investigating the effect of conversational nudges on student engagement with AI | In progress |
+| **Keep Asking — Study 1: Does the Nudge Work?** | Using frontier models, test whether a conversational nudge shifts students from passive delegation to active conversation and improves task outcomes | In progress |
+| **Keep Asking — Study 2: Does Conversation Compensate for Model Quality?** | Test whether nudged students using a weak local model can match un-nudged students using a frontier model — reframing AI equity as a habits problem | Planned (pending Study 1) |
 
 ## Planned
 

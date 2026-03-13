@@ -96,7 +96,7 @@ Consumer NVLink is dead. Every multi-GPU configuration available to most users r
 
 LocoConvoy studies three architectures on that hardware: load balancing (multiple Ollama instances behind a router for concurrent throughput), Mixture of Agents (proposer cards and an aggregator card for quality improvements on reasoning tasks), and speculative decoding (a fast draft model passes token candidates to a slower verifier for latency reduction). PCIe bandwidth as the bottleneck is a feature of the methodology, not a limitation to work around -- worst-case results on realistic hardware are honest results.
 
-**Hardware:** Tortuga (ASUS B250 Mining Expert, 19x PCIe slots, dedicated multi-GPU test bench)
+**Hardware:** Colmena (WEIHO 8-GPU enclosed chassis, multi-GPU inference hive)
 
 **Key questions:** What does multi-GPU coordination actually deliver on PCIe hardware? When does MoA quality improvement justify the latency cost? Can vLLM tensor parallelism across cheap cards usefully simulate higher VRAM tiers?
 
@@ -135,7 +135,7 @@ LocoLab runs on six machines, all sourced secondhand. The entire fleet was assem
 | **Burro** | Overnight fine-tuning | IBM x3500 M4, Tesla P100 16 GB HBM2 |
 | **Cerebro** | LocoEnsayo inference host | Ryzen 5 2600, RTX 2060 Super 8 GB |
 | **Hormiga** | Reference floor node | ThinkCentre M710s, GTX 1050 Ti LP 4 GB |
-| **Tortuga** | Multi-GPU test bench, card validation | ASUS B250 Mining Expert, 19x PCIe, 1250W PSU |
+| **Tortuga** | Legacy benchmarking, pre-RTX fleet | WEIHO 8-GPU enclosed chassis, GTX 950 through Titan X |
 | **Poco** | Remote terminal, Apple Silicon testing | MacBook M1, 16 GB unified memory |
 
 The naming follows a Spanish thread -- Colmena (hive), Burro (donkey), Cerebro (brain), Hormiga (ant), Tortuga (turtle), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.

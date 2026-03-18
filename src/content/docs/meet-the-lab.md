@@ -2,16 +2,16 @@
 title: "Meet the Lab"
 ---
 
-LocoLabo is the umbrella research initiative -- five sub-projects running across five machines. None of them are new. All were sourced secondhand. Hardware was acquired opportunistically -- the right capability at the right price, not a planned procurement.
+LocoLabo is the umbrella research initiative -- five sub-projects running across six machines. None of them are new. All were sourced secondhand. Hardware was acquired opportunistically -- the right capability at the right price, not a planned procurement.
 
-The naming follows a Spanish thread: Colmena (hive), Tortuga (turtle), Poco (a little), Hormiga (ant), and Cerebro (brain). The hive coordinates many workers across the RTX era and carries the heavy training loads, the turtle holds the legacy fleet and wakes slowly when called, the little one connects you to all of them, the ant keeps the floor honest on minimal hardware, and the brain runs the rehearsal.
+The naming follows a Spanish thread: Colmena (hive), Tortuga (turtle), Poco (a little), Hormiga (ant), Cerebro (brain), and Mesa (table). The hive coordinates many workers and carries the heavy training loads, the turtle holds the legacy fleet and wakes slowly when called, the little one connects you to all of them, the ant keeps the floor honest on minimal hardware, the brain runs the rehearsal, and the table is where new cards land before they find a permanent home.
 
 **Five sub-projects under LocoLabo:**
 
 - **LocoLLM** (Colmena) -- infrastructure, architecture research, fine-tuning
-- **LocoBench** (Colmena + Tortuga) -- benchmarking platform, community results
+- **LocoBench** (Tortuga + Hormiga) -- benchmarking platform, community results
 - **LocoConvoy** (Colmena) -- multi-GPU architecture experiments: load balancing, Mixture of Agents, vLLM tensor parallelism
-- **LocoEnsayo** (Cerebro) -- authentic assessment rehearsal platform, runs CloudCore Networks
+- **LocoEnsayo** (Cerebro) -- authentic assessment rehearsal platform, runs CloudCore Networks, Pinnacle Tours, TalkBuddy
 - **LocoLabo coordination** (Poco) -- remote access and Apple Silicon testing across all sub-projects
 
 ---
@@ -42,14 +42,14 @@ Apple's MLX framework supports LoRA fine-tuning natively via `mlx_lm.lora`, so P
 
 ## Colmena
 
-**WEIHO 8-GPU Enclosed Chassis -- Multi-GPU Inference Hive, RTX-Era Benchmark Rig, and Training Server**
+**WEIHO 8-GPU Enclosed Chassis -- Multi-GPU Experiments and Training Server**
 
 | | |
 |---|---|
 | **Chassis** | WEIHO 8-GPU enclosed mining rig (72x42x18cm, steel, blue lid) |
 | **Motherboard** | Intel LGA1155, B75/H61 chipset |
 | **CPU** | Intel i3-3220 (Ivy Bridge, dual core) |
-| **GPUs** | RTX 2060 Super 8 GB x3, RTX 3060 12 GB (4 installed), Tesla P100 16 GB HBM2 (pending -- awaiting arrival and fit test), RTX 3090 24 GB + RTX 4060 Ti 16 GB planned, 1 slot reserved for additional RTX 2060 Super pooling experiments |
+| **GPUs** | 3x GTX 1060 6 GB, 3x RTX 2060 Super 8 GB, Tesla P100 16 GB HBM2 (arriving) |
 | **Memory** | 8 GB DDR3 SODIMM (board maximum) |
 | **Storage** | 128 GB mSATA (OS) + WD Scorpio Blue 750 GB SATA (model storage via `OLLAMA_MODELS`) |
 | **PSU** | Integrated 2000-3300W unit |
@@ -57,36 +57,27 @@ Apple's MLX framework supports LoRA fine-tuning natively via `mlx_lm.lora`, so P
 | **GPU slots** | 8 native PCIe slots, no risers needed |
 | **OS** | Ubuntu 22.04 LTS |
 | **Form** | Enclosed chassis |
-| **Role** | LocoLLM inference and fine-tuning, LocoBench RTX-era benchmarking, LocoConvoy multi-GPU architecture research |
+| **Role** | LocoConvoy multi-GPU architecture research, LocoLLM inference and fine-tuning |
 
 Colmena means "hive" in Spanish. Multiple workers, one coordinated system.
 
-Colmena covers the RTX era forward and handles fine-tuning via the Tesla P100 16 GB HBM2 (pending arrival and fit test). The GPU lineup spans the meaningful VRAM tiers from 8 GB through 24 GB, plus the P100's 16 GB of HBM2 for training. Legacy and pre-RTX benchmarking has moved to Tortuga, which frees Colmena to focus on active research: multi-GPU inference architectures, vLLM tensor parallelism, fine-tuning, and the RTX-era LocoBench tiers.
+Colmena is the multi-GPU experimentation platform. The GPU lineup pairs two matched trios -- 3x GTX 1060 6 GB (Pascal, no Tensor Cores) and 3x RTX 2060 Super 8 GB (Turing, Tensor Cores) -- enabling direct generational comparisons of multi-GPU scaling strategies. The Tesla P100 16 GB HBM2 handles fine-tuning duties.
 
-The i3-3220 CPU and 8 GB RAM ceiling exist by design. The CPU's job is to boot the OS and manage the PCIe bus. Over-speccing the host system would make Colmena a worse research instrument -- LocoBench benchmarks GPU capability on modest hardware, which is what most users actually have.
+The i3-3220 CPU and 8 GB RAM ceiling exist by design. The CPU's job is to boot the OS and manage the PCIe bus. Over-speccing the host system would make Colmena a worse research instrument -- it measures GPU capability on modest hardware, which is what most users actually have.
 
-Colmena has three roles in priority order:
+Colmena has two roles in priority order:
 
-**1. LocoBench RTX-era platform.** Each VRAM tier is represented by a floor card for that tier. Conservative baselines mean: if it runs here, it runs on your card. Community submissions extend each tier upward. The bandwidth delta within each tier is documented in nvidia-gpu-reference.md, allowing readers to extrapolate to their specific card.
+**1. Multi-GPU architecture research (LocoConvoy).** The matched trios enable three distinct research tracks: independent-worker load balancing, Mixture of Agents across cards, and vLLM tensor parallelism experiments. The GTX 1060 trio (18 GB pooled, no Tensor Cores) versus the RTX 2060 Super trio (24 GB pooled, with Tensor Cores) is a direct generational comparison of pooled VRAM performance on PCIe-connected consumer hardware.
 
-**2. Multi-GPU architecture research.** The lineup enables three distinct research tracks: independent-worker load balancing, Mixture of Agents across cards, and vLLM tensor parallelism experiments using matched RTX 2060 Super cards rotated in for pooling runs.
+**2. Fine-tuning (LocoLLM).** The Tesla P100's 16 GB of HBM2 at 732 GB/s enables full 16-bit LoRA rather than 4-bit QLoRA, longer context windows (4096-8192 tokens), larger batch sizes, and higher LoRA ranks. Pascal architecture (compute capability 6.0) doesn't have Tensor Cores, so training runs through standard CUDA cores using vanilla PEFT or HuggingFace Trainer rather than Unsloth. Expect roughly 2-3x slower wall-clock time than a 2060 Super running Unsloth QLoRA for an equivalent job. A three-hour Unsloth run on a 2060 Super becomes a six-to-eight-hour PEFT run on the P100. That's an overnight job, not a multi-day one.
 
-**3. Fine-tuning.** The Tesla P100's 16 GB of HBM2 at 732 GB/s enables full 16-bit LoRA rather than 4-bit QLoRA, longer context windows (4096-8192 tokens), larger batch sizes, and higher LoRA ranks. Pascal architecture (compute capability 6.0) doesn't have Tensor Cores, so training runs through standard CUDA cores using vanilla PEFT or HuggingFace Trainer rather than Unsloth. Expect roughly 2-3x slower wall-clock time than a 2060 Super running Unsloth QLoRA for an equivalent job. A three-hour Unsloth run on a 2060 Super becomes a six-to-eight-hour PEFT run on the P100. That's an overnight job, not a multi-day one.
-
-**GPU lineup -- installed and planned:**
+**GPU lineup:**
 
 | Card | VRAM | Bandwidth | Architecture | Tensor Cores | Role |
 |------|------|-----------|-------------|--------------|------|
-| RTX 2060 Super 8 GB x3 | 8 GB each | 448 GB/s | Turing | Yes | Floor of 8 GB tier; load balancing testbed |
-| RTX 3060 12 GB | 12 GB | 360 GB/s | Ampere | Yes | Floor of 12 GB tier |
-| Tesla P100 16 GB | 16 GB | 732 GB/s | Pascal | No | Fine-tuning, high-fidelity LoRA (pending -- awaiting arrival and fit test) |
-| RTX 4060 Ti 16 GB | 16 GB | 288 GB/s | Ada Lovelace | Yes | Floor of 16 GB tier (planned) |
-| RTX 3090 24 GB | 24 GB | 936 GB/s | Ampere | Yes | Reference ceiling (planned) |
-| RTX 2060 Super (x2 or x3) | 8 GB each | 448 GB/s | Turing | Yes | Rotated in for 16 GB / 24 GB vLLM pooling experiments |
-
-**The pooled VRAM experiment:** Two RTX 2060 Supers (16 GB pooled) versus the RTX 4060 Ti (16 GB monolithic). Three RTX 2060 Supers (24 GB pooled) versus the RTX 3090 (24 GB monolithic). Same effective VRAM, completely different bandwidth characteristics and PCIe interconnect overhead. The cost differential is significant -- three 2060 Supers can be sourced for roughly a third of a 3090's secondhand price. Whether pooled commodity cards can match monolithic high-VRAM inference performance is an open and publishable question.
-
-**A counterintuitive result:** For models that fit in 8 GB, the RTX 2060 Super will outperform the RTX 3060 on tokens per second despite being an older card. LLM inference is memory bandwidth bound, not compute bound -- the 2060 Super's 448 GB/s beats the 3060's 360 GB/s. The 3060's newer Ampere architecture and improved Tensor Cores don't help much when the bottleneck is getting weights off the card. The 3060's value in Colmena is pure VRAM capacity for 12 GB models. For everything that fits in 8 GB, the older card is faster. A useful result to show students before they assume newer always means better.
+| GTX 1060 6 GB x3 | 6 GB each | 192 GB/s | Pascal | No | Multi-GPU pooling (18 GB); pre-RTX scaling baseline |
+| RTX 2060 Super 8 GB x3 | 8 GB each | 448 GB/s | Turing | Yes | Multi-GPU pooling (24 GB); RTX-era scaling testbed |
+| Tesla P100 16 GB | 16 GB | 732 GB/s | Pascal | No | Fine-tuning, high-fidelity LoRA (arriving) |
 
 **Multi-GPU operating modes:**
 
@@ -96,31 +87,32 @@ Colmena has three roles in priority order:
 
 *Speculative decoding:* A small draft model on one card generates candidate tokens rapidly. A larger verifier model on another card accepts or rejects token batches. Net result is lower latency from the large model. Supported natively by llama.cpp via `--model-draft`.
 
-*vLLM tensor parallelism:* Matched cards (2060 Super x2 or x3) pool VRAM across PCIe. Enables models larger than any single card's VRAM. PCIe bandwidth becomes the primary bottleneck, making the comparison against monolithic high-VRAM cards the central research question.
+*vLLM tensor parallelism:* Matched cards (GTX 1060 x3 or RTX 2060 Super x3) pool VRAM across PCIe. Enables models larger than any single card's VRAM. PCIe bandwidth becomes the primary bottleneck, making the cross-generational comparison the central research question.
 
-**Best at:** RTX-era benchmarking across VRAM tiers. Multi-GPU architecture experiments. vLLM pooling research. Overnight fine-tuning on the P100.
+**Best at:** Multi-GPU architecture experiments. Cross-generational pooling research. Overnight fine-tuning on the P100.
 
 ---
 
 ## Tortuga
 
-**WEIHO 8-GPU Enclosed Chassis -- Legacy Fleet and Pre-RTX Benchmark Rig**
+**WEIHO 8-GPU Enclosed Chassis -- Pre-RTX Legacy Tier Benchmarking**
 
 | | |
 |---|---|
 | **Chassis** | WEIHO 8-GPU enclosed mining rig |
-| **GPUs** | GTX 950 2 GB, GTX 960 4 GB, GTX 1050 Ti 4 GB, GTX 1060 3 GB, GTX 1060 6 GB x3, GTX 980 Ti 6 GB, GTX Titan X 12 GB (9 cards) |
+| **GPUs** | GTX 950 2 GB, GTX 960 4 GB, GTX 1050 Ti 4 GB, GTX 1060 3 GB, GTX 1060 6 GB, GTX 980 Ti 6 GB, GTX Titan X 12 GB (7 cards) |
 | **OS** | Ubuntu 22.04 LTS |
 | **Form** | Enclosed chassis |
-| **Role** | Legacy tier benchmarking; powered on for benchmark runs only |
+| **Role** | LocoBench -- pre-RTX legacy tier benchmarking; powered on for benchmark runs only |
+| **Notes** | No Tensor Cores across entire fleet. Slot 4 occupied by PCIe NVMe (M.2 SATA bandwidth conflict). |
 
 Tortuga means "turtle" in Spanish. It moves at its own pace and wakes only when called.
 
 Tortuga holds every GPU tier that predates the RTX era -- Pascal, Maxwell, and the Maxwell-era Titan X that punched above its weight for years. The machine is not running continuously. It powers on for benchmarking sessions and goes back to sleep. This is deliberate: the hardware is well-understood, the results are reproducible, and there's no reason to keep it warm between runs.
 
-The fleet covers a wide arc of consumer hardware history. The GTX 950 represents the genuine floor -- 2 GB VRAM, Maxwell architecture, what a budget builder was likely to have in 2015-2016. The Titan X at the other end of the rack represents 12 GB Maxwell-era compute, still capable for its age, and an interesting counterpoint to the RTX 3060's 12 GB Ampere architecture. The GTX 980 Ti is a similar wildcard -- 6 GB Pascal-era bandwidth, faster in some workloads than modern 6 GB budget cards.
+The fleet covers a wide arc of consumer hardware history. The GTX 950 represents the genuine floor -- 2 GB VRAM, Maxwell architecture, what a budget builder was likely to have in 2015-2016. The Titan X at the other end of the rack represents 12 GB Maxwell-era compute, still capable for its age. The GTX 980 Ti is a similar wildcard -- 6 GB Maxwell-era bandwidth, faster in some workloads than modern 6 GB budget cards.
 
-None of these cards have Tensor Cores. That's the defining characteristic of the Tortuga fleet: inference runs on standard CUDA cores only. Comparing Tortuga results against Colmena's RTX cards isolates exactly what Tensor Core acceleration contributes at each VRAM tier. The three matched GTX 1060 6 GB cards mirror Colmena's three matched RTX 2060 Supers -- enabling a direct GTX-vs-RTX multi-GPU scaling comparison for the [tiered inference experiment](https://lococonvoy.org/docs/tiered-inference-experiment/).
+None of these cards have Tensor Cores. That's the defining characteristic of the Tortuga fleet: inference runs on standard CUDA cores only. Comparing Tortuga results against RTX cards isolates exactly what Tensor Core acceleration contributes at each VRAM tier.
 
 **GPU fleet -- pre-RTX coverage:**
 
@@ -130,7 +122,7 @@ None of these cards have Tensor Cores. That's the defining characteristic of the
 | GTX 960 | 4 GB | 112 GB/s | Maxwell | Entry 4 GB tier |
 | GTX 1050 Ti | 4 GB | 112 GB/s | Pascal | 4 GB Pascal floor; direct comparison to Hormiga |
 | GTX 1060 3 GB | 3 GB | 192 GB/s | Pascal | Unusual tier -- 3 GB sits between 2 GB and 4 GB floors |
-| GTX 1060 6 GB x3 | 6 GB each | 192 GB/s | Pascal | 6 GB Pascal floor; multi-GPU pooling (12/18 GB) |
+| GTX 1060 6 GB | 6 GB | 192 GB/s | Pascal | 6 GB Pascal floor |
 | GTX 980 Ti | 6 GB | 336 GB/s | Maxwell | Legacy high-end; bandwidth outlier for its VRAM tier |
 | GTX Titan X | 12 GB | 336 GB/s | Maxwell | Maxwell 12 GB; counterpoint to RTX 3060 12 GB Ampere |
 
@@ -172,7 +164,7 @@ Ubuntu 22.04 LTS matches the rest of the fleet. Same CUDA toolkit, same driver s
 | **CPU** | AMD Ryzen 5 2600 |
 | **GPU** | 2x RTX 2060 Super 8 GB |
 | **OS** | Ubuntu 22.04 LTS |
-| **Role** | LocoEnsayo -- authentic assessment rehearsal platform, runs CloudCore Networks |
+| **Role** | LocoEnsayo -- AI simulation host (CloudCore Networks, Pinnacle Tours, TalkBuddy) |
 
 Cerebro means "brain" in Spanish. It runs the thinking behind LocoEnsayo.
 
@@ -182,13 +174,34 @@ LocoEnsayo currently runs three scenarios:
 
 **CloudCore Networks** (server-side, running on Cerebro) -- a fictional IT company populated with AI chatbot employees, each with unique backstories, roles, and institutional knowledge. Students read the CloudCore website, navigate the organisation, and interview virtual employees to extract requirements, conduct security assessments, or understand business problems -- the same cognitive and professional work they would do in a real engagement, in a space where mistakes are safe and scenarios are repeatable. IT, security, web design, and business analysis contexts.
 
-**Pinnacle Tours** (in development) -- a second fictional company with a broader business flavour. Where CloudCore skews toward IT-facing disciplines, Pinnacle Tours opens LocoEnsayo to marketing, operations, HR, customer experience, and general management scenarios. Same server-side architecture on Cerebro, different organisational context.
+**Pinnacle Tours** (server-side, running on Cerebro) -- a second fictional company with a broader business flavour. Where CloudCore skews toward IT-facing disciplines, Pinnacle Tours opens LocoEnsayo to marketing, operations, HR, customer experience, and general management scenarios. Same server-side architecture on Cerebro, different organisational context.
 
 **TalkBuddy** (client-side Electron app, Cerebro provides the Ollama backend) -- conversation rehearsal for the scenarios that can't be scripted around a fictional company. Firing someone. Delivering bad news. Conflict resolution. A doctor explaining a difficult diagnosis. A social worker in a crisis conversation. TalkBuddy puts students in those conversations before they face them for real, with real-time speech recognition and synthesis so the rehearsal feels like an actual conversation rather than a chat interface. Available as desktop, Docker, and server installations. [github.com/michael-borck/talk-buddy](https://github.com/michael-borck/talk-buddy)
 
 The architectural split is worth noting: CloudCore and Pinnacle Tours are server-side -- students connect via browser to Cerebro. TalkBuddy is a local Electron app the student installs, pointing at Cerebro (or a cloud endpoint) for Ollama inference and Speaches for STT/TTS. Two RTX 2060 Supers give Cerebro enough headroom to serve multiple concurrent sessions across both deployment patterns.
 
-**Best at:** Hosting the full LocoEnsayo rehearsal suite. Running CloudCore Networks and (soon) Pinnacle Tours server-side. Providing the Ollama backend for TalkBuddy client installations.
+**Best at:** Hosting the full LocoEnsayo rehearsal suite. Running CloudCore Networks and Pinnacle Tours server-side. Providing the Ollama backend for TalkBuddy client installations.
+
+---
+
+## Mesa
+
+**B250 Mining Board -- Overflow, GPU Onboarding, and Ad Hoc Experiments**
+
+| | |
+|---|---|
+| **Chassis** | B250 mining board, open air |
+| **GPUs** | RTX 3060 12 GB |
+| **Location** | TBD |
+| **Role** | Overflow, GPU onboarding/testing, ad hoc experiments |
+
+Mesa means "table" in Spanish. It's where things land before they find a permanent home.
+
+Mesa is the staging ground. New cards arrive here first for burn-in, driver validation, and compatibility testing before being assigned to Colmena, Tortuga, or wherever they're needed. Between onboarding runs, the RTX 3060 12 GB makes it a capable ad hoc experiment node -- enough VRAM for meaningful inference work without tying up a dedicated research machine.
+
+The open-air B250 mining board format makes GPU swaps trivial. No case to open, no cable management -- slot a card, power on, test. That's the point.
+
+**Best at:** GPU onboarding and testing. Overflow capacity. Quick experiments that don't warrant disrupting a production machine.
 
 ---
 
@@ -196,20 +209,20 @@ The architectural split is worth noting: CloudCore and Pinnacle Tours are server
 
 | Machine | Sub-project(s) | GPU(s) | VRAM | Primary Role |
 |---------|----------------|--------|------|--------------|
-| **Poco** (MacBook M1) | LocoLabo | Apple M1 GPU | 16 GB unified | Remote terminal, Apple Silicon testing across all sub-projects |
-| **Colmena** (WEIHO 8-GPU) | LocoLLM / LocoBench / LocoConvoy | RTX 2060 Super x3, RTX 3060, Tesla P100†, RTX 3090*, RTX 4060 Ti* | 8/12/16/24 GB | RTX-era benchmarking, multi-GPU research, vLLM pooling, fine-tuning |
-| **Tortuga** (WEIHO 8-GPU) | LocoBench | GTX 950/960/1050Ti/1060 3GB/1060 6GB x3/980Ti/Titan X | 2-12 GB (18 GB pooled) | Legacy benchmarking, pre-RTX fleet (powered on for runs only) |
+| **Colmena** (WEIHO 8-GPU) | LocoConvoy / LocoLLM | GTX 1060 6GB x3, RTX 2060 Super x3, Tesla P100† | 6/8/16 GB | Multi-GPU experiments, fine-tuning |
+| **Tortuga** (WEIHO 8-GPU) | LocoBench | GTX 950/960/1050Ti/1060 3GB/1060 6GB/980Ti/Titan X | 2-12 GB | Pre-RTX legacy benchmarking (powered on for runs only) |
+| **Cerebro** (Ryzen 5 2600) | LocoEnsayo | 2x RTX 2060 Super | 2x 8 GB | AI simulation host (CloudCore, Pinnacle Tours, TalkBuddy) |
 | **Hormiga** (ThinkCentre M710s) | LocoBench | GTX 1050 Ti LP | 4 GB | Minimum viable inference node, SFF reference testing |
-| **Cerebro** (Ryzen 5 2600) | LocoEnsayo | 2x RTX 2060 Super | 2x 8 GB | CloudCore Networks rehearsal platform |
+| **Mesa** (B250 open air) | -- | RTX 3060 12 GB | 12 GB | Overflow, GPU onboarding/testing, ad hoc experiments |
+| **Poco** (MacBook M1) | LocoLabo | Apple M1 GPU | 16 GB unified | Remote terminal, Apple Silicon testing |
 
-*Planned acquisition
-†Pending -- awaiting arrival and fit test
+†Arriving
 
 ---
 
 ## Hardware Notes
 
-The specific hardware here isn't prescriptive. The P100 needs a PCIe x16 slot, adequate power, and airflow over a passively cooled card. Colmena doesn't require this exact GPU lineup -- any PCIe cards work. Hormiga doesn't require a ThinkCentre -- any low-profile CUDA card with 4 GB in any SFF chassis fits the role.
+The specific hardware here isn't prescriptive. The P100 needs a PCIe x16 slot, adequate power, and airflow over a passively cooled card. Colmena doesn't require this exact GPU lineup -- any PCIe cards work. Hormiga doesn't require a ThinkCentre -- any low-profile CUDA card with 4 GB in any SFF chassis fits the role. Mesa doesn't require a B250 board -- any open-air or spare chassis with a free PCIe slot serves the staging role.
 
 What matters for replication is capability tier, not specific parts. Match the VRAM range and CUDA support, source whatever is available locally at the time.
 

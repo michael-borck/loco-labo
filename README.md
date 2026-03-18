@@ -66,7 +66,7 @@ The flagship project. Rather than running one large general-purpose model, LocoL
 
 No cloud. No API keys. Just your hardware doing more than you would expect.
 
-**Hardware:** Colmena (8-GPU inference hive with Tesla P100 for fine-tuning)
+**Hardware:** Colmena (8-GPU chassis with matched GPU trios for multi-GPU experiments, Tesla P100 for fine-tuning)
 
 **Key questions:** Can specialist routing recover quality lost to model size? What routing strategies work on PCIe-connected multi-GPU hardware without NVLink? How much fine-tuning is needed for a specialist to meaningfully outperform a generalist on domain tasks?
 
@@ -81,7 +81,7 @@ LocoBench documents two things mainstream benchmarks ignore: throughput (tokens 
 
 The sub-4 GB tiers are included deliberately. Most inference guides assert a "4 GB minimum" as received wisdom. LocoBench will show the data behind that claim -- where the quality cliff is steep, where it is gradual, and what a fine-tuned small model can recover at the floor.
 
-**Hardware:** Colmena (floor cards per VRAM tier) + Hormiga (reference floor node)
+**Hardware:** Tortuga (pre-RTX legacy tiers) + Hormiga (reference floor node)
 
 **Key questions:** Where exactly is the quality cliff? What is the minimum viable hardware for useful inference on real tasks? Do fine-tuned small models recover quality that quantisation removes? Does the "Conversation not Delegation" use case hold up empirically at the 2-4 GB tier?
 
@@ -96,7 +96,7 @@ Consumer NVLink is dead. Every multi-GPU configuration available to most users r
 
 LocoConvoy studies three architectures on that hardware: load balancing (multiple Ollama instances behind a router for concurrent throughput), Mixture of Agents (proposer cards and an aggregator card for quality improvements on reasoning tasks), and speculative decoding (a fast draft model passes token candidates to a slower verifier for latency reduction). PCIe bandwidth as the bottleneck is a feature of the methodology, not a limitation to work around -- worst-case results on realistic hardware are honest results.
 
-**Hardware:** Colmena (WEIHO 8-GPU enclosed chassis, multi-GPU inference hive)
+**Hardware:** Colmena (WEIHO 8-GPU enclosed chassis, matched GPU trios for cross-generational experiments)
 
 **Key questions:** What does multi-GPU coordination actually deliver on PCIe hardware? When does MoA quality improvement justify the latency cost? Can vLLM tensor parallelism across cheap cards usefully simulate higher VRAM tiers?
 
@@ -111,7 +111,7 @@ Students cannot develop professional skills by reading case studies -- they need
 
 LocoEnsayo builds AI-populated organisations that students can interrogate, interview, audit, and negotiate with. Each persona has a backstory, a role, and information constraints -- they know what their character knows and no more. The organisation has structure, culture, and problems the student needs to surface through conversation. The scenario is not a quiz. It is a rehearsal.
 
-Currently deployed: **CloudCore Networks** -- an IT services firm used for security audits, requirements gathering, and systems analysis units. In development: **Piccinale Travel** -- a hospitality and tourism organisation opening scenario coverage across marketing, management, and service design units.
+Currently deployed: **CloudCore Networks** -- an IT services firm used for security audits, requirements gathering, and systems analysis units. **Pinnacle Tours** -- a hospitality and tourism organisation opening scenario coverage across marketing, management, and service design units. **TalkBuddy** -- conversation rehearsal for high-stakes professional scenarios.
 
 The platform extends to high-stakes conversation practice that is too risky or expensive to run with real people: HR termination conversations, clinicians delivering difficult diagnoses, lawyers advising under pressure, managers navigating conflict. Local inference is not just convenient here -- it is required. Student interaction data in sensitive scenarios must not leave the institution. No cloud API makes that guarantee credibly.
 
@@ -127,17 +127,18 @@ BYOK options allow instructors and students who want frontier model access for s
 
 ## The Lab
 
-LocoLab runs on five machines, all sourced secondhand. The entire fleet was assembled opportunistically -- the right capability at the right price, not a planned procurement.
+LocoLab runs on six machines, all sourced secondhand. The entire fleet was assembled opportunistically -- the right capability at the right price, not a planned procurement.
 
 | Machine | Role | Key Hardware |
 |---------|------|-------------|
-| **Colmena** | Multi-GPU inference hive, LocoBench primary, fine-tuning | WEIHO 8-GPU enclosed chassis, floor cards per VRAM tier, Tesla P100 16 GB HBM2 |
-| **Cerebro** | LocoEnsayo inference host | Ryzen 5 2600, RTX 2060 Super 8 GB |
-| **Hormiga** | Reference floor node | ThinkCentre M710s, GTX 1050 Ti LP 4 GB |
-| **Tortuga** | Legacy benchmarking, pre-RTX fleet | WEIHO 8-GPU enclosed chassis, GTX 950 through Titan X |
+| **Colmena** | LocoConvoy multi-GPU experiments, LocoLLM fine-tuning | WEIHO 8-GPU enclosed chassis, GTX 1060 6GB x3, RTX 2060 Super x3, Tesla P100 16 GB HBM2 |
+| **Tortuga** | LocoBench pre-RTX legacy benchmarking | WEIHO 8-GPU enclosed chassis, GTX 950 through Titan X |
+| **Cerebro** | LocoEnsayo AI simulation host | Ryzen 5 2600, 2x RTX 2060 Super 8 GB |
+| **Hormiga** | Minimum viable inference node | ThinkCentre M710s, GTX 1050 Ti LP 4 GB |
+| **Mesa** | Overflow, GPU onboarding/testing | B250 mining board open air, RTX 3060 12 GB |
 | **Poco** | Remote terminal, Apple Silicon testing | MacBook M1, 16 GB unified memory |
 
-The naming follows a Spanish thread -- Colmena (hive), Cerebro (brain), Hormiga (ant), Tortuga (turtle), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.
+The naming follows a Spanish thread -- Colmena (hive), Tortuga (turtle), Cerebro (brain), Hormiga (ant), Mesa (table), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.
 
 ---
 

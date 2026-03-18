@@ -48,6 +48,7 @@ The installer knows the lab fleet by name. Selecting a machine auto-configures t
 | cerebro | brain | 🧠 |
 | colmena | beehive | 🐝 |
 | hormiga | ant | 🐜 |
+| mesa | table | 🪑 |
 | tortuga | turtle | 🐢 |
 
 Custom machine names are also supported for machines outside the lab fleet.

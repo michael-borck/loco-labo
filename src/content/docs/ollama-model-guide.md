@@ -2,7 +2,7 @@
 title: "Ollama Model Guide for 8GB VRAM"
 ---
 
-A practical guide to choosing and running models with Ollama on an 8GB VRAM card. This covers general inference use -- if you're here to fine-tune adapters, see the [fine-tuning primer](finetuning-primer.md) and [base model selection](base-model-selection.md) instead.
+A practical guide to choosing and running models with Ollama on an 8GB VRAM card. This covers general inference use -- if you're here to train adapters, see the [adapter primer](adapter-primer.md) and [base model selection](base-model-selection.md) instead.
 
 ## The 8GB Sweet Spot
 
@@ -84,15 +84,15 @@ Each command downloads the model on first run (one-time, typically 4-5GB) and st
 
 **Context window matters.** A 7B model at Q4_K_M uses ~4.5GB for weights, but the KV cache grows with conversation length. On 8GB cards, keep context windows at 4,096-8,192 tokens to avoid spilling to system RAM. See [KV cache](small-model-strategies.md#kv-cache-the-hidden-vram-cost) for details.
 
-**Bigger model at lower quant beats smaller model at higher quant** for general inference. More parameters give better reasoning ability. If your card can fit a 7B at Q4_K_M, that's almost always better than a 3B at Q8. The exception is fine-tuning workflows (like LocoLLM's) where VRAM headroom for adapters and training matters more -- see [base model selection](base-model-selection.md#why-not-7b).
+**Bigger model at lower quant beats smaller model at higher quant** for general inference. More parameters give better reasoning ability. If your card can fit a 7B at Q4_K_M, that's almost always better than a 3B at Q8. The exception is adapter training workflows (like LocoLLM's) where VRAM headroom for adapters and training matters more -- see [base model selection](base-model-selection.md#why-not-7b).
 
 ---
 
 ## Relation to LocoLLM
 
-LocoLLM standardises on **Qwen3-4B** at Q4_K_M -- deliberately smaller than the models above. This isn't because 4B is "best" for inference. It's because LocoLLM's architecture requires headroom for adapter swapping, KV cache, and training on 8GB machines. The [tunability inversion](base-model-selection.md#the-tunability-inversion) means fine-tuned 4B models close the gap to larger general-purpose models anyway.
+LocoLLM standardises on **Qwen3-4B** at Q4_K_M -- deliberately smaller than the models above. This isn't because 4B is "best" for inference. It's because LocoLLM's architecture requires headroom for adapter swapping, KV cache, and training on 8GB machines. The [tunability inversion](base-model-selection.md#the-tunability-inversion) means adapter-trained 4B models close the gap to larger general-purpose models anyway.
 
-If you're exploring local AI for personal use (not fine-tuning), the 7-9B models on this page are the right starting point.
+If you're exploring local AI for personal use (not training adapters), the 7-9B models on this page are the right starting point.
 
 ---
 

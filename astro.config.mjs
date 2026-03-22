@@ -36,6 +36,7 @@ export default defineConfig({
             { label: 'LocoBench', link: 'https://locobench.org' },
             { label: 'LocoConvoy', link: 'https://lococonvoy.org' },
             { label: 'LocoEnsayo', link: 'https://locoensayo.org' },
+            { label: 'LocoAgente', link: 'https://locoagente.org' },
           ],
         },
         {

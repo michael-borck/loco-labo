@@ -30,7 +30,7 @@ Three reasons. First, it's what students and small institutions actually have --
 
 Yes. The minimum viable setup is one machine with a CUDA-capable GPU and 4+ GB VRAM running Ubuntu, Ollama, and llama.cpp. A secondhand desktop with a GTX 1050 Ti will get you started for under $200 AUD. The [Machine Setup](machine-setup.md) guide covers the installation path.
 
-For benchmarking, any consumer Nvidia GPU works. For fine-tuning, you want 16 GB VRAM -- a Tesla P100 can be sourced secondhand for $150-250 AUD. For multi-GPU experiments, a mining chassis like the WEIHO 8-GPU rig accepts any PCIe card without risers.
+For benchmarking, any consumer Nvidia GPU works. For adapter training, you want 16 GB VRAM -- a Tesla P100 can be sourced secondhand for $150-250 AUD. For multi-GPU experiments, a mining chassis like the WEIHO 8-GPU rig accepts any PCIe card without risers.
 
 ### Why Nvidia only?
 
@@ -52,7 +52,7 @@ For conversation -- brainstorming, ideation, iteration, challenging your assumpt
 
 ### Why not just use a bigger model locally?
 
-You can. A 7B or 13B model on an RTX 3090 will outperform a 4B model on a GTX 1050 Ti. But the research question is about the floor, not the ceiling. What is the minimum viable hardware for useful inference? Where exactly does quality degrade? What can fine-tuning recover at the bottom of the range? Those questions only have answers if you run the full tier stack.
+You can. A 7B or 13B model on an RTX 3090 will outperform a 4B model on a GTX 1050 Ti. But the research question is about the floor, not the ceiling. What is the minimum viable hardware for useful inference? Where exactly does quality degrade? What can adapter training recover at the bottom of the range? Those questions only have answers if you run the full tier stack.
 
 ---
 

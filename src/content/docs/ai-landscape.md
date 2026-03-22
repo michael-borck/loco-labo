@@ -90,7 +90,7 @@ Given all of the above, LocoLLM needs to be clear about what it adds and what it
 
 ### What LocoLLM Adds
 
-- **Specialist routing.** No other local tool automatically dispatches queries to domain-specific fine-tuned adapters. Whether this adds meaningful value over a single generalist is an open research question (see [The Router Question](known-challenges.md#the-router-question)), but it is the core differentiator.
+- **Specialist routing.** No other local tool automatically dispatches queries to domain-specific trained adapters. Whether this adds meaningful value over a single generalist is an open research question (see [The Router Question](known-challenges.md#the-router-question)), but it is the core differentiator.
 - **Systematic evaluation.** Every adapter must prove it beats the base model. No vibes. This evaluation infrastructure does not exist in any of the tools listed above.
 - **Inference stacking.** RE2 prompting and self-consistency voting are free on local inference and expensive via API. LocoLLM applies these systematically.
 - **A research framework.** The semester-based contribution model, the evaluation gates, the benchmark infrastructure — these produce replicable findings, not just a chatbot.
@@ -102,7 +102,7 @@ LocoLLM's value proposition is not "better than the alternatives." It is:
 
 1. **For students:** A local AI tool that works without internet, without rate limits, without cost, and without sending your work to a third party. Use free tiers when they are available. Use LocoLLM when they are not, or when you need unlimited iteration.
 
-2. **For student contributors:** A real engineering project where you learn fine-tuning, evaluation, data curation, routing, and system design by building something that works. The learning is in the building, not in the using.
+2. **For student contributors:** A real engineering project where you learn adapter training, evaluation, data curation, routing, and system design by building something that works. The learning is in the building, not in the using.
 
 3. **For researchers:** Benchmark data and methodology for quantized small models that does not exist elsewhere. Routing experiments under hard constraints. Publishable findings regardless of whether the results are positive or negative.
 
@@ -120,7 +120,7 @@ This is what LocoLLM actually recommends, not what a marketing page would say:
 
 3. **Use cheap APIs when free tiers are insufficient.** Haiku, GPT-4o-mini, and Gemini Flash are remarkable value. If you have a small budget, these stretch further than subscriptions.
 
-4. **Use LocoLLM when it makes sense.** If you need unlimited local inference with no cost anxiety. If you are contributing to the project as a learning exercise. If you care about privacy. If you want to understand how fine-tuning and routing work by building the system yourself.
+4. **Use LocoLLM when it makes sense.** If you need unlimited local inference with no cost anxiety. If you are contributing to the project as a learning exercise. If you care about privacy. If you want to understand how adapter training and routing work by building the system yourself.
 
 5. **Do not use LocoLLM because you think you should.** If free Gemini meets your needs, use free Gemini. The goal is student capability, not project adoption.
 

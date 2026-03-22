@@ -22,7 +22,7 @@ Before the tables, the metrics worth understanding:
 
 **VRAM** -- how large a model you can load. The hard ceiling. A model that doesn't fit in VRAM doesn't run (or runs agonisingly slowly via system RAM offload).
 
-**Tensor Cores** -- dedicated hardware for mixed-precision matrix operations. Enable QLoRA fine-tuning and accelerate inference on supported frameworks. Arrived with Turing (RTX 2000 series). Absent from GTX cards including the GTX 1600 series.
+**Tensor Cores** -- dedicated hardware for mixed-precision matrix operations. Enable QLoRA adapter training and accelerate inference on supported frameworks. Arrived with Turing (RTX 2000 series). Absent from GTX cards including the GTX 1600 series.
 
 **CUDA Compute Capability** -- the version floor that frameworks require. Ollama's minimum is Compute 5.0 (Maxwell). Modern tools like bitsandbytes, Unsloth, and current quantisation kernels require 6.0+ (Pascal). Cards below Compute 5.0 are unsupported by any current inference framework. Maxwell (5.x) works for basic Ollama inference but is excluded from advanced tooling.
 
@@ -100,7 +100,7 @@ Turing architecture but deliberately stripped of RT Cores and Tensor Cores to pr
 
 ## RTX 2000 Series -- Turing With Tensor Cores (2018--2019)
 
-The RTX brand debut. First generation Tensor Cores enable mixed-precision training and accelerated inference. Compute capability 7.5. The first generation worth considering for QLoRA fine-tuning.
+The RTX brand debut. First generation Tensor Cores enable mixed-precision training and accelerated inference. Compute capability 7.5. The first generation worth considering for QLoRA adapter training.
 
 | Card | VRAM | Memory BW | AI Notes |
 |------|------|-----------|----------|
@@ -190,6 +190,19 @@ Fourth generation RT Cores, fifth generation Tensor Cores. GDDR7 memory across t
 
 The 50-series has no meaningful secondhand market at time of writing. This section is included as a reference for the bandwidth ceiling and VRAM tiers the generation introduces, and for future reference as pricing eventually normalises.
 
+**On the RTX 5050 and RTX 5060 8GB:**
+
+These cards exist and are priced at approximately AUD $450 and $490 respectively at time of writing. They are omitted from the table above because they add nothing to the inference story that is not already covered.
+
+The RTX 5050 uses GDDR6 rather than GDDR7 — a cost decision that puts it at 320 GB/s on a 128-bit bus. The RTX 5060 uses GDDR7 but the same 128-bit bus, yielding approximately 420 GB/s. Both are 8GB only. Both use PCIe x8 rather than x16.
+
+From a LocoBench perspective these cards are redundant. The 8GB tier is already documented by the RTX 2060 Super at 448 GB/s — a card that outperforms the 5060 on the metric that matters for inference, costs less secondhand, and carries no PCIe lane penalty. The Blackwell architecture brings no inference benefit at this tier that the bandwidth figures don't immediately undercut.
+
+The honest characterisation is that these are consumer marketing products — Blackwell badge, constrained memory bus, 8GB ceiling — designed to give the 60-class buyer a current-generation SKU while Nvidia's GDDR7 allocation flows to higher-margin products. For a reader choosing hardware for local inference, the secondhand 30-series market remains better value per GB/s than either card new.
+
+Neither card is being watched for acquisition.
+
+
 | Card | VRAM | Memory BW | AI Notes |
 |------|------|-----------|----------|
 | RTX 5070 | 12 GB GDDR7 | 672 GB/s | Same VRAM as 4070, substantially more bandwidth. Matches the 4070 Ti Super. |
@@ -249,7 +262,7 @@ The expected finding, and what the data should confirm:
 
 The goal is not to confirm the obvious -- it is to show *where* the cliff is steep and where it is gradual. The 2GB to 3GB jump and the 3GB to 4GB jump may tell very different stories. That granularity is what makes running the full tier stack worthwhile.
 
-This data is also relevant to fine-tuned model evaluation. If the P100 produces a fine-tuned 1.1B model that outperforms the base Phi-2 2.7B on domain tasks despite running on a 2 GB card, that is a meaningful finding about what fine-tuning can recover at the quality floor.
+This data is also relevant to adapter-trained model evaluation. If the P100 produces an adapter-trained 1.1B model that outperforms the base Phi-2 2.7B on domain tasks despite running on a 2 GB card, that is a meaningful finding about what adapter training can recover at the quality floor.
 
 ---
 

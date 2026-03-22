@@ -33,7 +33,7 @@ Select your machine from the menu, choose "Fresh Install", and everything runs w
 LocoBase is the **foundation layer**. It provisions a bare machine into a working lab node with GPU compute, Ollama, and Docker ready. Individual projects build on top:
 
 - **loco-bench** — clone after loco-base, runs benchmarks using Ollama + CUDA
-- **loco-llm** — clone after loco-base, fine-tunes and serves adapters via Ollama
+- **loco-llm** — clone after loco-base, trains and serves adapters via Ollama
 - **loco-convoy** — clone after loco-base, runs multi-GPU experiments via vLLM
 - **loco-ensayo** — clone after loco-base, deploys CloudCore API via Docker
 
@@ -48,7 +48,7 @@ The installer knows the lab fleet by name. Selecting a machine auto-configures t
 | cerebro | brain | 🧠 |
 | colmena | beehive | 🐝 |
 | hormiga | ant | 🐜 |
-| mesa | table | 🪑 |
+| pulpo | octopus | 🐙 |
 | tortuga | turtle | 🐢 |
 
 Custom machine names are also supported for machines outside the lab fleet.

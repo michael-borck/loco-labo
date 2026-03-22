@@ -12,7 +12,7 @@ All figures use Australian dollars (AUD) and Perth electricity rates (Synergy Ho
 
 The lab runs five machines across three roles:
 
-- **LocoLLM** (Colmena) — infrastructure, architecture research, fine-tuning
+- **LocoLLM** (Colmena) — infrastructure, architecture research, adapter training
 - **LocoBench** (Colmena + Tortuga) — benchmarking platform, community results
 - **LocoConvoy** (Colmena) — multi-GPU architecture experiments: load balancing, Mixture of Agents, vLLM tensor parallelism
 
@@ -173,7 +173,7 @@ The local lab's electricity cost is comparable to a modern workstation. It costs
 
 - **Multi-GPU architecture research** with consumer Turing and Ampere cards is similarly unavailable. You could rent T4s, but they're a different architecture with different memory bandwidth answering a different question. The research value is in understanding what works on hardware people actually have.
 
-Only the third role -- inference serving and fine-tuning -- is straightforwardly replicable in the cloud. That's the role where the cost comparison above applies. For the other two, the comparison isn't "local is cheaper than cloud." It's "local is the only option."
+Only the third role -- inference serving and adapter training -- is straightforwardly replicable in the cloud. That's the role where the cost comparison above applies. For the other two, the comparison isn't "local is cheaper than cloud." It's "local is the only option."
 
 ---
 

@@ -62,13 +62,13 @@ We are not mapping the floor of what AI can do because we cannot afford the ceil
 ### LocoLLM
 *Routed swarm of tiny specialist models*
 
-The flagship project. Rather than running one large general-purpose model, LocoLLM routes queries to small specialist models -- each fine-tuned for a narrow domain -- and composes their outputs. The hypothesis is that a coordinated swarm of cheap, local specialists can outperform a single generalist on real domain tasks.
+The flagship project. Rather than running one large general-purpose model, LocoLLM routes queries to small specialist models -- each adapter-trained for a narrow domain -- and composes their outputs. The hypothesis is that a coordinated swarm of cheap, local specialists can outperform a single generalist on real domain tasks.
 
 No cloud. No API keys. Just your hardware doing more than you would expect.
 
-**Hardware:** Colmena (8-GPU chassis with matched GPU trios for multi-GPU experiments, Tesla P100 for fine-tuning)
+**Hardware:** Colmena (8-GPU chassis with matched GPU trios for multi-GPU experiments, Tesla P100 for adapter training)
 
-**Key questions:** Can specialist routing recover quality lost to model size? What routing strategies work on PCIe-connected multi-GPU hardware without NVLink? How much fine-tuning is needed for a specialist to meaningfully outperform a generalist on domain tasks?
+**Key questions:** Can specialist routing recover quality lost to model size? What routing strategies work on PCIe-connected multi-GPU hardware without NVLink? How much adapter training is needed for a specialist to meaningfully outperform a generalist on domain tasks?
 
 ---
 
@@ -79,11 +79,11 @@ A systematic benchmark of LLM inference across every consumer GPU VRAM tier, fro
 
 LocoBench documents two things mainstream benchmarks ignore: throughput (tokens per second at the tier floor) and quality retention (what you actually get at each tier and quantisation level). The GSM8K cliff -- where mathematical reasoning degrades sharply below certain quantisation levels despite acceptable perplexity scores -- is an example of the kind of finding that only emerges when you run the full tier stack rather than cherry-picking hardware.
 
-The sub-4 GB tiers are included deliberately. Most inference guides assert a "4 GB minimum" as received wisdom. LocoBench will show the data behind that claim -- where the quality cliff is steep, where it is gradual, and what a fine-tuned small model can recover at the floor.
+The sub-4 GB tiers are included deliberately. Most inference guides assert a "4 GB minimum" as received wisdom. LocoBench will show the data behind that claim -- where the quality cliff is steep, where it is gradual, and what an adapter-trained small model can recover at the floor.
 
 **Hardware:** Tortuga (pre-RTX legacy tiers) + Hormiga (reference floor node)
 
-**Key questions:** Where exactly is the quality cliff? What is the minimum viable hardware for useful inference on real tasks? Do fine-tuned small models recover quality that quantisation removes? Does the "Conversation not Delegation" use case hold up empirically at the 2-4 GB tier?
+**Key questions:** Where exactly is the quality cliff? What is the minimum viable hardware for useful inference on real tasks? Do adapter-trained small models recover quality that quantisation removes? Does the "Conversation not Delegation" use case hold up empirically at the 2-4 GB tier?
 
 **Community:** Results are designed to be reproducible. A single GPU owner can run the same harness and submit results. The benchmark matrix expands beyond what any single lab can cover.
 
@@ -125,20 +125,39 @@ BYOK options allow instructors and students who want frontier model access for s
 
 ---
 
+### LocoAgente
+*Can small models think in loops?*
+
+Agente means agent in Spanish. The question is whether one can work.
+
+Modern agentic AI systems -- OpenClaw, Claude Code, Karpathy's autoresearch -- assume frontier models with hundreds of billions of parameters. LocoAgente asks: how far can you get with a 4B model, the right scaffolding strategies, and a constrained action space?
+
+The project investigates three tracks. Track A ports Karpathy's autoresearch loop to run with local small models as the agent brain -- the simplest possible agent (one file, one metric, automatic evaluation). Track B extends to task-specific agents (data analysis, code review, documentation). Track C is the core research contribution: a systematic comparison of scaffolding strategies (chain-of-thought, RE2, self-consistency voting, constrained action spaces, agent adapters) and whether they compound across multi-step loops differently than they do for single-turn tasks.
+
+The key insight is that errors compound in loops. A model that is 90% accurate per turn is only 59% accurate over 5 turns. Scaffolding strategies that barely matter for single questions might be critical for agent loops. Nobody has studied this systematically at the sub-7B scale.
+
+Every experiment after the frontier baseline runs free on local hardware. The experiment matrix is designed so each row is a self-contained research contribution suitable for a student project or publication.
+
+**Hardware:** Shared with LocoLLM fleet (same base model, same adapters)
+
+**Key questions:** Can a 4B model make productive decisions in an agent loop? Which scaffolding strategies compound most effectively across multiple reasoning steps? Is it more effective to make the agent smarter (better prompting) or to make the task simpler (constrained action spaces)? Where is the hard capability floor for small-model agents?
+
+---
+
 ## The Lab
 
 LocoLab runs on six machines, all sourced secondhand. The entire fleet was assembled opportunistically -- the right capability at the right price, not a planned procurement.
 
 | Machine | Role | Key Hardware |
 |---------|------|-------------|
-| **Colmena** | LocoConvoy multi-GPU experiments, LocoLLM fine-tuning | WEIHO 8-GPU enclosed chassis, GTX 1060 6GB x3, RTX 2060 Super x3, Tesla P100 16 GB HBM2 |
+| **Colmena** | LocoConvoy multi-GPU experiments, LocoLLM adapter training | WEIHO 8-GPU enclosed chassis, GTX 1060 6GB x3, RTX 2060 Super x3, Tesla P100 16 GB HBM2 |
 | **Tortuga** | LocoBench pre-RTX legacy benchmarking | WEIHO 8-GPU enclosed chassis, GTX 950 through Titan X |
 | **Cerebro** | LocoEnsayo AI simulation host | Ryzen 5 2600, 2x RTX 2060 Super 8 GB |
 | **Hormiga** | Minimum viable inference node | ThinkCentre M710s, GTX 1050 Ti LP 4 GB |
-| **Mesa** | Overflow, GPU onboarding/testing | B250 mining board open air, RTX 3060 12 GB |
+| **Pulpo** | Overflow, GPU onboarding/testing | B250 mining board open air, RTX 3060 12 GB |
 | **Poco** | Remote terminal, Apple Silicon testing | MacBook M1, 16 GB unified memory |
 
-The naming follows a Spanish thread -- Colmena (hive), Tortuga (turtle), Cerebro (brain), Hormiga (ant), Mesa (table), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.
+The naming follows a Spanish thread -- Colmena (hive), Tortuga (turtle), Cerebro (brain), Hormiga (ant), Pulpo (octopus), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.
 
 ---
 

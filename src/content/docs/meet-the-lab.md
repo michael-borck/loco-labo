@@ -4,11 +4,11 @@ title: "Meet the Lab"
 
 LocoLabo is the umbrella research initiative -- five sub-projects running across six machines. None of them are new. All were sourced secondhand. Hardware was acquired opportunistically -- the right capability at the right price, not a planned procurement.
 
-The naming follows a Spanish thread: Colmena (hive), Tortuga (turtle), Poco (a little), Hormiga (ant), Cerebro (brain), and Mesa (table). The hive coordinates many workers and carries the heavy training loads, the turtle holds the legacy fleet and wakes slowly when called, the little one connects you to all of them, the ant keeps the floor honest on minimal hardware, the brain runs the rehearsal, and the table is where new cards land before they find a permanent home.
+The naming follows a Spanish thread: Colmena (hive), Tortuga (turtle), Poco (a little), Hormiga (ant), Cerebro (brain), and Pulpo (octopus). The hive coordinates many workers and carries the heavy training loads, the turtle holds the legacy fleet and wakes slowly when called, the little one connects you to all of them, the ant keeps the floor honest on minimal hardware, the brain runs the rehearsal, and the octopus grabs new cards, tests them, and passes them on to their permanent home.
 
 **Five sub-projects under LocoLabo:**
 
-- **LocoLLM** (Colmena) -- infrastructure, architecture research, fine-tuning
+- **LocoLLM** (Colmena) -- infrastructure, architecture research, adapter training
 - **LocoBench** (Tortuga + Hormiga) -- benchmarking platform, community results
 - **LocoConvoy** (Colmena) -- multi-GPU architecture experiments: load balancing, Mixture of Agents, vLLM tensor parallelism
 - **LocoEnsayo** (Cerebro) -- authentic assessment rehearsal platform, runs CloudCore Networks, Pinnacle Tours, TalkBuddy
@@ -34,7 +34,7 @@ Day to day it's a remote terminal. SSH into Colmena for inference, benchmarking,
 
 Its secondary role is Apple Silicon compatibility testing. LocoLLM needs to run on hardware students actually own, and a significant proportion carry MacBooks. Poco validates that installation, Ollama inference, and adapter loading all work cleanly on Apple Silicon with unified memory. A base M1 with 16 GB represents a reasonable lower bound for that user group.
 
-Apple's MLX framework supports LoRA fine-tuning natively via `mlx_lm.lora`, so Poco can also verify the training-to-deployment pipeline on Apple hardware when needed. Memory bandwidth is 68 GB/s -- slow compared to the rest of the lab -- but functional.
+Apple's MLX framework supports LoRA adapter training natively via `mlx_lm.lora`, so Poco can also verify the training-to-deployment pipeline on Apple hardware when needed. Memory bandwidth is 68 GB/s -- slow compared to the rest of the lab -- but functional.
 
 **Best at:** Remote access. Validating the student experience on consumer Apple hardware.
 
@@ -57,11 +57,11 @@ Apple's MLX framework supports LoRA fine-tuning natively via `mlx_lm.lora`, so P
 | **GPU slots** | 8 native PCIe slots, no risers needed |
 | **OS** | Ubuntu 22.04 LTS |
 | **Form** | Enclosed chassis |
-| **Role** | LocoConvoy multi-GPU architecture research, LocoLLM inference and fine-tuning |
+| **Role** | LocoConvoy multi-GPU architecture research, LocoLLM inference and adapter training |
 
 Colmena means "hive" in Spanish. Multiple workers, one coordinated system.
 
-Colmena is the multi-GPU experimentation platform. The GPU lineup pairs two matched trios -- 3x GTX 1060 6 GB (Pascal, no Tensor Cores) and 3x RTX 2060 Super 8 GB (Turing, Tensor Cores) -- enabling direct generational comparisons of multi-GPU scaling strategies. The Tesla P100 16 GB HBM2 handles fine-tuning duties.
+Colmena is the multi-GPU experimentation platform. The GPU lineup pairs two matched trios -- 3x GTX 1060 6 GB (Pascal, no Tensor Cores) and 3x RTX 2060 Super 8 GB (Turing, Tensor Cores) -- enabling direct generational comparisons of multi-GPU scaling strategies. The Tesla P100 16 GB HBM2 handles adapter training duties.
 
 The i3-3220 CPU and 8 GB RAM ceiling exist by design. The CPU's job is to boot the OS and manage the PCIe bus. Over-speccing the host system would make Colmena a worse research instrument -- it measures GPU capability on modest hardware, which is what most users actually have.
 
@@ -89,7 +89,7 @@ Colmena has two roles in priority order:
 
 *vLLM tensor parallelism:* Matched cards (GTX 1060 x3 or RTX 2060 Super x3) pool VRAM across PCIe. Enables models larger than any single card's VRAM. PCIe bandwidth becomes the primary bottleneck, making the cross-generational comparison the central research question.
 
-**Best at:** Multi-GPU architecture experiments. Cross-generational pooling research. Overnight fine-tuning on the P100.
+**Best at:** Multi-GPU architecture experiments. Cross-generational pooling research. Overnight adapter training on the P100.
 
 ---
 
@@ -184,7 +184,7 @@ The architectural split is worth noting: CloudCore and Pinnacle Tours are server
 
 ---
 
-## Mesa
+## Pulpo
 
 **B250 Mining Board -- Overflow, GPU Onboarding, and Ad Hoc Experiments**
 
@@ -195,9 +195,9 @@ The architectural split is worth noting: CloudCore and Pinnacle Tours are server
 | **Location** | TBD |
 | **Role** | Overflow, GPU onboarding/testing, ad hoc experiments |
 
-Mesa means "table" in Spanish. It's where things land before they find a permanent home.
+Pulpo means "octopus" in Spanish. It grabs new cards, tests them, and passes them on to their permanent home.
 
-Mesa is the staging ground. New cards arrive here first for burn-in, driver validation, and compatibility testing before being assigned to Colmena, Tortuga, or wherever they're needed. Between onboarding runs, the RTX 3060 12 GB makes it a capable ad hoc experiment node -- enough VRAM for meaningful inference work without tying up a dedicated research machine.
+Pulpo is the staging ground. New cards arrive here first for burn-in, driver validation, and compatibility testing before being assigned to Colmena, Tortuga, or wherever they're needed. Between onboarding runs, the RTX 3060 12 GB makes it a capable ad hoc experiment node -- enough VRAM for meaningful inference work without tying up a dedicated research machine.
 
 The open-air B250 mining board format makes GPU swaps trivial. No case to open, no cable management -- slot a card, power on, test. That's the point.
 
@@ -209,11 +209,11 @@ The open-air B250 mining board format makes GPU swaps trivial. No case to open, 
 
 | Machine | Sub-project(s) | GPU(s) | VRAM | Primary Role |
 |---------|----------------|--------|------|--------------|
-| **Colmena** (WEIHO 8-GPU) | LocoConvoy / LocoLLM | GTX 1060 6GB x3, RTX 2060 Super x3, Tesla P100† | 6/8/16 GB | Multi-GPU experiments, fine-tuning |
+| **Colmena** (WEIHO 8-GPU) | LocoConvoy / LocoLLM | GTX 1060 6GB x3, RTX 2060 Super x3, Tesla P100† | 6/8/16 GB | Multi-GPU experiments, adapter training |
 | **Tortuga** (WEIHO 8-GPU) | LocoBench | GTX 950/960/1050Ti/1060 3GB/1060 6GB/980Ti/Titan X | 2-12 GB | Pre-RTX legacy benchmarking (powered on for runs only) |
 | **Cerebro** (Ryzen 5 2600) | LocoEnsayo | 2x RTX 2060 Super | 2x 8 GB | AI simulation host (CloudCore, Pinnacle Tours, TalkBuddy) |
 | **Hormiga** (ThinkCentre M710s) | LocoBench | GTX 1050 Ti LP | 4 GB | Minimum viable inference node, SFF reference testing |
-| **Mesa** (B250 open air) | -- | RTX 3060 12 GB | 12 GB | Overflow, GPU onboarding/testing, ad hoc experiments |
+| **Pulpo** (B250 open air) | -- | RTX 3060 12 GB | 12 GB | Overflow, GPU onboarding/testing, ad hoc experiments |
 | **Poco** (MacBook M1) | LocoLabo | Apple M1 GPU | 16 GB unified | Remote terminal, Apple Silicon testing |
 
 †Arriving
@@ -222,7 +222,7 @@ The open-air B250 mining board format makes GPU swaps trivial. No case to open, 
 
 ## Hardware Notes
 
-The specific hardware here isn't prescriptive. The P100 needs a PCIe x16 slot, adequate power, and airflow over a passively cooled card. Colmena doesn't require this exact GPU lineup -- any PCIe cards work. Hormiga doesn't require a ThinkCentre -- any low-profile CUDA card with 4 GB in any SFF chassis fits the role. Mesa doesn't require a B250 board -- any open-air or spare chassis with a free PCIe slot serves the staging role.
+The specific hardware here isn't prescriptive. The P100 needs a PCIe x16 slot, adequate power, and airflow over a passively cooled card. Colmena doesn't require this exact GPU lineup -- any PCIe cards work. Hormiga doesn't require a ThinkCentre -- any low-profile CUDA card with 4 GB in any SFF chassis fits the role. Pulpo doesn't require a B250 board -- any open-air or spare chassis with a free PCIe slot serves the staging role.
 
 What matters for replication is capability tier, not specific parts. Match the VRAM range and CUDA support, source whatever is available locally at the time.
 

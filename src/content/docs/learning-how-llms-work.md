@@ -2,7 +2,7 @@
 title: "Learning How LLMs Work"
 ---
 
-LocoLLM's docs cover how to use and fine-tune small language models. This page is for contributors and students who want to go deeper -- to understand what's happening inside the model, not just how to prompt or train it.
+LocoLLM's docs cover how to use and train adapters for small language models. This page is for contributors and students who want to go deeper -- to understand what's happening inside the model, not just how to prompt or train it.
 
 The resources below are ordered roughly from foundational to advanced. You don't need any of this to contribute an adapter, but understanding the internals makes you a better debugger, a better data curator, and a more confident researcher.
 
@@ -93,7 +93,7 @@ If you work through even a subset of these resources, you'll have a much richer 
 
 - **Tokenisation** (minbpe) explains why the same word sometimes gets different results depending on context, and why token count matters more than word count for context windows.
 - **Attention** (nanoGPT, Llama 3 from scratch) explains why LoRA targets the attention projection layers (`q_proj`, `v_proj`, `k_proj`, `o_proj`) -- these are where the model decides what to pay attention to.
-- **Training loops** (nanoGPT, LLMs from Scratch) explain the loss curves, learning rates, and overfitting discussed in the [fine-tuning primer](finetuning-primer.md).
+- **Training loops** (nanoGPT, LLMs from Scratch) explain the loss curves, learning rates, and overfitting discussed in the [adapter primer](adapter-primer.md).
 - **Quantisation** (LLM Course) explains why Q4_K_M works as well as it does, and why the [quantisation cliff](base-model-selection.md#important-caveat-most-benchmarks-test-full-precision) gets steeper at smaller model sizes.
 
 None of this is required reading. But the contributors who understand the internals consistently produce better adapters, catch data quality issues faster, and ask more productive questions when things go wrong.

@@ -168,7 +168,7 @@ LocoLLM uses Ollama as its inference backend. It does not replace any of the too
 
 The tools on this page solve the problem of **running and interacting with models**. LocoLLM addresses a different problem: **what happens when you want to specialise a small model for a specific task, benchmark it across hardware tiers, and understand why the results look the way they do?**
 
-If you want to chat with a local model, use any of the tools above. If you want to fine-tune an adapter, evaluate it against the base model, route queries to specialised adapters, and benchmark across consumer GPUs -- that's where LocoLLM operates.
+If you want to chat with a local model, use any of the tools above. If you want to train an adapter, evaluate it against the base model, route queries to specialised adapters, and benchmark across consumer GPUs -- that's where LocoLLM operates.
 
 Most of the tools above are complementary rather than competitive:
 

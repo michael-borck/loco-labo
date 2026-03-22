@@ -467,15 +467,15 @@
 
   <section id="projects">
     <div class="section-label fade-up">Projects</div>
-    <h2 class="section-title fade-up">Four projects. One lab. Zero cloud dependency.</h2>
+    <h2 class="section-title fade-up">Five projects. One lab. Zero cloud dependency.</h2>
     <p class="section-desc fade-up">
-      Each project tackles a different dimension of local AI -- from fine-tuning and routing to benchmarking, multi-GPU research, and AI-powered teaching scenarios.
+      Each project tackles a different dimension of local AI -- from adapter training and routing to benchmarking, multi-GPU research, agentic loops, and AI-powered teaching scenarios.
     </p>
     <div class="project-grid">
       <a href="https://locollm.org" class="project-card fade-up" style="--card-accent: #f97316;">
         <div class="project-icon">&#128302;</div>
         <h3>LocoLLM</h3>
-        <p>A routed swarm of tiny specialist models. Fine-tuned LoRA adapters behind a smart router, all running on consumer hardware. The flagship project.</p>
+        <p>A routed swarm of tiny specialist models. Trained LoRA adapters behind a smart router, all running on consumer hardware. The flagship project.</p>
         <span class="project-link" style="color: #f97316;">locollm.org &rarr;</span>
       </a>
       <a href="https://locobench.org" class="project-card fade-up" style="--card-accent: #22c55e;">
@@ -495,6 +495,12 @@
         <h3>LocoEnsayo</h3>
         <p>AI-populated rehearsal environments for professional education. Students practice in realistic simulated organisations before the stakes are real.</p>
         <span class="project-link" style="color: #eab308;">locoensayo.org &rarr;</span>
+      </a>
+      <a href="https://locoagente.org" class="project-card fade-up" style="--card-accent: #06b6d4;">
+        <div class="project-icon">&#129302;</div>
+        <h3>LocoAgente</h3>
+        <p>Can small models think in loops? Researching whether scaffolding strategies make 4B-parameter agents viable on consumer hardware. Autoresearch, task agents, and systematic scaffolding comparison.</p>
+        <span class="project-link" style="color: #06b6d4;">locoagente.org &rarr;</span>
       </a>
     </div>
   </section>
@@ -551,7 +557,7 @@
   <div class="hardware-section" id="hardware">
     <div class="inner">
       <div class="section-label fade-up">The Lab</div>
-      <h2 class="section-title fade-up">Five machines. All secondhand. All serious.</h2>
+      <h2 class="section-title fade-up">Six machines. All secondhand. All serious.</h2>
       <p class="section-desc fade-up">
         The entire fleet was assembled opportunistically -- the right capability at the right price, not a planned procurement. Total cost: well under $1,000 AUD.
       </p>
@@ -566,7 +572,7 @@
         <tbody>
           <tr>
             <td>Colmena</td>
-            <td>Multi-GPU inference hive, LocoBench primary, fine-tuning</td>
+            <td>Multi-GPU inference hive, LocoBench primary, adapter training</td>
             <td>WEIHO 8-GPU chassis, floor cards per VRAM tier, Tesla P100 16 GB HBM2</td>
           </tr>
           <tr>
@@ -578,6 +584,11 @@
             <td>Hormiga</td>
             <td>Minimum viable inference node</td>
             <td>ThinkCentre M710s, GTX 1050 Ti LP 4 GB</td>
+          </tr>
+          <tr>
+            <td>Pulpo</td>
+            <td>Overflow, GPU onboarding, ad hoc experiments</td>
+            <td>B250 mining board (open air), RTX 3060 12 GB</td>
           </tr>
           <tr>
             <td>Tortuga</td>

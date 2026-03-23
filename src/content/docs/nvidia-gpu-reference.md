@@ -240,7 +240,7 @@ A few things this data shows that contradict the obvious assumption that newer =
 
 **Nvidia is increasingly treating high-bandwidth memory as a datacenter resource.** The pattern across 40 and 50 series consumer cards is narrower buses, lower bandwidth, and deliberate segmentation of VRAM. The 5060 Ti 16 GB being quietly discontinued months after launch is consistent with this. For local inference, the secondhand 30-series market remains better value per GB/s than new consumer hardware in the 60-class.
 
----
+**The oddball VRAM cards: 10 GB and 11 GB.** Three cards don't map cleanly to LocoBench's VRAM tiers: the GTX 1080 Ti (11 GB), RTX 2080 Ti (11 GB), and RTX 3080 10 GB. They sit between the 8 GB and 12 GB tiers -- they can load models that won't fit in 8 GB, but can't quite reach everything a 12 GB card handles. For benchmarking purposes LocoBench doesn't run a separate tier for them. If you own one, extrapolate from the 8 GB tier results and expect some headroom for larger quantisations or longer context windows. They're good cards if the price is right -- the 2080 Ti's 616 GB/s bandwidth is excellent and the 3080 10 GB's 760 GB/s is outstanding -- but the VRAM amount means they occupy an awkward middle ground that doesn't justify a dedicated benchmark tier.
 
 ---
 

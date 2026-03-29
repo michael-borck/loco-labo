@@ -405,38 +405,54 @@
 
     .footer-links a:hover { color: var(--text-secondary); }
 
-    .layer-diagram { display: flex; gap: 0; max-width: 780px; }
-    .layer-stack { display: flex; flex-direction: column; gap: 1rem; flex: 1; }
-    .layer-row {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 1.25rem 1.5rem; border-left: 3px solid var(--border-light);
-    }
-    .layer-label {
-      font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;
-    }
-    .layer-cards { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .layer-cards a {
-      flex: 1; min-width: 180px; background: var(--bg-card-hover); border: 1px solid var(--border-light);
-      border-radius: 8px; padding: 1rem 1.25rem; text-decoration: none; color: inherit; transition: all 0.2s;
-    }
-    .layer-cards a:hover { border-color: var(--card-accent, var(--accent)); transform: translateY(-1px); }
-    .layer-cards .lc-icon { font-size: 1.25rem; margin-bottom: 0.25rem; }
-    .layer-cards .lc-name { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
-    .layer-cards .lc-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-top: 0.25rem; }
-    .bridge-bar {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      width: 90px; margin-left: -1px;
+    .bridge-diagram { max-width: 780px; }
+    .bridge-deck {
+      position: relative; overflow: hidden;
       background: rgba(244, 63, 94, 0.08); border: 2px solid #f43f5e;
-      border-radius: 0 12px 12px 0; text-decoration: none; transition: all 0.3s;
+      border-radius: 12px 12px 0 0; padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      min-height: 70px; text-decoration: none; transition: all 0.3s;
     }
-    .bridge-bar:hover { background: rgba(244, 63, 94, 0.2); }
-    .bridge-bar .bridge-text {
-      writing-mode: vertical-rl; text-orientation: mixed;
-      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;
-      color: #f43f5e; letter-spacing: 0.05em;
+    .bridge-deck:hover { background: rgba(244, 63, 94, 0.15); }
+    .bridge-deck-label {
+      font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700;
+      color: #f43f5e; letter-spacing: 0.05em; z-index: 2;
     }
-    .bridge-bar .bridge-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .bridge-deck-icon { font-size: 1.25rem; z-index: 2; }
+    .bridge-svg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; opacity: 0.12; color: #f43f5e;
+    }
+    .bridge-walker {
+      position: absolute; bottom: 10px; z-index: 3;
+      font-size: 1rem; animation: walk 12s linear infinite; opacity: 0;
+    }
+    @keyframes walk {
+      0% { left: -5%; opacity: 0; } 5% { opacity: 1; } 90% { opacity: 1; } 100% { left: 105%; opacity: 0; }
+    }
+    .pillar-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: -2px;
+    }
+    .pillar {
+      background: var(--bg-card); border: 1px solid var(--border);
+      padding: 1.25rem; text-align: center;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .pillar:first-child { border-radius: 0 0 0 12px; }
+    .pillar:last-child  { border-radius: 0 0 12px 0; }
+    .pillar-label {
+      font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .pillar-cards { display: flex; flex-direction: column; gap: 0.5rem; }
+    .pillar-cards a {
+      background: var(--bg-card-hover); border: 1px solid var(--border-light);
+      border-radius: 8px; padding: 0.75rem; text-decoration: none; color: inherit; transition: all 0.2s;
+    }
+    .pillar-cards a:hover { border-color: var(--card-accent, var(--accent)); transform: translateY(-1px); }
+    .pillar-cards .lc-icon { font-size: 1.1rem; margin-bottom: 0.15rem; }
+    .pillar-cards .lc-name { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+    .pillar-cards .lc-desc { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; margin-top: 0.15rem; }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -453,11 +469,9 @@
         gap: 1rem;
       }
       .project-grid { grid-template-columns: 1fr; }
-      .layer-diagram { flex-direction: column; }
-      .bridge-bar { width: auto; min-height: 60px; border-radius: 0 0 12px 12px; margin-left: 0; margin-top: -1px;
-        writing-mode: horizontal-tb; flex-direction: row; }
-      .bridge-bar .bridge-text { writing-mode: horizontal-tb; }
-      .bridge-bar .bridge-icon { margin-bottom: 0; margin-right: 0.5rem; }
+      .pillar-row { grid-template-columns: 1fr; gap: 0.5rem; margin-top: 0.5rem; }
+      .pillar { border-radius: 8px !important; }
+      .bridge-deck { border-radius: 12px; }
       .footer-inner { flex-direction: column; text-align: center; }
     }
 
@@ -509,53 +523,72 @@
     <p class="section-desc fade-up">
       Each project tackles a different layer of local AI. Together they form a complete stack — from GPU benchmarks to student-facing services.
     </p>
-    <div class="layer-diagram fade-up">
-      <div class="layer-stack">
-        <div class="layer-row">
-          <div class="layer-label">Experience</div>
-          <div class="layer-cards">
+    <div class="bridge-diagram fade-up">
+      <!-- Bridge deck -->
+      <a href="https://locopuente.org" class="bridge-deck">
+        <svg class="bridge-svg" viewBox="0 0 800 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="180" y="0" width="6" height="80" fill="currentColor"/>
+          <rect x="614" y="0" width="6" height="80" fill="currentColor"/>
+          <path d="M0,10 Q200,70 400,15 Q600,70 800,10" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <line x1="100" y1="38" x2="100" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="150" y1="30" x2="150" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="250" y1="30" x2="250" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="320" y1="22" x2="320" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="400" y1="15" x2="400" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="480" y1="22" x2="480" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="550" y1="30" x2="550" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="650" y1="30" x2="650" y2="72" stroke="currentColor" stroke-width="1"/>
+          <line x1="700" y1="38" x2="700" y2="72" stroke="currentColor" stroke-width="1"/>
+          <rect x="0" y="72" width="800" height="8" fill="currentColor" rx="2"/>
+        </svg>
+        <span class="bridge-walker">&#128694;</span>
+        <span class="bridge-deck-icon">&#9961;&#65039;</span>
+        <span class="bridge-deck-label">LocoPuente</span>
+      </a>
+
+      <!-- Three pillars -->
+      <div class="pillar-row">
+        <div class="pillar">
+          <div class="pillar-label">Experience</div>
+          <div class="pillar-cards">
             <a href="https://locoensayo.org" style="--card-accent: #eab308;">
               <div class="lc-icon">&#127917;</div>
               <div class="lc-name">LocoEnsayo</div>
-              <div class="lc-desc">AI-populated rehearsal environments for professional education</div>
+              <div class="lc-desc">AI-populated rehearsal environments</div>
             </a>
           </div>
         </div>
-        <div class="layer-row">
-          <div class="layer-label">Intelligence</div>
-          <div class="layer-cards">
+        <div class="pillar">
+          <div class="pillar-label">Intelligence</div>
+          <div class="pillar-cards">
             <a href="https://locollm.org" style="--card-accent: #f97316;">
               <div class="lc-icon">&#128302;</div>
               <div class="lc-name">LocoLLM</div>
-              <div class="lc-desc">Routed swarm of tiny specialist models behind a smart router</div>
+              <div class="lc-desc">Routed specialist model swarm</div>
             </a>
             <a href="https://locoagente.org" style="--card-accent: #06b6d4;">
               <div class="lc-icon">&#129302;</div>
               <div class="lc-name">LocoAgente</div>
-              <div class="lc-desc">Agentic scaffolding for small local models</div>
+              <div class="lc-desc">Agentic scaffolding for SLMs</div>
             </a>
           </div>
         </div>
-        <div class="layer-row">
-          <div class="layer-label">Infrastructure</div>
-          <div class="layer-cards">
+        <div class="pillar">
+          <div class="pillar-label">Infrastructure</div>
+          <div class="pillar-cards">
             <a href="https://locobench.org" style="--card-accent: #22c55e;">
               <div class="lc-icon">&#128736;</div>
               <div class="lc-name">LocoBench</div>
-              <div class="lc-desc">VRAM tier benchmarking across GPU generations</div>
+              <div class="lc-desc">VRAM tier benchmarking</div>
             </a>
             <a href="https://lococonvoy.org" style="--card-accent: #a855f7;">
               <div class="lc-icon">&#128666;</div>
               <div class="lc-name">LocoConvoy</div>
-              <div class="lc-desc">Multi-GPU parallelism on consumer PCIe hardware</div>
+              <div class="lc-desc">Multi-GPU parallelism</div>
             </a>
           </div>
         </div>
       </div>
-      <a href="https://locopuente.org" class="bridge-bar">
-        <span class="bridge-icon">&#9961;&#65039;</span>
-        <span class="bridge-text">LocoPuente</span>
-      </a>
     </div>
   </section>
 

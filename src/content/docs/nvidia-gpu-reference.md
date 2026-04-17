@@ -224,6 +224,61 @@ FP4 inference support lands in this generation but framework maturity lags. As b
 
 ---
 
+## Server GPUs -- Deprecated Datacenter Hardware
+
+The sections above cover consumer cards designed for gamers. A parallel market exists in secondhand datacenter GPUs -- passively cooled, displayless cards originally deployed in servers and now available as institutions refresh their hardware. For headless inference workloads these cards often offer more VRAM and more bandwidth than the consumer cards that shipped alongside them.
+
+**The thesis:** deprecated server GPUs make serious VRAM capacity accessible to people who cannot justify new consumer flagships. The tradeoffs are cooling (passive heatsinks expecting datacenter airflow), power (often 250W+ on EPS rather than PCIe connectors), and no display output. For an inference server these are acceptable. For a primary workstation they are not.
+
+| Card | Architecture | Compute | VRAM | Memory | Bandwidth | Tensor Cores |
+|------|--------------|---------|------|--------|-----------|--------------|
+| Tesla M40 24 GB | Maxwell | 5.2 | 24 GB | GDDR5 | 288 GB/s | No |
+| Tesla P40 | Pascal | 6.1 | 24 GB | GDDR5 | 346 GB/s | No |
+| Tesla P100 | Pascal | 6.0 | 16 GB | HBM2 | 732 GB/s | No |
+| Tesla V100 16 GB | Volta | 7.0 | 16 GB | HBM2 | 900 GB/s | Yes (1st gen) |
+| Tesla V100 32 GB | Volta | 7.0 | 32 GB | HBM2 | 900 GB/s | Yes (1st gen) |
+
+### Why Each Card Matters
+
+**Tesla M40 24 GB** -- among the most accessible paths to 24 GB VRAM. Maxwell architecture at Compute 5.2 clears the Ollama floor but sits below the 6.0 threshold required by bitsandbytes, Unsloth, and modern quantisation kernels. Inference only, Ollama only. Bandwidth is modest. The research interest is the comparison against the P40: same VRAM, same memory technology, different architecture and compute capability. The pair isolates what Pascal actually buys on top of Maxwell at 24 GB.
+
+**Tesla P40** -- the recommendation for a 24 GB inference server. Pascal architecture at Compute 6.1 supports the full modern inference stack. Twenty-four gigabytes of VRAM fits 13B models at useful quantisations with generous context, or 30B-class models at aggressive quantisations. No Tensor Cores, but the combination of capacity and workable bandwidth is the point.
+
+**Tesla P100** -- already a Colmena workhorse. Sixteen gigabytes of HBM2 at 732 GB/s places bandwidth well above any consumer card of the same generation, and above most consumer cards for several generations after. No Tensor Cores limits adapter training to full-precision PEFT, but for inference the bandwidth story remains competitive with far newer hardware.
+
+**Tesla V100 16 GB and 32 GB** -- the flagships of this accessible tier. Volta introduces first-generation Tensor Cores, making the V100 the oldest server card capable of mixed-precision adapter training. HBM2 at 900 GB/s exceeds every consumer card through the 3000 series. The 32 GB variant opens 70B-class quantised inference -- a capability that otherwise requires recent consumer flagships. The V100 sits at the upper edge of what "deprecated and accessible" still describes, but remains in the spirit of the category.
+
+### The Compute 5.0 Floor Applied
+
+The framework boundary discussed at the top of this document -- Compute 5.0 for Ollama, 6.0+ for modern quantisation kernels and adapter training -- maps cleanly onto the server lineup and determines which datacenter cards remain worth acquiring:
+
+- **Kepler (K40, K80)** at Compute 3.5/3.7 falls below the floor. These cards turn up cheaply in the secondhand market but modern inference toolchains have dropped Kepler support. They are not worth the fight.
+- **Maxwell (M40)** at Compute 5.2 is the oldest practical entry point. Ollama runs; nothing else does.
+- **Pascal and later** at Compute 6.0+ cleared for the full stack, including Tensor Core adapter training from Volta onward.
+
+That boundary is why the server tier in LocoBench starts at M40 and not K80. Reproducible results require cards current frameworks actually support.
+
+### Practical Considerations
+
+Server GPUs are not drop-in replacements for consumer cards. Plan for:
+
+- **Passive cooling** -- these cards expect 1U or 2U server airflow. A workstation chassis needs aftermarket blower shrouds, ducting, or dedicated fans for reliable operation under sustained load.
+- **Power connectors** -- most use EPS (CPU) 8-pin rather than PCIe 8-pin. Adapters are inexpensive but required.
+- **No display output** -- headless only. The host system needs integrated graphics, a second GPU for display, or remote management.
+- **Driver branch** -- Nvidia's data center driver branch is separate from GeForce. On Linux this is rarely a problem; on Windows it is more intrusive.
+
+### The Bigger Story
+
+Each card represents a VRAM capability tier reachable through the secondhand datacenter market rather than the consumer retail market:
+
+- **24 GB** -- M40 or P40. Thirteen-billion-parameter inference with headroom, or 30B quantised.
+- **16 GB at high bandwidth** -- P100. Faster per-token generation than most consumer cards in the same VRAM tier.
+- **16--32 GB with Tensor Cores** -- V100 family. Mixed-precision adapter training and 70B quantised inference at the 32 GB tier.
+
+LocoBench documents what is actually achievable at each of these tiers on this class of hardware. That directly supports the digital divide argument underpinning the wider LocoLabo programme: meaningful local AI does not require the newest consumer flagship, nor a workstation budget. It requires knowing which deprecated datacenter parts remain useful, and accepting the ergonomic cost of working with them.
+
+---
+
 ## The Counterintuitive Results
 
 A few things this data shows that contradict the obvious assumption that newer = better for AI:

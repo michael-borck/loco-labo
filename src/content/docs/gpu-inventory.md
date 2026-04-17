@@ -10,16 +10,14 @@ For specifications, acquisition guidance, and generation-level analysis see the 
 
 ## Colmena
 
-The benchmark lab. An 8-GPU enclosed mining rig running LocoBench. Cards here are chosen as **floor representatives** -- the worst card per VRAM tier, so results are honest baselines. Also hosts adapter training workloads and multi-GPU experiments.
+The RTX-era benchmark platform. An 8-GPU enclosed mining rig running LocoBench. Cards here are chosen as **floor representatives** -- the worst card per VRAM tier, so results are honest baselines. Matched trios give repeat-measurement discipline at their tier.
 
 | Card | VRAM | Bandwidth | Tier Role |
 |------|------|-----------|-----------|
-| GTX 1060 6 GB (x3) | 6 GB | 192 GB/s | Floor of 6 GB tier (Pascal, no Tensor Cores) |
-| RTX 2060 Super (x3) | 8 GB | 448 GB/s | Floor of 8 GB Turing tier (Tensor Cores). Three cards for multi-GPU and result consistency validation |
-| Tesla P100 | 16 GB | 732 GB/s | Adapter training (PEFT only, no Tensor Cores). High bandwidth for 16 GB |
-| RTX 3090 | 24 GB | 936 GB/s | Reference ceiling -- 24 GB scaling data, not primary workload |
-| RTX 4060 Ti | 16 GB | 288 GB/s | Floor of 16 GB consumer tier -- documents the bandwidth penalty |
-| Tesla V100 | 32 GB | 900 GB/s | 32 GB server tier (Volta, HBM2, Tensor Cores) |
+| GTX 1060 6 GB (x3) | 6 GB | 192 GB/s | Floor of 6 GB tier (Pascal, no Tensor Cores); bridges into Tortuga's pre-RTX coverage |
+| RTX 2060 Super (x3) | 8 GB | 448 GB/s | Floor of 8 GB Turing tier (Tensor Cores). Three cards for result-consistency validation |
+| Tesla P100 | 16 GB | 732 GB/s | 16 GB server tier. HBM2 bandwidth at Pascal compute (no Tensor Cores) |
+| RTX 4060 Ti | 16 GB | 288 GB/s | Floor of 16 GB consumer tier -- documents the memory-bus penalty |
 
 ---
 
@@ -39,9 +37,9 @@ Swappable bench cards. Cards rotate through Tortuga to fill out LocoBench tier c
 
 ---
 
-## Pulpo
+## Hidra
 
-Onboarding. New cards being integrated into the lab.
+Full-bandwidth multi-GPU research, server GPU benchmarking, and GPU onboarding. X99 dual-Xeon platform with 4x PCIe x16 slots. Server cards (M40, P40, P100, V100) are rotated through for LocoBench runs at their native VRAM tiers.
 
 | Card | VRAM | Bandwidth | Tier Role |
 |------|------|-----------|-----------|
@@ -51,14 +49,23 @@ Onboarding. New cards being integrated into the lab.
 
 ---
 
-## Cerebro
+## Puente
 
-Home machine. Not part of the on-campus lab infrastructure. Benchmarks run here as needed.
+Student-facing host. Ryzen 5 2600 desktop running the "closing the gap" minimal LocoPuente PoC and most LocoEnsayo rehearsal chatbots on a single card.
 
 | Card | VRAM | Bandwidth | Tier Role |
 |------|------|-----------|-----------|
-| RTX 2060 Super (x2) | 8 GB | 448 GB/s | Development and testing |
-| Tesla V100 | 16 GB | 900 GB/s | 16 GB server tier (Volta, HBM2, Tensor Cores). PCIe adapter with passive heatsink |
+| RTX 3090 | 24 GB | 936 GB/s | Sole card for LocoPuente + LocoEnsayo (LLM, image gen, voice, chatbots) |
+
+---
+
+## Condor
+
+Dedicated AI inference and LocoLLM adapter training. Single-Xeon X99 workstation with 32 GB DDR4. One card, one job.
+
+| Card | VRAM | Bandwidth | Tier Role |
+|------|------|-----------|-----------|
+| Tesla V100 | 32 GB | 900 GB/s | 32 GB server tier (Volta, HBM2, Tensor Cores). Primary adapter-training card; single-card inference at 32 GB |
 
 ---
 
@@ -77,6 +84,8 @@ Low-profile / office deployment.
 | Card | VRAM | Bandwidth | Notes |
 |------|------|-----------|-------|
 | GTX 1650 OC LP | 4 GB | 128 GB/s | Turing, no Tensor Cores. Low-profile. No current assignment |
+| RTX 2060 Super (x2) | 8 GB | 448 GB/s | Awaiting assignment |
+| Tesla V100 | 16 GB | 900 GB/s | Volta, HBM2, Tensor Cores. Awaiting assignment |
 
 ---
 
@@ -84,13 +93,14 @@ Low-profile / office deployment.
 
 | Machine | Cards | Primary Role |
 |---------|-------|-------------|
-| Colmena | 12 | Benchmarking, adapter training, multi-GPU |
-| Tortuga | 7 | Swappable tier cards for LocoBench coverage |
-| Pulpo | 3 | Onboarding new hardware |
-| Cerebro | 3 | Development and benchmarking (home) |
-| Hormiga | 1 | Office deployment |
-| Unassigned | 1 | — |
-| **Total** | **27** | |
+| Colmena | 8 | RTX-era LocoBench tier benchmarking |
+| Tortuga | 7 | Swappable tier cards for pre-RTX LocoBench coverage |
+| Hidra | 3 | LocoConvoy multi-GPU experiments and GPU onboarding |
+| Puente | 1 | LocoPuente PoC + LocoEnsayo chatbots (RTX 3090 24 GB) |
+| Condor | 1 | Dedicated LocoLLM adapter training and single-card inference |
+| Hormiga | 1 | SFF floor node / office deployment |
+| Unassigned | 4 | — |
+| **Total** | **25** | |
 
 ---
 

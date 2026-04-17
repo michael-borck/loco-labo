@@ -45,10 +45,11 @@ The installer knows the lab fleet by name. Selecting a machine auto-configures t
 
 | Machine | Spanish | Emoji |
 |---------|---------|-------|
-| cerebro | brain | 🧠 |
 | colmena | beehive | 🐝 |
+| condor | condor | 🦅 |
+| hidra | hydra | 🐉 |
 | hormiga | ant | 🐜 |
-| pulpo | octopus | 🐙 |
+| puente | bridge | ⛩️ |
 | tortuga | turtle | 🐢 |
 
 Custom machine names are also supported for machines outside the lab fleet.

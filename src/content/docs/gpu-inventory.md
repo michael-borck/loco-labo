@@ -69,9 +69,9 @@ Student-facing host. Ryzen 5 2600 desktop running the "closing the gap" minimal 
 
 ---
 
-## Condor
+## Búho
 
-Dedicated AI inference and LocoLLM adapter training. Single-Xeon X99 workstation with 32 GB DDR4. One card, one job.
+Dedicated AI inference and LocoLLM adapter training. Single-Xeon X99 workstation with 32 GB DDR4. One card, one job -- patient and nocturnal.
 
 | Card | VRAM | Bandwidth | Tier Role |
 |------|------|-----------|-----------|
@@ -106,7 +106,7 @@ Low-profile / office deployment.
 | Tortuga | 7 | Swappable tier cards for pre-RTX LocoBench coverage |
 | Hidra | 5 | LocoConvoy multi-GPU + server GPU benchmarking + onboarding (2 server cards installed, 2 incoming) |
 | Puente | 1 | LocoPuente PoC + LocoEnsayo chatbots (RTX 3090 24 GB) |
-| Condor | 1 | Dedicated LocoLLM adapter training and single-card inference |
+| Búho | 1 | Dedicated LocoLLM adapter training and single-card inference |
 | Hormiga | 1 | SFF floor node / office deployment |
 | Unassigned | 3 | — |
 | **Total installed** | **25** | (+ 2 incoming server cards for Hidra) |

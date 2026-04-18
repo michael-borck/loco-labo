@@ -4,11 +4,11 @@ title: "Meet the Lab"
 
 LocoLabo is the umbrella research initiative -- several sub-projects running across seven machines. None of them are new. All were sourced secondhand. Hardware was acquired opportunistically -- the right capability at the right price, not a planned procurement.
 
-The naming follows a Spanish thread: Colmena (hive), Tortuga (turtle), Poco (a little), Hormiga (ant), Puente (bridge), Hidra (hydra), and Condor (condor). The hive runs RTX-era benchmarking at the tier floors, the turtle holds the pre-RTX legacy fleet and wakes slowly when called, the little one connects you to all of them, the ant keeps the floor honest on minimal hardware, the bridge carries students to the stack through the LocoPuente PoC and the LocoEnsayo rehearsal chatbots, the hydra runs many heads in parallel on full-bandwidth PCIe for multi-GPU research, server GPU benchmarking, and onboarding every new card into the lab, and the condor soars alone with one big card doing the adapter-training work.
+The naming follows a Spanish thread: Colmena (hive), Tortuga (turtle), Poco (a little), Hormiga (ant), Puente (bridge), Hidra (hydra), and Búho (owl). The hive runs RTX-era benchmarking at the tier floors, the turtle holds the pre-RTX legacy fleet and wakes slowly when called, the little one connects you to all of them, the ant keeps the floor honest on minimal hardware, the bridge carries students to the stack through the LocoPuente PoC and the LocoEnsayo rehearsal chatbots, the hydra runs many heads in parallel on full-bandwidth PCIe for multi-GPU research, server GPU benchmarking, and onboarding every new card into the lab, and the owl works quietly through the night on adapter training.
 
 **Sub-projects under LocoLabo:**
 
-- **LocoLLM** (Condor) -- adapter training on the V100 32 GB; dedicated single-card training and inference
+- **LocoLLM** (Búho) -- adapter training on the V100 32 GB; dedicated single-card training and inference
 - **LocoBench** (Colmena + Tortuga + Hormiga + Hidra) -- benchmarking platform; Colmena covers RTX-era consumer tiers, Tortuga covers pre-RTX tiers, Hormiga anchors the SFF floor, Hidra covers the server GPU tiers
 - **LocoConvoy** (Hidra) -- multi-GPU architecture experiments on full-bandwidth PCIe x16, on an open frame for rapid card swaps
 - **LocoPuente** (Puente) -- student-facing BridgeAI PoC: primary LLM, cited search, image generation, voice, research tooling, all on the Ryzen 5 2600 + RTX 3090 24 GB
@@ -74,7 +74,7 @@ The i3-3220 CPU and 8 GB RAM ceiling exist by design. The CPU's job is to boot t
 | RTX 2060 Super 8 GB x3 | 8 GB each | 448 GB/s | Turing | Yes | 8 GB RTX-era floor; matched trio for variance discipline |
 | RTX 4060 Ti 16 GB | 16 GB | 288 GB/s | Ada Lovelace | Yes | 16 GB consumer floor -- documents the memory-bus penalty |
 
-Multi-GPU experiments live on Hidra, where full-bandwidth PCIe x16 slots isolate the interconnect variable cleanly. Adapter training lives on Condor, where the V100 32 GB on a dedicated machine eliminates contention. Colmena's job is reproducible RTX-era tier benchmarking.
+Multi-GPU experiments live on Hidra, where full-bandwidth PCIe x16 slots isolate the interconnect variable cleanly. Adapter training lives on Búho, where the V100 32 GB on a dedicated machine eliminates contention. Colmena's job is reproducible RTX-era tier benchmarking.
 
 **Best at:** RTX-era LocoBench tier benchmarking. Repeat-measurement discipline via the matched 2060 Super trio. Modest-host, GPU-first results that readers can extrapolate from.
 
@@ -177,7 +177,7 @@ The architectural split is worth noting: CloudCore, Pinnacle Tours, and the Loco
 
 ---
 
-## Condor
+## Búho
 
 **X99 Single-Xeon Workstation -- Dedicated Inference and LocoLLM Adapter Training**
 
@@ -190,23 +190,23 @@ The architectural split is worth noting: CloudCore, Pinnacle Tours, and the Loco
 | **OS** | Ubuntu 22.04 LTS |
 | **Role** | Dedicated AI inference; LocoLLM adapter training; potential full fine-tuning |
 
-Condor means "condor" in Spanish -- the same word in both languages. It soars alone, at altitude, on one set of wings.
+Búho means "owl" in Spanish. Patient, nocturnal, a specialist at the one thing it does.
 
-Condor is the lab's dedicated training and inference station. One machine, one card, one purpose. The V100 32 GB runs without competing for PCIe lanes, CPU cycles, or thermal headroom. Where Colmena prioritises slot count and Hidra prioritises multi-GPU bandwidth, Condor prioritises uninterrupted access to a single capable card.
+Búho is the lab's dedicated training and inference station. One machine, one card, one purpose. The V100 32 GB runs without competing for PCIe lanes, CPU cycles, or thermal headroom. Where Colmena works through its bench runs across the consumer-card fleet and Hidra swaps cards in and out for server benchmarking and multi-GPU experiments, Búho sits quietly and works through the night on adapter-training runs.
 
-The V100 32 GB -- Volta architecture, first-generation Tensor Cores, 900 GB/s HBM2, 32 GB VRAM -- is the lab's most capable single card for adapter training. Tensor Cores enable mixed-precision training that the P100 and P40 cannot accelerate. Thirty-two gigabytes of VRAM allows longer context windows, larger batch sizes, and higher LoRA ranks than any 16 GB server card. Adapter training runs that take overnight on the P100 complete in a fraction of the time on Condor.
+The V100 32 GB is a few generations old -- Volta, 2017 -- but it remains excellent at the specific job asked of it: first-generation Tensor Cores enable mixed-precision training that the P100 and P40 cannot accelerate, 900 GB/s of HBM2 bandwidth still outruns most consumer cards, and 32 GB of VRAM allows longer context windows, larger batch sizes, and higher LoRA ranks than any 16 GB server card. Adapter training runs that take overnight on the P100 complete in a fraction of the time on Búho. The machine doesn't need to be the newest card in the lab; it needs to be left alone to do its work.
 
-Condor has two primary workloads:
+Búho has two primary workloads:
 
-**LocoLLM adapter training.** The core training workflow for LocoLLM specialists runs on Condor. Adapter training uses Unsloth for QLoRA where supported, and vanilla PEFT / HuggingFace Trainer for higher-precision work on the Volta path. Training runs typically run overnight; the dedicated-machine arrangement means no contention with benchmarking or multi-GPU experiments.
+**LocoLLM adapter training.** The core training workflow for LocoLLM specialists runs on Búho. Adapter training uses Unsloth for QLoRA where supported, and vanilla PEFT / HuggingFace Trainer for higher-precision work on the Volta path. Training runs typically run overnight; the dedicated-machine arrangement means no contention with benchmarking or multi-GPU experiments.
 
-**Dedicated inference.** Between training runs, Condor serves as a single-card inference node for workloads that need the full 32 GB without shared access -- longer context windows, 30B-class quantised models, KV-cache-heavy workloads that don't fit on the 16 GB tier elsewhere in the fleet.
+**Dedicated inference.** Between training runs, Búho serves as a single-card inference node for workloads that need the full 32 GB without shared access -- longer context windows, 30B-class quantised models, KV-cache-heavy workloads that don't fit on the 16 GB tier elsewhere in the fleet.
 
-Beyond adapter training, Condor has the capacity for full-precision fine-tuning of smaller models (3B-7B class) if a research question ever requires it. That is a forward-looking capability, not a primary use case. LocoLLM itself remains an adapter-training project.
+Beyond adapter training, Búho has the capacity for full-precision fine-tuning of smaller models (3B-7B class) if a research question ever requires it. That is a forward-looking capability, not a primary use case. LocoLLM itself remains an adapter-training project.
 
 Thirty-two gigabytes of system RAM matches the VRAM and provides headroom for dataset preprocessing and tokeniser operations without swapping. The single-socket X99 platform is sufficient -- the GPU does the work, the CPU manages it.
 
-**Best at:** Uninterrupted adapter training. Single-card inference at the 32 GB tier. Being the "one big card" counterpoint to Colmena's many-small-cards and Hidra's multi-card-parallelism arrangements.
+**Best at:** Uninterrupted overnight adapter training. Single-card inference at the 32 GB tier. Being the quiet, patient specialist that does one thing well.
 
 ---
 
@@ -259,7 +259,7 @@ Dual E5-2680 v4s give Hidra something the rest of the fleet lacks: real CPU. Twe
 | **Colmena** (WEIHO 8-GPU) | LocoBench | GTX 1060 6GB x3, RTX 2060 Super x3, RTX 4060 Ti 16GB | 6/8/16 GB | RTX-era consumer tier benchmarking |
 | **Tortuga** (WEIHO 8-GPU) | LocoBench | GTX 950/960/1050Ti/1060 3GB/1060 6GB/980Ti/Titan X | 2-12 GB | Pre-RTX legacy benchmarking (powered on for runs only) |
 | **Puente** (Ryzen 5 2600) | LocoPuente / LocoEnsayo | RTX 3090 24 GB | 24 GB | Student-facing BridgeAI stack and rehearsal chatbots |
-| **Condor** (X99 single Xeon) | LocoLLM | Tesla V100 32 GB | 32 GB | Dedicated adapter training and single-card inference |
+| **Búho** (X99 single Xeon) | LocoLLM | Tesla V100 32 GB | 32 GB | Dedicated adapter training and single-card inference |
 | **Hormiga** (ThinkCentre M710s) | LocoBench | GTX 1050 Ti LP | 4 GB | Minimum viable inference node, SFF reference testing |
 | **Hidra** (X99 dual Xeon, open frame) | LocoConvoy / LocoBench | V100 16 GB, P100 16 GB; M40, P40 incoming; GTX 1070, RTX 3050, RTX 3060 12 GB rotation | 4x PCIe x16 | Multi-GPU experiments, server GPU benchmarking, GPU onboarding |
 | **Poco** (MacBook M1) | LocoLabo | Apple M1 GPU | 16 GB unified | Remote terminal, Apple Silicon testing |
@@ -270,7 +270,7 @@ Dual E5-2680 v4s give Hidra something the rest of the fleet lacks: real CPU. Twe
 
 ## Hardware Notes
 
-The specific hardware here isn't prescriptive. The P100 needs a PCIe x16 slot, adequate power, and airflow over a passively cooled card. Colmena doesn't require this exact GPU lineup -- any PCIe cards work. Hormiga doesn't require a ThinkCentre -- any low-profile CUDA card with 4 GB in any SFF chassis fits the role. Hidra doesn't require an X99 board specifically -- any dual-CPU or HEDT platform with multiple full-x16 slots in an accessible open frame fills the same role. Condor doesn't require X99 either -- any workstation that can host a V100 32 GB with adequate cooling and enough system RAM to preprocess training data is sufficient. Puente doesn't require a Ryzen 5 2600 -- any desktop with enough PCIe and power budget for a 24 GB consumer flagship fits the PoC role.
+The specific hardware here isn't prescriptive. The P100 needs a PCIe x16 slot, adequate power, and airflow over a passively cooled card. Colmena doesn't require this exact GPU lineup -- any PCIe cards work. Hormiga doesn't require a ThinkCentre -- any low-profile CUDA card with 4 GB in any SFF chassis fits the role. Hidra doesn't require an X99 board specifically -- any dual-CPU or HEDT platform with multiple full-x16 slots in an accessible open frame fills the same role. Búho doesn't require X99 either -- any workstation that can host a V100 32 GB with adequate cooling and enough system RAM to preprocess training data is sufficient. Puente doesn't require a Ryzen 5 2600 -- any desktop with enough PCIe and power budget for a 24 GB consumer flagship fits the PoC role.
 
 What matters for replication is capability tier, not specific parts. Match the VRAM range and CUDA support, source whatever is available locally at the time.
 

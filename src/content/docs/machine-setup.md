@@ -45,8 +45,8 @@ The installer knows the lab fleet by name. Selecting a machine auto-configures t
 
 | Machine | Spanish | Emoji |
 |---------|---------|-------|
+| buho | owl | 🦉 |
 | colmena | beehive | 🐝 |
-| condor | condor | 🦅 |
 | hidra | hydra | 🐉 |
 | hormiga | ant | 🐜 |
 | puente | bridge | ⛩️ |

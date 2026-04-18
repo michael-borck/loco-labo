@@ -66,7 +66,7 @@ The flagship project. Rather than running one large general-purpose model, LocoL
 
 No cloud. No API keys. Just your hardware doing more than you would expect.
 
-**Hardware:** Condor (X99 single-Xeon, V100 32 GB HBM2 -- dedicated adapter-training and single-card inference)
+**Hardware:** Búho (X99 single-Xeon, V100 32 GB HBM2 -- dedicated adapter-training and single-card inference)
 
 **Key questions:** Can specialist routing recover quality lost to model size? What routing strategies work on PCIe-connected multi-GPU hardware without NVLink? How much adapter training is needed for a specialist to meaningfully outperform a generalist on domain tasks?
 
@@ -151,14 +151,14 @@ LocoLab runs on seven machines, all sourced secondhand. The entire fleet was ass
 | Machine | Role | Key Hardware |
 |---------|------|-------------|
 | **Colmena** | LocoBench RTX-era consumer tier benchmarking | WEIHO 8-GPU enclosed chassis, GTX 1060 6GB x3, RTX 2060 Super x3, RTX 4060 Ti 16GB |
-| **Condor** | LocoLLM adapter training, dedicated single-card inference | X99 single-Xeon, 32 GB DDR4, Tesla V100 32 GB HBM2 |
+| **Búho** | LocoLLM adapter training, dedicated single-card inference | X99 single-Xeon, 32 GB DDR4, Tesla V100 32 GB HBM2 |
 | **Tortuga** | LocoBench pre-RTX legacy benchmarking | WEIHO 8-GPU enclosed chassis, GTX 950 through Titan X |
 | **Puente** | LocoPuente BridgeAI PoC + LocoEnsayo chatbots | Ryzen 5 2600, RTX 3090 24 GB (single card) |
 | **Hormiga** | Minimum viable inference node | ThinkCentre M710s, GTX 1050 Ti LP 4 GB |
 | **Hidra** | LocoConvoy multi-GPU, LocoBench server GPU benchmarking, GPU onboarding | X99 MD8 dual-Xeon (2x E5-2680 v4), DDR4 ECC, 4x PCIe x16, open frame; Tesla V100 16 GB + Tesla P100 16 GB installed (Tesla M40 24 GB + P40 incoming); GTX 1070, RTX 3050, RTX 3060 12 GB consumer rotation |
 | **Poco** | Remote terminal, Apple Silicon testing | MacBook M1, 16 GB unified memory |
 
-The naming follows a Spanish thread -- Colmena (hive), Condor (condor), Tortuga (turtle), Puente (bridge), Hormiga (ant), Hidra (hydra), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.
+The naming follows a Spanish thread -- Colmena (hive), Búho (owl), Tortuga (turtle), Puente (bridge), Hormiga (ant), Hidra (hydra), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.
 
 ---
 

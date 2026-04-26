@@ -54,6 +54,7 @@ export default defineConfig({
             { label: 'Economics of Local Training', slug: 'economics-of-local-training' },
             { label: 'AI Landscape', slug: 'ai-landscape' },
             { label: 'Nvidia GPU Reference', slug: 'nvidia-gpu-reference' },
+            { label: 'GPU Inventory', slug: 'gpu-inventory' },
             { label: 'Ollama Model Guide', slug: 'ollama-model-guide' },
             { label: 'Local LLM Tools', slug: 'local-llm-tools' },
             { label: 'Learning How LLMs Work', slug: 'learning-how-llms-work' },

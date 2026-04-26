@@ -42,6 +42,13 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Local AI Foundations',
+          items: [
+            { label: 'Why Local AI', slug: 'why-local-ai' },
+            { label: 'Getting Started', slug: 'getting-started' },
+          ],
+        },
+        {
           label: 'General Reference',
           items: [
             { label: 'Economics of Local Training', slug: 'economics-of-local-training' },

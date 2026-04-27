@@ -1,0 +1,33 @@
+---
+title: LocoLab
+description: Applied AI research at Curtin University. The work is deliberate. The hardware is secondhand. The questions are serious.
+template: splash
+hero:
+  tagline: The work is deliberate. The hardware is secondhand. The questions are serious.
+  actions:
+    - text: Meet the Lab
+      link: /docs/meet-the-lab/
+      icon: right-arrow
+      variant: primary
+    - text: The Projects
+      link: /docs/research/
+      icon: external
+      variant: secondary
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Six active projects" icon="puzzle">
+    LocoLLM, LocoBench, LocoConvoy, LocoEnsayo, LocoAgente, LocoPuente — each a distinct research question, all running on consumer hardware at Curtin University.
+  </Card>
+  <Card title="Mapping the floor" icon="down-caret">
+    Most AI research documents the ceiling. We document the floor — what local small models can actually do on modest hardware — because most people live there and nobody is doing it honestly.
+  </Card>
+  <Card title="Local and private by design" icon="approve-check">
+    Data sovereignty, student privacy, institutional governance. Local inference is not a workaround for policy constraints — it is the only fully compliant path for many organisations.
+  </Card>
+  <Card title="Built to teach" icon="open-book">
+    Students learn by building. Adapter training, evaluation pipelines, routing systems, deployment stacks — real engineering on real problems, not toy projects.
+  </Card>
+</CardGrid>

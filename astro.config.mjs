@@ -24,6 +24,7 @@ export default defineConfig({
           label: 'Lab Overview',
           items: [
             { label: 'Meet the Lab', slug: 'meet-the-lab' },
+            { label: 'Are You Loco Enough?', slug: 'audience' },
             { label: 'Meet the Team', slug: 'meet-the-team' },
             { label: 'Machine Setup', slug: 'machine-setup' },
             { label: 'FAQ', slug: 'faq' },

@@ -9,6 +9,11 @@ export default defineConfig({
       title: 'LocoLab',
       description: 'Frontier AI on a Budget. Crazy, Right?',
       favicon: '/favicon.svg',
+      logo: {
+        alt: 'LocoLab',
+        src: './src/assets/lab.svg',
+        replacesTitle: false,
+      },
       social: [
         { icon: 'external', label: 'Home', href: 'https://locolabo.org' },
         { icon: 'github', label: 'GitHub', href: 'https://github.com/michael-borck/loco-lab' },

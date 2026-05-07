@@ -9,6 +9,7 @@ export default defineConfig({
       title: 'LocoLab',
       description: 'Frontier AI on a Budget. Crazy, Right?',
       favicon: '/favicon.svg',
+      disable404Route: true,
       logo: {
         alt: 'LocoLab',
         src: './src/assets/lab.svg',

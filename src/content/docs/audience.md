@@ -18,7 +18,7 @@ You refuse to pay per-token for something your own hardware can do. You've done 
 - [LocoLLM](https://locollm.org) — a routed specialist model that runs free on consumer GPUs
 - [AI Landscape](ai-landscape) — honest comparison of local vs cloud options, including cheap API paths
 
-And the [bridge](the-loco-thesis) is built for you specifically — frontier-equivalent tools without frontier costs is the bridge's whole job.
+And the [bridge](the-loco-thesis) is built for you specifically — frontier-equivalent tools without frontier costs is the bridge's whole job. See [The Local AI Opportunity](the-local-ai-opportunity) for the longer argument: why the meter is unsustainable, and what that opens up.
 
 ---
 
@@ -58,7 +58,7 @@ You teach AI, computing, or a professional discipline and want a real project yo
 - [LocoLLM](https://locollm.org) — a teaching and research framework students build by contributing adapters, benchmarks, and routing improvements
 - [Why Local AI](why-local-ai) — the case for local AI in education and institutional contexts
 
-The "[conversation, not delegation](the-loco-thesis)" principle is the pedagogical heart of the lab — it's what the Cognitive Strategy Transfer and Keep Asking research threads are about, and why the rehearsal environments are designed the way they are.
+The "[conversation, not delegation](the-loco-thesis)" principle is the pedagogical heart of the lab — it's what the Cognitive Strategy Transfer and Keep Asking research threads are about, and why the rehearsal environments are designed the way they are. For the future-of-careers angle, [The Local AI Opportunity](the-local-ai-opportunity) lays out the small-business and consulting openings the next generation of operators is walking into.
 
 ---
 
@@ -84,7 +84,7 @@ You know the best gear does not make the best work. A $150 secondhand GPU and sh
 - [GPU Inventory](https://locobench.org/docs/gpu-inventory/) — the actual secondhand fleet running these experiments
 - [Economics of Local Training](economics-of-local-training) — what local AI actually costs to build and run
 
-The whole "[engineer before hardware](the-loco-thesis)" principle was built for you. Five `llama.cpp` flags + system RAM letting an eight-year-old GTX 1060 run a 30-billion-parameter MoE model is the kind of finding the floor produces.
+The whole "[engineer before hardware](the-loco-thesis)" principle was built for you. Five `llama.cpp` flags + system RAM letting an eight-year-old GTX 1060 run a 30-billion-parameter MoE model is the kind of finding the floor produces. And once you know where the floor is, [The Local AI Opportunity](the-local-ai-opportunity) maps out who needs that capability — small accounting firms, regional legal practices, local consultancies — and what the work of building it for them actually looks like.
 
 ---
 

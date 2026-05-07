@@ -52,6 +52,7 @@ export default defineConfig({
           label: 'Local AI Foundations',
           items: [
             { label: 'Why Local AI', slug: 'why-local-ai' },
+            { label: 'The Local AI Opportunity', slug: 'the-local-ai-opportunity' },
             { label: 'Getting Started', slug: 'getting-started' },
           ],
         },

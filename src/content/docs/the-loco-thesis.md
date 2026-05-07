@@ -86,6 +86,6 @@ Each [audience persona](audience) maps to one or more principles most directly:
 - The **Vault** lives at the bridge — capability and privacy in one stack you own.
 - The **Scrapper** lives at *engineer before hardware*. Five flags beat a bigger card.
 
-See [findings](findings) for the artifacts each principle rests on.
+See [findings](findings) for the artifacts each principle rests on, and [The Local AI Opportunity](the-local-ai-opportunity) for what the principles point toward — the small-business and professional-services openings the next decade is opening up.
 
 **Local AI as a different bet, not a smaller one.**

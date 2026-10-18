@@ -1,9 +1,9 @@
 ---
 title: "Find Your Starting Point"
-description: A short interactive guide to where in LocoLab to start, based on what pulls you in, what hardware you have, and what you actually want to do next.
+description: A short interactive guide to where in LocoLabo to start, based on what pulls you in, what hardware you have, and what you actually want to do next.
 ---
 
-LocoLab has six active projects and several supporting docs. Three short questions, and we'll point you at the one to start with — plus which of the others fit alongside.
+LocoLabo has six active projects and several supporting docs. Three short questions, and we'll point you at the one to start with — plus which of the others fit alongside.
 
 <div id="loco-wizard"></div>
 
@@ -230,7 +230,8 @@ LocoLab has six active projects and several supporting docs. Three short questio
   const projectInfo = {
     puente:      { name: 'LocoPuente',                  url: 'https://locopuente.org',                    line: 'A full local AI service stack on hardware you own and control — frontier-equivalent UX, no metering.' },
     llm:         { name: 'LocoLLM',                     url: 'https://locollm.org',                       line: 'Adapter training, routing, and a specialist-model framework you can extend.' },
-    bench:       { name: 'LocoBench',                   url: 'https://locobench.org',                     line: 'VRAM-tier benchmarking with real cards and honest baselines — what each tier can actually do.' },
+    bench:       { name: 'LocoBanco',                   url: 'https://locobanco.org',                     line: 'VRAM-tier benchmarking with real cards and honest baselines — what each tier can actually do.' },
+    muse:        { name: 'LocoMusa',                    url: 'https://locomusa.org',                      line: 'Thinking-partner benchmark: which local model is best to ideate, reframe, and converse with — pairwise-judged against frontier anchors.' },
     convoy:      { name: 'LocoConvoy',                  url: 'https://lococonvoy.org',                    line: 'Multi-GPU parallelism experiments on consumer PCIe hardware.' },
     agente:      { name: 'LocoAgente',                  url: 'https://locoagente.org',                    line: 'Agentic scaffolding research: can small models do useful work in multi-turn loops?' },
     ensayo:      { name: 'LocoEnsayo',                  url: 'https://locoensayo.org',                    line: 'AI-populated rehearsal environments where students practise professional skills before facing the real thing.' },
@@ -238,7 +239,7 @@ LocoLab has six active projects and several supporting docs. Three short questio
     why:         { name: 'Why Local AI',                url: '/why-local-ai/',                       line: 'The structural argument: data sovereignty, compliance, and "private by architecture" rather than "private by policy".' },
     start:       { name: 'Getting Started',             url: '/getting-started/',                    line: 'Technical foundations — inference, VRAM, quantisation, and the rest of the stack.' },
     research:    { name: 'Research',                    url: '/research/',                           line: 'Active and planned studies across the lab, with status markers on every claim.' },
-    inventory:   { name: 'GPU Inventory',               url: 'https://locobench.org/gpu-inventory/', line: 'The actual secondhand fleet running these experiments — what was bought, what it cost, what it can do.' },
+    inventory:   { name: 'GPU Inventory',               url: 'https://locobanco.org/gpu-inventory/', line: 'The actual secondhand fleet running these experiments — what was bought, what it cost, what it can do.' },
     econ:        { name: 'Economics of Local Training', url: '/economics-of-local-training/',        line: 'What local AI actually costs to build and run — capital, electricity, time.' },
     opportunity: { name: 'The Local AI Opportunity',    url: '/the-local-ai-opportunity/',           line: 'The strategic argument: who benefits from local AI, why now, and what building it for them actually looks like.' },
     findings:    { name: 'Findings',                    url: '/findings/',                           line: 'What is measured, what is claimed, and what would invalidate each — the lab\'s honest record.' }
@@ -267,7 +268,7 @@ LocoLab has six active projects and several supporting docs. Three short questio
       name: 'The Researcher',
       emoji: '🔬',
       description: "You need reproducible local inference for experiments. You want to test whether specialist routing actually beats a generalist on scoped tasks — and publish honest results either way.",
-      projects: ['bench', 'agente', 'convoy', 'research'],
+      projects: ['bench', 'muse', 'agente', 'convoy', 'research'],
       thesisHash: 'map-the-floor-honestly',
       thesisLabel: 'Map the floor honestly (methodology)',
       q3Map: { service: 'convoy', specialist: 'agente', measure: 'bench', teach: 'research', map: 'research' }
@@ -330,7 +331,7 @@ LocoLab has six active projects and several supporting docs. Three short questio
 
   const hardwareNotes = {
     none:     "No hardware yet? Lead with the reading. Hardware decisions land easier once you know what you'd want it to do.",
-    old:      "Older cards (4–6 GB) are LocoLab's natural habitat — much of the floor work is built specifically for hardware in this range.",
+    old:      "Older cards (4–6 GB) are LocoLabo's natural habitat — much of the floor work is built specifically for hardware in this range.",
     consumer: "An 8–12 GB consumer card runs Qwen3-4B comfortably and reaches most of the lab's work directly.",
     multi:    "Multi-GPU on consumer PCIe is exactly LocoConvoy's territory — worth a look even if it isn't your starting point.",
     server:   "Shared infrastructure changes the calculus. LocoPuente's deployment notes cover LAN-served setups specifically."

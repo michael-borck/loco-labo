@@ -1,9 +1,9 @@
 ---
 title: "Are You Loco Enough?"
-description: Who LocoLab is for — six personas, six entry points into the lab's work.
+description: Who LocoLabo is for — six personas, six entry points into the lab's work.
 ---
 
-LocoLab is not for everyone. It is for people who want to understand what local AI can actually do — and are willing to get their hands dirty finding out.
+LocoLabo is not for everyone. It is for people who want to understand what local AI can actually do — and are willing to get their hands dirty finding out.
 
 If any of these sound like you, welcome to the lab.
 
@@ -28,7 +28,7 @@ You want to understand how LLMs actually work by cracking them open and rewiring
 
 **Your entry points:**
 - [LocoLLM](https://locollm.org) — adapter training, evaluation harnesses, and a router you can improve
-- [LocoBench](https://locobench.org) — systematic benchmarking infrastructure to measure what you built
+- [LocoBanco](https://locobanco.org) — systematic benchmarking infrastructure to measure what you built
 - [Getting Started](getting-started) — technical foundations: inference, VRAM, quantisation, the full stack
 
 The harness is the part you'll most enjoy taking apart — see [the thesis](the-loco-thesis) for why the engineering around the model matters more than the model.
@@ -40,7 +40,7 @@ The harness is the part you'll most enjoy taking apart — see [the thesis](the-
 You need reproducible local inference for experiments. You want to test whether specialist routing actually beats a generalist on scoped tasks — and publish honest results either way. You are not interested in vibes.
 
 **Your entry points:**
-- [LocoBench](https://locobench.org) — VRAM-tier benchmarking with real hardware, real cards, honest baselines
+- [LocoBanco](https://locobanco.org) — VRAM-tier benchmarking with real hardware, real cards, honest baselines
 - [LocoConvoy](https://lococonvoy.org) — multi-GPU parallelism experiments on consumer PCIe hardware
 - [LocoAgente](https://locoagente.org) — agentic scaffolding research: can small models think in loops?
 - [Research](research) — active and planned studies across the lab
@@ -58,7 +58,7 @@ You teach AI, computing, or a professional discipline and want a real project yo
 - [LocoLLM](https://locollm.org) — a teaching and research framework students build by contributing adapters, benchmarks, and routing improvements
 - [Why Local AI](why-local-ai) — the case for local AI in education and institutional contexts
 
-The "[conversation, not delegation](the-loco-thesis)" principle is the pedagogical heart of the lab — it's what the Cognitive Strategy Transfer and Keep Asking research threads are about, and why the rehearsal environments are designed the way they are. For the future-of-careers angle, [The Local AI Opportunity](the-local-ai-opportunity) lays out the small-business and consulting openings the next generation of operators is walking into.
+The "[conversation, not delegation](the-loco-thesis)" principle is the pedagogical heart of the lab — it's what the Cognitive Strategy Transfer and [Keep Asking](https://keep-asking.locolabo.org) research threads are about, and why the rehearsal environments are designed the way they are. For the future-of-careers angle, [The Local AI Opportunity](the-local-ai-opportunity) lays out the small-business and consulting openings the next generation of operators is walking into.
 
 ---
 
@@ -80,8 +80,8 @@ Local AI is not just "private by policy" but [private by architecture](the-loco-
 You know the best gear does not make the best work. A $150 secondhand GPU and sharp training data might just surprise you. You are assembling capability from what is available, and you want to know exactly where the floor is.
 
 **Your entry points:**
-- [LocoBench](https://locobench.org) — floor-representative benchmarks: worst card per VRAM tier, honest baselines
-- [GPU Inventory](https://locobench.org/gpu-inventory/) — the actual secondhand fleet running these experiments
+- [LocoBanco](https://locobanco.org) — floor-representative benchmarks: worst card per VRAM tier, honest baselines
+- [GPU Inventory](https://locobanco.org/gpu-inventory/) — the actual secondhand fleet running these experiments
 - [Economics of Local Training](economics-of-local-training) — what local AI actually costs to build and run
 
 The whole "[engineer before hardware](the-loco-thesis)" principle was built for you. Five `llama.cpp` flags + system RAM letting an eight-year-old GTX 1060 run a 30-billion-parameter MoE model is the kind of finding the floor produces. And once you know where the floor is, [The Local AI Opportunity](the-local-ai-opportunity) maps out who needs that capability — small accounting firms, regional legal practices, local consultancies — and what the work of building it for them actually looks like.
@@ -120,7 +120,7 @@ You have not decided local AI is ready. You have heard the hype, you have heard 
 
 **Your entry points:**
 - [Findings](findings) — what is measured, what is claimed, what is unmeasured, and what would invalidate each claim
-- [LocoBench](https://locobench.org) — honest baselines on real hardware, including the worst card per VRAM tier
+- [LocoBanco](https://locobanco.org) — honest baselines on real hardware, including the worst card per VRAM tier
 - [AI Landscape](ai-landscape) — the comparison page that names the cases where cloud beats local
 
 The "[map the floor honestly](the-loco-thesis)" methodology is the answer to your scepticism, not a deflection from it: status markers on every claim, invalidation conditions stated up front, and a willingness to publish negative results. If you find the lab overclaiming, that is the page to push back from. We would rather hear it.
@@ -129,6 +129,6 @@ The "[map the floor honestly](the-loco-thesis)" methodology is the answer to you
 
 ## Not sure where to start?
 
-If you are new to local AI entirely, [Getting Started](getting-started) covers the technical foundations without assuming prior knowledge. If you want to understand the broader landscape before committing to anything, [AI Landscape](ai-landscape) gives an honest comparison of every option — including the ones that are better than LocoLab for your use case.
+If you are new to local AI entirely, [Getting Started](getting-started) covers the technical foundations without assuming prior knowledge. If you want to understand the broader landscape before committing to anything, [AI Landscape](ai-landscape) gives an honest comparison of every option — including the ones that are better than LocoLabo for your use case.
 
 Loco by name. Serious by intent.

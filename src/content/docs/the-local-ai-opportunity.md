@@ -83,8 +83,8 @@ Four literacies travel well, regardless of which silicon wins:
 
 | Literacy | What it covers | Where to start |
 |---|---|---|
-| **Hardware** | What VRAM tiers actually mean; what runs on what; the floor below which it stops being useful | [LocoBench](https://locobench.org) |
-| **Inference engine** | `llama.cpp`, Ollama, vLLM, SGLang — what each is for and when each wins | [LocoBench](https://locobench.org), [Getting Started](getting-started) |
+| **Hardware** | What VRAM tiers actually mean; what runs on what; the floor below which it stops being useful | [LocoBanco](https://locobanco.org) |
+| **Inference engine** | `llama.cpp`, Ollama, vLLM, SGLang — what each is for and when each wins | [LocoBanco](https://locobanco.org), [Getting Started](getting-started) |
 | **Orchestration** | Harnesses, conversational patterns, verified offloading | [LocoAgente](https://locoagente.org) |
 | **Compliance and deployment** | Where local is the only acceptable answer; how to ship a service users actually want | [LocoPuente](https://locopuente.org), [Why Local AI](why-local-ai) |
 

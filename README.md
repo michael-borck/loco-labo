@@ -1,13 +1,13 @@
 ---
-title: "LocoLab"
+title: "LocoLabo"
 subtitle: "Frontier AI on a Budget. Crazy, Right?"
 ---
 
-# LocoLab
+# LocoLabo
 
 > *Frontier AI on a budget. Crazy, right?*
 
-LocoLab is an applied AI research lab at Curtin University's School of Marketing and Management. We study what local AI can actually do on modest hardware -- and build tools that put that capability in the hands of educators, students, and organisations that can't or won't send their data to the cloud.
+LocoLabo is an independent, self-funded applied AI research lab in Perth, Australia. We study what local AI can actually do on modest hardware -- and build tools that put that capability in the hands of educators, students, and organisations that can't or won't send their data to the cloud.
 
 The work is deliberate. The hardware is secondhand. The models are small. The questions are serious.
 
@@ -17,9 +17,9 @@ The work is deliberate. The hardware is secondhand. The models are small. The qu
 
 It didn't start with a research grant or a GPU cluster. It started with a restriction.
 
-Curtin University, like many institutions, prohibited the use of frontier cloud AI models for teaching and assessment. No ChatGPT. No Claude. No API calls with student data. The reasons are legitimate: student privacy obligations, data sovereignty requirements, ethics approvals that don't contemplate third-party processing, and the straightforward governance problem of sending assessment work to a commercial provider whose data practices you don't fully control.
+Many institutions -- including the university where LocoLabo started -- prohibited the use of frontier cloud AI models for teaching and assessment. No ChatGPT. No Claude. No API calls with student data. The reasons are legitimate: student privacy obligations, data sovereignty requirements, ethics approvals that don't contemplate third-party processing, and the straightforward governance problem of sending assessment work to a commercial provider whose data practices you don't fully control.
 
-The obvious response was to stop. The response that produced LocoLab was to build alternatives.
+The obvious response was to stop. The response that produced LocoLabo was to build alternatives.
 
 The first outputs were privacy-first desktop applications -- local, offline, built around Ollama for inference, with BYOK (Bring Your Own Key) options for users who wanted to make their own choices about cloud access. No data leaves the machine by default. No institutional exposure. No API costs. The student controls the tool; the institution controls the policy.
 
@@ -33,7 +33,7 @@ Conversing with AI -- using it to brainstorm, ideate, iterate, challenge your as
 
 That reframe transformed the institutional restriction from a constraint into a pedagogical position. Small local models are not a compromise. For the most educationally valuable use of AI -- amplifying student thinking rather than replacing it -- they are the right tool. The privacy and governance benefits are real and additional.
 
-LocoLab exists to study, document, and extend that position.
+LocoLabo exists to study, document, and extend that position.
 
 ---
 
@@ -72,14 +72,14 @@ No cloud. No API keys. Just your hardware doing more than you would expect.
 
 ---
 
-### LocoBench
+### LocoBanco
 *VRAM tier benchmarking across GPU generations*
 
 A systematic benchmark of LLM inference across every consumer GPU VRAM tier, from 2 GB to 24 GB, from Maxwell to Blackwell. Each tier is represented by the worst-in-class card -- the floor, not the ceiling. If it runs here, it runs on your card.
 
-LocoBench documents two things mainstream benchmarks ignore: throughput (tokens per second at the tier floor) and quality retention (what you actually get at each tier and quantisation level). The GSM8K cliff -- where mathematical reasoning degrades sharply below certain quantisation levels despite acceptable perplexity scores -- is an example of the kind of finding that only emerges when you run the full tier stack rather than cherry-picking hardware.
+LocoBanco documents two things mainstream benchmarks ignore: throughput (tokens per second at the tier floor) and quality retention (what you actually get at each tier and quantisation level). The GSM8K cliff -- where mathematical reasoning degrades sharply below certain quantisation levels despite acceptable perplexity scores -- is an example of the kind of finding that only emerges when you run the full tier stack rather than cherry-picking hardware.
 
-The sub-4 GB tiers are included deliberately. Most inference guides assert a "4 GB minimum" as received wisdom. LocoBench will show the data behind that claim -- where the quality cliff is steep, where it is gradual, and what an adapter-trained small model can recover at the floor.
+The sub-4 GB tiers are included deliberately. Most inference guides assert a "4 GB minimum" as received wisdom. LocoBanco will show the data behind that claim -- where the quality cliff is steep, where it is gradual, and what an adapter-trained small model can recover at the floor.
 
 **Hardware:** Colmena (RTX-era consumer tiers) + Tortuga (pre-RTX legacy tiers) + Hormiga (reference floor node) + Hidra (server GPU tiers: V100 16 GB, P100 16 GB; M40, P40 incoming)
 
@@ -146,16 +146,16 @@ Every experiment after the frontier baseline runs free on local hardware. The ex
 
 ## The Lab
 
-LocoLab runs on seven machines, all sourced secondhand. The entire fleet was assembled opportunistically -- the right capability at the right price, not a planned procurement.
+LocoLabo runs on seven machines, all sourced secondhand. The entire fleet was assembled opportunistically -- the right capability at the right price, not a planned procurement.
 
 | Machine | Role | Key Hardware |
 |---------|------|-------------|
-| **Colmena** | LocoBench RTX-era consumer tier benchmarking | WEIHO 8-GPU enclosed chassis, GTX 1060 6GB x3, RTX 2060 Super x3, RTX 4060 Ti 16GB |
+| **Colmena** | LocoBanco RTX-era consumer tier benchmarking | WEIHO 8-GPU enclosed chassis, GTX 1060 6GB x3, RTX 2060 Super x3, RTX 4060 Ti 16GB |
 | **Búho** | LocoLLM adapter training, dedicated single-card inference | X99 single-Xeon, 32 GB DDR4, Tesla V100 32 GB HBM2 |
-| **Tortuga** | LocoBench pre-RTX legacy benchmarking | WEIHO 8-GPU enclosed chassis, GTX 950 through Titan X |
+| **Tortuga** | LocoBanco pre-RTX legacy benchmarking | WEIHO 8-GPU enclosed chassis, GTX 950 through Titan X |
 | **Puente** | LocoPuente BridgeAI PoC + LocoEnsayo chatbots | Ryzen 5 2600, RTX 3090 24 GB (single card) |
 | **Hormiga** | Minimum viable inference node | ThinkCentre M710s, GTX 1050 Ti LP 4 GB |
-| **Hidra** | LocoConvoy multi-GPU, LocoBench server GPU benchmarking, GPU onboarding | X99 MD8 dual-Xeon (2x E5-2680 v4), DDR4 ECC, 4x PCIe x16, open frame; Tesla V100 16 GB + Tesla P100 16 GB installed (Tesla M40 24 GB + P40 incoming); GTX 1070, RTX 3050, RTX 3060 12 GB consumer rotation |
+| **Hidra** | LocoConvoy multi-GPU, LocoBanco server GPU benchmarking, GPU onboarding | X99 MD8 dual-Xeon (2x E5-2680 v4), DDR4 ECC, 4x PCIe x16, open frame; Tesla V100 16 GB + Tesla P100 16 GB installed (Tesla M40 24 GB + P40 incoming); GTX 1070, RTX 3050, RTX 3060 12 GB consumer rotation |
 | **Poco** | Remote terminal, Apple Silicon testing | MacBook M1, 16 GB unified memory |
 
 The naming follows a Spanish thread -- Colmena (hive), Búho (owl), Tortuga (turtle), Puente (bridge), Hormiga (ant), Hidra (hydra), Poco (a little). All Linux machines run Ubuntu 22.04 LTS minimal server, CUDA throughout, Ollama for inference, llama.cpp under the hood.
@@ -164,9 +164,9 @@ The naming follows a Spanish thread -- Colmena (hive), Búho (owl), Tortuga (tur
 
 ## Research Output
 
-LocoLab produces:
+LocoLabo produces:
 
-**LocoBench results** -- reproducible benchmarks across the VRAM tier stack, published openly for community extension. Standardised hardware reporting and a shared results format mean any GPU owner can contribute.
+**LocoBanco results** -- reproducible benchmarks across the VRAM tier stack, published openly for community extension. Standardised hardware reporting and a shared results format mean any GPU owner can contribute.
 
 **Architecture papers** -- LocoLLM routing strategies and LocoConvoy multi-GPU experiments, targeting ACIS and the Australasian Journal of Information Systems IS Education section.
 
@@ -182,7 +182,7 @@ The institutional restriction that started this was not an obstacle. It was a cl
 
 It forced the question: what is AI actually for in an education context? The answer -- amplifying thinking, not replacing it -- turned out to be better served by local small models than by frontier alternatives. Not because the small models are better. Because the constraint produced a better question.
 
-That is the LocoLab disposition. Constraints surface optimisations that comfortable resources conceal. Secondhand hardware, small models, and honest baselines produce research that the A100 crowd is not doing -- not because they could not, but because the question only becomes visible from the floor.
+That is the LocoLabo disposition. Constraints surface optimisations that comfortable resources conceal. Secondhand hardware, small models, and honest baselines produce research that the A100 crowd is not doing -- not because they could not, but because the question only becomes visible from the floor.
 
 We are not claiming small models match frontier models. We are claiming that for a large class of genuinely useful tasks -- educational brainstorming, professional rehearsal, domain-specific assistance, privacy-sensitive applications -- they are sufficient, local, and free to run. Documenting that honestly, at scale, and reproducibly is a contribution worth making.
 
@@ -192,4 +192,4 @@ Loco by name. Serious by intent.
 
 ---
 
-*LocoLab -- Information Systems, School of Marketing and Management, Curtin University, Perth, Western Australia.*
+*LocoLabo -- an independent, self-funded applied AI research lab, Perth, Western Australia.*

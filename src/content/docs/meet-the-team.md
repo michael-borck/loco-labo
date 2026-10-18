@@ -2,7 +2,7 @@
 title: "Meet the Team"
 ---
 
-LocoLLM is an open-source project out of Curtin University, Perth. It started as one person's side project and is designed to grow through student contributions semester by semester.
+LocoLLM is an open-source project from LocoLabo, an independent research lab in Perth, Australia. It started as one person's side project and is designed to grow through community contributions semester by semester.
 
 ---
 
@@ -20,7 +20,7 @@ Michael is a Certified Professional of the Australian Computer Society, a member
 
 He runs the lab hardware, sets the project direction, designs the training curriculum, and writes most of the documentation. He also built 3D-printed fan shrouds for the GPU cooling in the lab, because that's the kind of project this is.
 
-**Contact:** [GitHub](https://github.com/michael-borck) | Curtin University
+**Contact:** [GitHub](https://github.com/michael-borck) | LocoLabo
 
 ---
 
@@ -30,10 +30,10 @@ He runs the lab hardware, sets the project direction, designs the training curri
 
 ## Past Members
 
-*No past members yet. As contributors move on from Curtin or shift their focus, they'll be recognised here for their contributions to the project.*
+*No past members yet. As contributors move on to other things or shift their focus, they'll be recognised here for their contributions to the project.*
 
 ---
 
 ## Contributing
 
-You don't need to be at Curtin to contribute. LocoLLM is open source under the MIT license. If you want to train an adapter, improve the router, run benchmarks, or write documentation, see [Getting Started](why-locollm.md) or open an issue on [GitHub](https://github.com/michael-borck/loco-llm).
+You don't need any institutional affiliation to contribute. LocoLLM is open source under the MIT license. If you want to train an adapter, improve the router, run benchmarks, or write documentation, see [Getting Started](why-locollm.md) or open an issue on [GitHub](https://github.com/michael-borck/loco-llm).

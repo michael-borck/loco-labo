@@ -101,7 +101,7 @@ These "boring" pipelines are the high-value enterprise use cases. Well-defined, 
 
 ### Milestone 3 — Understand the Limits
 
-Run LocoBench on your hardware to get real throughput numbers. Then deliberately hit the limits:
+Run LocoBanco on your hardware to get real throughput numbers. Then deliberately hit the limits:
 
 - Fill the context window to see what happens
 - Try agentic tasks with multiple tools — observe where the model loses coherence
@@ -132,4 +132,4 @@ The models improve continuously. Hardware you run today will run better models i
 
 ---
 
-*Next steps: [Why Local AI](why-local-ai.md) for the broader context. [Hardware Selection](https://github.com/michael-borck/loco-puente/blob/main/HARDWARE.md) for deployment decisions. [LocoBench](https://github.com/michael-borck/loco-bench) for benchmarks on your hardware.*
+*Next steps: [Why Local AI](why-local-ai.md) for the broader context. [Hardware Selection](https://github.com/michael-borck/loco-puente/blob/main/HARDWARE.md) for deployment decisions. [LocoBanco](https://github.com/michael-borck/loco-banco) for benchmarks on your hardware.*

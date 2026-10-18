@@ -9,7 +9,8 @@ The naming follows a Spanish thread: Colmena (hive), Tortuga (turtle), Poco (a l
 **Sub-projects under LocoLabo:**
 
 - **LocoLLM** (Búho) -- adapter training on the V100 32 GB; dedicated single-card training and inference
-- **LocoBench** (Colmena + Tortuga + Hormiga + Hidra) -- benchmarking platform; Colmena covers RTX-era consumer tiers, Tortuga covers pre-RTX tiers, Hormiga anchors the SFF floor, Hidra covers the server GPU tiers
+- **LocoBanco** (Colmena + Tortuga + Hormiga + Hidra) -- benchmarking platform; Colmena covers RTX-era consumer tiers, Tortuga covers pre-RTX tiers, Hormiga anchors the SFF floor, Hidra covers the server GPU tiers
+- **LocoMusa** (Poco) -- thinking-partner benchmark: ideation, reframing, and dialogue quality scored by pairwise judging against frontier anchors; runs anywhere an OpenAI-compatible endpoint speaks
 - **LocoConvoy** (Hidra) -- multi-GPU architecture experiments on full-bandwidth PCIe x16, on an open frame for rapid card swaps
 - **LocoPuente** (Puente) -- student-facing BridgeAI PoC: primary LLM, cited search, image generation, voice, research tooling, all on the Ryzen 5 2600 + RTX 3090 24 GB
 - **LocoEnsayo** (Puente) -- most rehearsal chatbots (CloudCore Networks, Pinnacle Tours, TalkBuddy backend) now co-reside with the LocoPuente stack on Puente
@@ -43,7 +44,7 @@ Apple's MLX framework supports LoRA adapter training natively via `mlx_lm.lora`,
 
 ## Colmena
 
-**WEIHO 8-GPU Enclosed Chassis -- RTX-Era LocoBench Benchmarking**
+**WEIHO 8-GPU Enclosed Chassis -- RTX-Era LocoBanco Benchmarking**
 
 | | |
 |---|---|
@@ -58,7 +59,7 @@ Apple's MLX framework supports LoRA adapter training natively via `mlx_lm.lora`,
 | **GPU slots** | 8 native PCIe slots, no risers needed |
 | **OS** | Ubuntu 22.04 LTS |
 | **Form** | Enclosed chassis |
-| **Role** | LocoBench -- RTX-era tier benchmarking |
+| **Role** | LocoBanco -- RTX-era tier benchmarking |
 
 Colmena means "hive" in Spanish. Many workers under one roof, doing the same kind of work at different scales.
 
@@ -76,7 +77,7 @@ The i3-3220 CPU and 8 GB RAM ceiling exist by design. The CPU's job is to boot t
 
 Multi-GPU experiments live on Hidra, where full-bandwidth PCIe x16 slots isolate the interconnect variable cleanly. Adapter training lives on Búho, where the V100 32 GB on a dedicated machine eliminates contention. Colmena's job is reproducible RTX-era tier benchmarking.
 
-**Best at:** RTX-era LocoBench tier benchmarking. Repeat-measurement discipline via the matched 2060 Super trio. Modest-host, GPU-first results that readers can extrapolate from.
+**Best at:** RTX-era LocoBanco tier benchmarking. Repeat-measurement discipline via the matched 2060 Super trio. Modest-host, GPU-first results that readers can extrapolate from.
 
 ---
 
@@ -90,7 +91,7 @@ Multi-GPU experiments live on Hidra, where full-bandwidth PCIe x16 slots isolate
 | **GPUs** | GTX 950 2 GB, GTX 960 4 GB, GTX 1050 Ti 4 GB, GTX 1060 3 GB, GTX 1060 6 GB, GTX 980 Ti 6 GB, GTX Titan X 12 GB (7 cards) |
 | **OS** | Ubuntu 22.04 LTS |
 | **Form** | Enclosed chassis |
-| **Role** | LocoBench -- pre-RTX legacy tier benchmarking; powered on for benchmark runs only |
+| **Role** | LocoBanco -- pre-RTX legacy tier benchmarking; powered on for benchmark runs only |
 | **Notes** | No Tensor Cores across entire fleet. Slot 4 occupied by PCIe NVMe (M.2 SATA bandwidth conflict). |
 
 Tortuga means "turtle" in Spanish. It moves at its own pace and wakes only when called.
@@ -224,7 +225,7 @@ Thirty-two gigabytes of system RAM matches the VRAM and provides headroom for da
 | **Server GPUs** | Tesla V100 16 GB HBM2, Tesla P100 16 GB HBM2; Tesla M40 24 GB and Tesla P40 incoming |
 | **Consumer rotation** | GTX 1070, RTX 3050, RTX 3060 12 GB (onboarding + small-card benchmarks) |
 | **OS** | Ubuntu 22.04 LTS |
-| **Role** | LocoConvoy multi-GPU experiments; LocoBench server GPU benchmarking; GPU onboarding for every new card in the lab |
+| **Role** | LocoConvoy multi-GPU experiments; LocoBanco server GPU benchmarking; GPU onboarding for every new card in the lab |
 
 Hidra means "hydra" in Spanish. Many heads, each doing its own thing, sharing one body.
 
@@ -232,7 +233,7 @@ Hidra does three jobs on the same open-frame workstation. The four full-width PC
 
 **LocoConvoy multi-GPU experiments.** Where Colmena's mining-oriented board trades PCIe width for slot count, Hidra runs four slots at full x16. For experiments where PCIe bandwidth dominates -- vLLM tensor parallelism, cross-card KV-cache traffic, pipeline-parallel inference -- Hidra provides the uncrippled interconnect that a mining board cannot.
 
-**Server GPU benchmarking.** The Tesla M40, P40, P100, and V100 family all pass through Hidra for LocoBench runs at their native VRAM tiers. The open-frame chassis accepts the passive-cooled datacenter form factor better than Colmena's enclosed mining rig, and the full x16 slots mean the benchmark reflects the card rather than the slot. Currently installed: V100 16 GB (Volta, Tensor Cores, HBM2 at 900 GB/s) and P100 16 GB (Pascal, HBM2 at 732 GB/s). Incoming: M40 24 GB (Maxwell, floor of the 24 GB server tier) and P40 24 GB (Pascal with CC 6.1, full modern inference stack at 24 GB).
+**Server GPU benchmarking.** The Tesla M40, P40, P100, and V100 family all pass through Hidra for LocoBanco runs at their native VRAM tiers. The open-frame chassis accepts the passive-cooled datacenter form factor better than Colmena's enclosed mining rig, and the full x16 slots mean the benchmark reflects the card rather than the slot. Currently installed: V100 16 GB (Volta, Tensor Cores, HBM2 at 900 GB/s) and P100 16 GB (Pascal, HBM2 at 732 GB/s). Incoming: M40 24 GB (Maxwell, floor of the 24 GB server tier) and P40 24 GB (Pascal with CC 6.1, full modern inference stack at 24 GB).
 
 **GPU onboarding.** Every new card in the lab -- consumer or datacenter, current generation or deprecated -- arrives on Hidra first for burn-in, driver validation, and compatibility testing before being assigned to its permanent home. The open-frame chassis is the reason. No case to open, no cable management, no thermal envelope to respect for a brief characterisation run -- slot a card, power on, test, move it on.
 
@@ -256,12 +257,12 @@ Dual E5-2680 v4s give Hidra something the rest of the fleet lacks: real CPU. Twe
 
 | Machine | Sub-project(s) | GPU(s) | VRAM | Primary Role |
 |---------|----------------|--------|------|--------------|
-| **Colmena** (WEIHO 8-GPU) | LocoBench | GTX 1060 6GB x3, RTX 2060 Super x3, RTX 4060 Ti 16GB | 6/8/16 GB | RTX-era consumer tier benchmarking |
-| **Tortuga** (WEIHO 8-GPU) | LocoBench | GTX 950/960/1050Ti/1060 3GB/1060 6GB/980Ti/Titan X | 2-12 GB | Pre-RTX legacy benchmarking (powered on for runs only) |
+| **Colmena** (WEIHO 8-GPU) | LocoBanco | GTX 1060 6GB x3, RTX 2060 Super x3, RTX 4060 Ti 16GB | 6/8/16 GB | RTX-era consumer tier benchmarking |
+| **Tortuga** (WEIHO 8-GPU) | LocoBanco | GTX 950/960/1050Ti/1060 3GB/1060 6GB/980Ti/Titan X | 2-12 GB | Pre-RTX legacy benchmarking (powered on for runs only) |
 | **Puente** (Ryzen 5 2600) | LocoPuente / LocoEnsayo | RTX 3090 24 GB | 24 GB | Student-facing BridgeAI stack and rehearsal chatbots |
 | **Búho** (X99 single Xeon) | LocoLLM | Tesla V100 32 GB | 32 GB | Dedicated adapter training and single-card inference |
-| **Hormiga** (ThinkCentre M710s) | LocoBench | GTX 1050 Ti LP | 4 GB | Minimum viable inference node, SFF reference testing |
-| **Hidra** (X99 dual Xeon, open frame) | LocoConvoy / LocoBench | V100 16 GB, P100 16 GB; M40, P40 incoming; GTX 1070, RTX 3050, RTX 3060 12 GB rotation | 4x PCIe x16 | Multi-GPU experiments, server GPU benchmarking, GPU onboarding |
+| **Hormiga** (ThinkCentre M710s) | LocoBanco | GTX 1050 Ti LP | 4 GB | Minimum viable inference node, SFF reference testing |
+| **Hidra** (X99 dual Xeon, open frame) | LocoConvoy / LocoBanco | V100 16 GB, P100 16 GB; M40, P40 incoming; GTX 1070, RTX 3050, RTX 3060 12 GB rotation | 4x PCIe x16 | Multi-GPU experiments, server GPU benchmarking, GPU onboarding |
 | **Poco** (MacBook M1) | LocoLabo | Apple M1 GPU | 16 GB unified | Remote terminal, Apple Silicon testing |
 
 †Arriving
@@ -276,7 +277,7 @@ What matters for replication is capability tier, not specific parts. Match the V
 
 **Why Nvidia only?** The entire local LLM toolchain -- Ollama, llama.cpp, PyTorch, bitsandbytes, Unsloth -- targets CUDA first. AMD's ROCm stack exists and is improving, but driver support is narrower, community troubleshooting is thinner, and the tooling friction is meaningfully higher. Intel Arc is earlier still. For a lab that needs to work reliably with minimal sysadmin overhead, CUDA is the only practical choice today.
 
-The secondhand market reinforces this. The cryptocurrency mining boom flooded resale channels with Nvidia consumer cards at accessible prices. AMD equivalents at the same VRAM tiers are rarer and less standardised. And the overwhelming majority of users running local LLMs on consumer hardware are on Nvidia -- LocoBench floor cards need to represent what people actually have.
+The secondhand market reinforces this. The cryptocurrency mining boom flooded resale channels with Nvidia consumer cards at accessible prices. AMD equivalents at the same VRAM tiers are rarer and less standardised. And the overwhelming majority of users running local LLMs on consumer hardware are on Nvidia -- LocoBanco floor cards need to represent what people actually have.
 
 Apple Silicon is the exception, and Poco covers that path via Metal and MLX. If ROCm matures to the point where an AMD card is a genuine drop-in for Ollama inference, it becomes a candidate for a Colmena slot. That day isn't today.
 

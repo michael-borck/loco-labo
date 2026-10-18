@@ -1,13 +1,13 @@
 ---
 title: "The Loco Thesis"
-description: The five principles LocoLab takes positions on, and the methodological frame that anchors them.
+description: The five principles LocoLabo takes positions on, and the methodological frame that anchors them.
 ---
 
 > *Most AI research documents the ceiling. We document the floor — what local small models can actually do on modest hardware — because most people live there and nobody is doing it honestly.*
 
 That stance is the lab's epistemic commitment. It governs everything below. It also has a corollary worth naming explicitly: **confidence is not competence.** A confident-sounding model is not a correct model. Our job is to make uncertainty legible — through honest baselines, surfaced failure modes, status markers on every claim, and a willingness to publish negative results. We don't trust round numbers and we don't trust hype, including our own.
 
-Below are the five positions LocoLab takes — claims about how local AI works, each backed by built artifacts (see [findings](findings)) and each with an explicit invalidation condition. They are in stack order: substrate, intelligence, output, interaction, synthesis.
+Below are the five positions LocoLabo takes — claims about how local AI works, each backed by built artifacts (see [findings](findings)) and each with an explicit invalidation condition. They are in stack order: substrate, intelligence, output, interaction, synthesis.
 
 ---
 
@@ -27,7 +27,7 @@ The five principles below all rest on this. They are testable, not aspirational.
 
 The cheapest performance is the performance you didn't need to hire. Five `llama.cpp` flags + system RAM let an eight-year-old GTX 1060 run a 30-billion-parameter Mixture-of-Experts model at reading speed. Multi-GPU on consumer PCIe x16 lets a 64GB VRAM aggregate cost less than one workstation card. The constraint, in 2026, is engineering effort, not silicon.
 
-This principle is enacted by **[LocoBench](https://locobench.org)** (the MoE-on-a-budget work measures what flags + RAM unlock per VRAM tier) and **[LocoConvoy](https://lococonvoy.org)** (multi-GPU experiments on full-bandwidth PCIe, on an open frame for rapid card swaps).
+This principle is enacted by **[LocoBanco](https://locobanco.org)** (the MoE-on-a-budget work measures what flags + RAM unlock per VRAM tier) and **[LocoConvoy](https://lococonvoy.org)** (multi-GPU experiments on full-bandwidth PCIe, on an open frame for rapid card swaps).
 
 *What would invalidate this claim:* if engineering tricks plateau early — if no flag combination on the GTX 1060 reaches reading speed — the principle weakens. The MoE+RAM run is the empirical test in flight.
 
@@ -59,7 +59,7 @@ Cognitive offloading is not surrender. It's amplification — *with* a verificat
 
 The harness's job is to make that loop cheap: surface uncertainty, expose tool outputs, maintain conversation state so the human can push back without re-explaining. The model handles the mechanical; the human keeps the smell-test.
 
-This principle is enacted by **[LocoAgente](https://locoagente.org)** (the `Variant` + `Uncertainty` contract bakes verification hooks into every output) and the **Keep Asking** research thread (Study 1: does the conversational nudge shift students from passive delegation to active conversation? Study 2: does conversation compensate for model quality?).
+This principle is enacted by **[LocoAgente](https://locoagente.org)** (the `Variant` + `Uncertainty` contract bakes verification hooks into every output), measured by **[LocoMusa](https://locomusa.org)** (which raw models are already good thinking partners — ideation, reframing, and dialogue judged pairwise against frontier anchors), and probed by the **[Keep Asking](https://keep-asking.locolabo.org)** research thread (Study 1: does the conversational nudge shift students from passive delegation to active conversation? Study 2: does conversation compensate for model quality?).
 
 *What would invalidate this claim:* if the Keep Asking nudge studies show no effect on outcomes, or if the harness's verification hooks don't reduce hallucination harm, the principle weakens.
 
@@ -89,13 +89,13 @@ Prompt engineering is not dead. Context engineering is not dead. They are the lo
 
 ### How the projects stack
 
-The principles also compose at the project level. LocoBench tells you which engine and model fit a given VRAM tier. LocoLLM specialises that base model with adapters and single-turn scaffolding. LocoAgente uses LocoLLM — or any OpenAI-compatible backend — as its inference layer and adds multi-turn orchestration. LocoConvoy scales the substrate horizontally when one card isn't enough. LocoPuente packages the result for users on a LAN. LocoEnsayo deploys it where it's used — currently education.
+The principles also compose at the project level. LocoBanco tells you which engine and model fit a given VRAM tier. LocoMusa tells you which candidate is the better raw thinking partner before any harness is added. LocoLLM specialises that base model with adapters and single-turn scaffolding. LocoAgente uses LocoLLM — or any OpenAI-compatible backend — as its inference layer and adds multi-turn orchestration. LocoConvoy scales the substrate horizontally when one card isn't enough. LocoPuente packages the result for users on a LAN. LocoEnsayo deploys it where it's used — currently education.
 
-The integrations are concrete: LocoAgente's `Inference` subsystem speaks OpenAI-compatible HTTP, so a LocoLLM router with adapter selection drops in as the backend without changes to the harness. LocoBench's tier recommendations directly inform LocoLLM's adapter selection budget.
+The integrations are concrete: LocoAgente's `Inference` subsystem speaks OpenAI-compatible HTTP, so a LocoLLM router with adapter selection drops in as the backend without changes to the harness. LocoBanco's tier recommendations directly inform LocoLLM's adapter selection budget.
 
 ### What lives elsewhere
 
-Pedagogy and AI literacy live in the [AI Skills Passport](https://github.com/michael-borck/the-ai-skills-passport) — Curtin's institutional AI literacy programme. LocoLab's audience is researchers and practitioners building local-AI systems; the Skills Passport's audience is general staff and students learning to *use* AI. The same techniques can appear in both, framed differently: the Skills Passport explains *how to use RTCF*; LocoLLM measures *whether RTCF helps a 4B model.*
+Pedagogy and AI literacy live in the [AI Skills Passport](https://github.com/michael-borck/the-ai-skills-passport) — an institutional AI literacy programme. LocoLabo's audience is researchers and practitioners building local-AI systems; the Skills Passport's audience is general staff and students learning to *use* AI. The same techniques can appear in both, framed differently: the Skills Passport explains *how to use RTCF*; LocoLLM measures *whether RTCF helps a 4B model.*
 
 ---
 

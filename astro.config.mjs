@@ -5,12 +5,12 @@ export default defineConfig({
   site: 'https://locolabo.org',
   integrations: [
     starlight({
-      title: 'LocoLab',
+      title: 'LocoLabo',
       description: 'Frontier AI on a Budget. Crazy, Right?',
       favicon: '/favicon.svg',
       disable404Route: true,
       logo: {
-        alt: 'LocoLab',
+        alt: 'LocoLabo',
         src: './src/assets/lab.svg',
         replacesTitle: false,
       },
@@ -43,7 +43,8 @@ export default defineConfig({
           label: 'Projects',
           items: [
             { label: 'LocoLLM', link: 'https://locollm.org' },
-            { label: 'LocoBench', link: 'https://locobench.org' },
+            { label: 'LocoBanco', link: 'https://locobanco.org' },
+            { label: 'LocoMusa', link: 'https://locomusa.org' },
             { label: 'LocoConvoy', link: 'https://lococonvoy.org' },
             { label: 'LocoEnsayo', link: 'https://locoensayo.org' },
             { label: 'LocoAgente', link: 'https://locoagente.org' },

@@ -32,10 +32,11 @@ Select your machine from the menu, choose "Fresh Install", and everything runs w
 
 LocoBase is the **foundation layer**. It provisions a bare machine into a working lab node with GPU compute, Ollama, and Docker ready. Individual projects build on top:
 
-- **loco-bench** — clone after loco-base, runs benchmarks using Ollama + CUDA
+- **loco-banco** — clone after loco-base, runs benchmarks using Ollama + CUDA
 - **loco-llm** — clone after loco-base, trains and serves adapters via Ollama
 - **loco-convoy** — clone after loco-base, runs multi-GPU experiments via vLLM
 - **loco-ensayo** — clone after loco-base, deploys CloudCore API via Docker
+- **loco-musa** — clone anywhere; thinking-partner benchmark that runs against any OpenAI-compatible endpoint
 
 Each project has its own setup that assumes loco-base is already in place.
 

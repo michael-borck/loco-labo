@@ -3,7 +3,7 @@ title: "What We've Discovered"
 description: The artifacts behind each principle, with status markers — a living research notebook that evolves as work matures.
 ---
 
-LocoLab claims [five principles](the-loco-thesis). Below are the artifacts — built, measured, or in progress — that those claims rest on. Each entry has a status marker borrowed from [research](research) (where papers carry similar markers):
+LocoLabo claims [five principles](the-loco-thesis). Below are the artifacts — built, measured, or in progress — that those claims rest on. Each entry has a status marker borrowed from [research](research) (where papers carry similar markers):
 
 - `claim` — position taken, not yet built
 - `architecture` — designed and specced, implementation pending
@@ -21,7 +21,7 @@ This page evolves. Items move down the status ladder as work matures. Failed cla
 
 - **Status:** `architecture`
 - **Claim:** five `llama.cpp` flags (`--n-cpu-moe`, `--no-mmap`, `--mlock`, `--cache-type-k q4_0`, `--cache-type-v q3_0`) plus 24-64GB of system RAM let a $80 used GTX 1060 run Qwen3-30B-A3B at ~17 tokens/sec
-- **Artifacts:** [LocoBench MoE-on-a-budget design spec](https://locobench.org); implementation plan; Python harness library (33+ passing tests covering config loading, server boot, llama-bench wrapper, hardware fingerprinting); 17 cell configs across 4 VRAM tiers ready to run
+- **Artifacts:** [LocoBanco MoE-on-a-budget design spec](https://locobanco.org); implementation plan; Python harness library (33+ passing tests covering config loading, server boot, llama-bench wrapper, hardware fingerprinting); 17 cell configs across 4 VRAM tiers ready to run
 - **What would invalidate:** if measured `tg128` < 10 tok/s on the 1060 with the optimised preset, or if the article's claim doesn't replicate
 
 ---
@@ -64,7 +64,7 @@ This page evolves. Items move down the status ladder as work matures. Failed cla
 - **Artifacts:** `Variant` and `Uncertainty` dataclasses in `harness/core.py`; XML tag parser enforcing required `<text>` and `<rationale>`; `CalibrationLog` recording user picks/rejects/edits as JSONL for downstream analysis
 - **What would invalidate:** if users routinely ignore the `verification_hooks` field — i.e., the harness produces hooks but they're not the right hooks — the principle is performative not functional
 
-### Keep Asking — Study 1: Does the Nudge Work?
+### [Keep Asking](https://keep-asking.locolabo.org) — Study 1: Does the Nudge Work?
 
 - **Status:** `architecture`
 - **Claim:** a conversational nudge shifts students from passive delegation to active conversation and improves task outcomes (using frontier models, to isolate the nudge effect from model quality)

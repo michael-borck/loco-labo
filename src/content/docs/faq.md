@@ -8,13 +8,13 @@ title: "Frequently Asked Questions"
 
 ### Why not just use the cloud?
 
-Two of the lab's three core roles cannot be done in the cloud at any price. [LocoBench](https://locobench.org) requires consumer GPUs from 2 GB to 24 GB -- GTX 950s, GTX 1050 Tis, RTX 2060 Supers. No cloud provider offers those cards. The lowest tier widely available is a T4 at 16 GB. Multi-GPU architecture research with consumer Turing and Ampere cards is similarly unavailable. Only inference serving is straightforwardly replicable in the cloud.
+Two of the lab's three core roles cannot be done in the cloud at any price. [LocoBanco](https://locobanco.org) requires consumer GPUs from 2 GB to 24 GB -- GTX 950s, GTX 1050 Tis, RTX 2060 Supers. No cloud provider offers those cards. The lowest tier widely available is a T4 at 16 GB. Multi-GPU architecture research with consumer Turing and Ampere cards is similarly unavailable. Only inference serving is straightforwardly replicable in the cloud.
 
 For the work that *could* be done in the cloud, local is 6-8x cheaper per training run. See [Economics of Local Training](economics-of-local-training.md) for the full numbers.
 
 ### Is this just a cost-saving exercise?
 
-No. Cost matters -- the lab runs for under $1,000 AUD per year in electricity -- but the primary argument is capability, not frugality. The research questions LocoBench asks ("what can a student run on a $150 secondhand GPU?") can only be answered on that actual hardware. The data doesn't exist in the cloud because the hardware doesn't exist in the cloud.
+No. Cost matters -- the lab runs for under $1,000 AUD per year in electricity -- but the primary argument is capability, not frugality. The research questions LocoBanco asks ("what can a student run on a $150 secondhand GPU?") can only be answered on that actual hardware. The data doesn't exist in the cloud because the hardware doesn't exist in the cloud.
 
 The privacy argument is equally structural. Student assessment data, conversation transcripts, and rehearsal scenarios never leave the machine. Not by policy -- by architecture.
 
@@ -60,7 +60,7 @@ You can. A 7B or 13B model on an RTX 3090 will outperform a 4B model on a GTX 10
 
 ### Why five projects instead of one?
 
-Different research questions require different methodologies and different hardware. [LocoLLM](https://locollm.org) studies whether specialist routing compensates for model size. [LocoBench](https://locobench.org) maps inference quality across every consumer VRAM tier. [LocoConvoy](https://lococonvoy.org) tests multi-GPU architectures on PCIe hardware. [LocoEnsayo](https://locoensayo.org) builds rehearsal environments for professional education. They share infrastructure and philosophy but produce distinct research outputs.
+Different research questions require different methodologies and different hardware. [LocoLLM](https://locollm.org) studies whether specialist routing compensates for model size. [LocoBanco](https://locobanco.org) maps inference quality across every consumer VRAM tier. [LocoConvoy](https://lococonvoy.org) tests multi-GPU architectures on PCIe hardware. [LocoEnsayo](https://locoensayo.org) builds rehearsal environments for professional education. They share infrastructure and philosophy but produce distinct research outputs.
 
 ### What is LocoLabo then?
 
@@ -76,7 +76,7 @@ Educators who want to use AI in teaching without sending student data to the clo
 
 ### Is this real research or a hobby project?
 
-Real research. The lab sits within Curtin University's School of Marketing and Management. The work targets peer-reviewed venues including ACIS and the Australasian Journal of Information Systems. LocoLLM and LocoEnsayo follow design science research methodology. LocoBench produces reproducible community benchmarks.
+Real research. The lab is independent and self-funded. The work targets peer-reviewed venues including ACIS and the Australasian Journal of Information Systems. LocoLLM and LocoEnsayo follow design science research methodology. LocoBanco produces reproducible community benchmarks.
 
 ### Can reviewers verify the results?
 

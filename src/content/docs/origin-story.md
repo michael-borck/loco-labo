@@ -2,15 +2,15 @@
 title: "How It Started"
 ---
 
-LocoLab has two origin stories. One is institutional. The other is personal. They converged.
+LocoLabo has two origin stories. One is institutional. The other is personal. They converged.
 
 ---
 
 ## The Policy
 
-Curtin University, like many institutions, restricted the use of frontier cloud AI models for teaching and assessment. No ChatGPT. No Claude. No API calls with student data. The reasons were legitimate -- privacy, sovereignty, governance -- and the effect was a hard constraint: if students were going to use AI, it had to run locally.
+The university where LocoLabo began, like many institutions, restricted the use of frontier cloud AI models for teaching and assessment. No ChatGPT. No Claude. No API calls with student data. The reasons were legitimate -- privacy, sovereignty, governance -- and the effect was a hard constraint: if students were going to use AI, it had to run locally.
 
-That story is told elsewhere on this site. It explains the *institutional* motivation. But it doesn't explain why a lecturer in the School of Marketing and Management ended up with six machines, twenty-five GPUs, and a research programme built on secondhand hardware.
+That story is told elsewhere on this site. It explains the *institutional* motivation. But it doesn't explain why a lecturer ended up with six machines, twenty-five GPUs, and a research programme built on secondhand hardware.
 
 That part started with eBay.
 
@@ -18,7 +18,7 @@ That part started with eBay.
 
 ## The Cards That Didn't Work
 
-Before LocoLab had a name, before there were projects or research questions, there were three GPUs bought on impulse and curiosity: two Tesla K80s and a Tesla K40.
+Before LocoLabo had a name, before there were projects or research questions, there were three GPUs bought on impulse and curiosity: two Tesla K80s and a Tesla K40.
 
 The logic was straightforward. Data centre GPUs were appearing on the secondhand market at prices that seemed too good to ignore. The K80 was a dual-GPU card -- 2x 12 GB of VRAM on a single board. The K40 had 12 GB and had been a workhorse for scientific computing. If local inference was the plan, these looked like bargains.
 
@@ -26,7 +26,7 @@ They weren't.
 
 The K80 and K40 are Kepler architecture -- CUDA compute capability 3.5 and 3.7. Modern inference frameworks either don't support them or run so slowly that the experience is unusable. The cards are physically large, power-hungry, and generate enough heat to warm a small room. They taught an important lesson: not all VRAM is equal, and cheap does not mean useful.
 
-The K80s and K40 are retired from inference duty. They may yet find a second life as home compute nodes, but for the questions that became LocoLab, they were a dead end.
+The K80s and K40 are retired from inference duty. They may yet find a second life as home compute nodes, but for the questions that became LocoLabo, they were a dead end.
 
 A productive dead end, as it turned out.
 
@@ -48,7 +48,7 @@ There was no good answer. The benchmarks that existed tested models under ideal 
 
 So the decision was to build the answer.
 
-That question became **LocoBench**.
+That question became **LocoBanco**.
 
 ---
 
@@ -103,16 +103,16 @@ That became **LocoAgente**.
 Looking back, every project traces to the same impulse: a practical question that nobody had answered for the hardware people actually have.
 
 - **K80s and K40:** Can data centre cards do local inference? (No -- but asking led to the P100.)
-- **P100:** Was buying this worth it? (No good answer existed -- so: LocoBench.)
+- **P100:** Was buying this worth it? (No good answer existed -- so: LocoBanco.)
 - **Cerebro:** Can a local machine serve AI simulations to students? (Yes -- so: LocoEnsayo.)
 - **Multiple GPUs:** What happens when you coordinate cheap cards? (Nobody had measured it -- so: LocoConvoy.)
 - **Domain tasks:** Can specialists beat generalists at the same VRAM budget? (Plausible -- so: LocoLLM.)
 - **Agent loops:** Can small models think in loops? (Unknown at this scale -- so: LocoAgente.)
 
-Each project exists because the previous one surfaced a question it couldn't answer. The institutional policy restriction created the need for local AI. The hardware experiments created the questions. Together they explain why a teaching-focused lab in a business school ended up with a research programme in applied AI infrastructure.
+Each project exists because the previous one surfaced a question it couldn't answer. The institutional policy restriction created the need for local AI. The hardware experiments created the questions. Together they explain why a teaching-focused, one-person lab ended up with a research programme in applied AI infrastructure.
 
-The P100 is still in the fleet. It sits in Colmena's seventh slot, running adapter training jobs. It is almost certainly in the final published LocoBench results -- the card that started the question deserves to be part of the answer.
+The P100 is still in the fleet. It sits in Colmena's seventh slot, running adapter training jobs. It is almost certainly in the final published LocoBanco results -- the card that started the question deserves to be part of the answer.
 
 ---
 
-*LocoLab did not begin with a plan. It began with a restriction, a bad purchase, and a better question.*
+*LocoLabo did not begin with a plan. It began with a restriction, a bad purchase, and a better question.*

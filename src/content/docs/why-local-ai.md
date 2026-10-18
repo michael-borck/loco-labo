@@ -93,10 +93,10 @@ Universities and standard bootcamps have not caught up. Local AI deployment is n
 
 ---
 
-## What LocoLab Is Doing Here
+## What LocoLabo Is Doing Here
 
-LocoLab runs local AI on modest hardware — secondhand GPUs, constrained VRAM — and publishes what actually works. The goal is not to demonstrate that local AI matches the frontier; it is to map **what is achievable at each hardware tier** and make that knowledge accessible to researchers, students, and organisations that cannot or will not send their data to the cloud.
+LocoLabo runs local AI on modest hardware — secondhand GPUs, constrained VRAM — and publishes what actually works. The goal is not to demonstrate that local AI matches the frontier; it is to map **what is achievable at each hardware tier** and make that knowledge accessible to researchers, students, and organisations that cannot or will not send their data to the cloud.
 
 The research is practical. The infrastructure is real. The questions are serious.
 
-*See [LocoBench](https://github.com/michael-borck/loco-bench) for hardware benchmark results. See [Puente](https://github.com/michael-borck/loco-puente) for the self-hosted AI stack.*
+*See [LocoBanco](https://github.com/michael-borck/loco-banco) for hardware benchmark results. See [Puente](https://github.com/michael-borck/loco-puente) for the self-hosted AI stack.*

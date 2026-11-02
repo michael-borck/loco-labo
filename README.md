@@ -149,7 +149,7 @@ Every experiment after the frontier baseline runs free on local hardware. The ex
 
 ## Capstone
 
-LocoLabo hosts student teams through Curtin's Industry Capstone program. The Semester 2 2026 pilot has two briefs: a total cost of ownership model for local versus cloud AI, and a domain-specialist adapter built on Qwen3-4B. Students work in the [capstone workspace](https://github.com/michael-borck/locolabo-capstone), and finished adapters are contributed to LocoLLM. The [capstone page](https://locolabo.org/capstone/) has the briefs and the supervision pack.
+LocoLabo hosts student teams through Curtin's Industry Capstone program. The Semester 2 2026 pilot has two briefs: a total cost of ownership model for local versus cloud AI, and a domain-specialist adapter built on Qwen3-4B. Students work in a private capstone workspace, and finished adapters are contributed to LocoLLM. The [capstone page](https://locolabo.org/capstone/) explains the programme and how the briefs are shared.
 
 ## The Lab
 

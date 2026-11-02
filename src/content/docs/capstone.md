@@ -20,11 +20,11 @@ Semester 2 2026 is the pilot: two briefs, one per track.
 - A defined contribution path into LocoLLM.
 - A client for scope and data questions, and an academic supervisor for assessment.
 
-## Where the material lives
+## Access to the briefs
 
-- [Capstone workspace](https://github.com/michael-borck/locolabo-capstone): setup, templates, and the adapter team workspace.
-- [Briefs and supervision pack](https://github.com/michael-borck/locolabo-capstone/tree/main/briefs): both briefs, the gate sheet, and the supervisor guide.
-- [LocoLLM contribution guide](https://github.com/michael-borck/loco-llm/blob/main/CONTRIBUTING.md): how a finished adapter is reviewed and merged.
+The capstone workspace, both briefs, the gate sheet, and the supervision pack are shared with allocated teams and supervisors. Ask the client for a copy.
+
+Finished adapters follow the public [LocoLLM contribution guide](https://github.com/michael-borck/loco-llm/blob/main/CONTRIBUTING.md).
 
 ## Contact
 

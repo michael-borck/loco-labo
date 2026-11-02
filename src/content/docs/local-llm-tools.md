@@ -4,11 +4,9 @@ title: "Tools for Running Small Language Models Locally"
 
 This is a survey of tools that let you run, interact with, and build on small language models on your own hardware. It is not exhaustive. It will date. It was accurate as of March 2026.
 
-LocoLLM is not a replacement for any of these. Several of them may be exactly what you need, and if one of them solves your problem without the complexity of adapters, routers, and training pipelines, use it. LocoLLM exists for a specific niche -- educational research into adapter-based specialisation on consumer hardware -- and makes no claim beyond that.
+LocoLLM is not a replacement for any of these. Several of them may be exactly what you need, and if one of them solves your problem without the complexity of adapters, routers, and training pipelines, use it. LocoLLM exists for a specific niche, educational research into adapter-based specialisation on consumer hardware, and makes no claim beyond that.
 
 This page exists so you can make an informed choice.
-
----
 
 ## Model Runners
 
@@ -22,7 +20,7 @@ These tools download, manage, and run language models locally. They handle quant
 
 **Best for:** Anyone who wants to run models locally without thinking about the plumbing. The CLI is enough for exploration. The API enables everything else on this page.
 
-**Limitations:** No built-in web interface. No fine-tuning. Model library is curated -- you can import custom GGUFs via Modelfiles, but discoverability favours what's in the official library.
+**Limitations:** No built-in web interface. No fine-tuning. Model library is curated: you can import custom GGUFs via Modelfiles, but discoverability favours what's in the official library.
 
 [ollama.com](https://ollama.com)
 
@@ -42,7 +40,7 @@ These tools download, manage, and run language models locally. They handle quant
 
 **What it is:** A single executable file that contains both the inference engine and a model. Download one file, run it, get a local model with a web interface. No installation.
 
-**Why it matters:** llamafile solves the "how do I get this running" problem more completely than anything else. There is no installation step. No Python. No package manager. No GPU driver configuration. One file, one click. Mozilla backs the project, which gives it unusual institutional support for an open-source inference tool.
+**Why it matters:** llamafile solves the "how do I get this running" problem more completely than anything else. There is no installation step, no Python, no package manager, no GPU driver configuration: one file, one click. Mozilla backs the project, which gives it unusual institutional support for an open-source inference tool.
 
 **Best for:** Demonstrations, workshops, and situations where you need a model running on a machine you don't control. Hand someone a USB drive with a llamafile and they have a working local LLM.
 
@@ -96,7 +94,7 @@ These provide a web-based or desktop chat experience on top of a model runner li
 
 **What it is:** An all-in-one desktop and server application for local AI. Chat interface, document embedding, RAG pipeline, multi-user workspaces, and agent capabilities in a single install.
 
-**Why it matters:** AnythingLLM bundles what would otherwise require three or four separate tools: a chat interface, a vector database, a document processor, and a workspace manager. It connects to Ollama, LM Studio, or cloud APIs as backends. The workspace model -- separate conversations with separate document collections and separate system prompts -- maps well to project-based work.
+**Why it matters:** AnythingLLM bundles what would otherwise require three or four separate tools: a chat interface, a vector database, a document processor, and a workspace manager. It connects to Ollama, LM Studio, or cloud APIs as backends. The workspace model (separate conversations with separate document collections and separate system prompts) maps well to project-based work.
 
 **Best for:** Users who want document-grounded chat (RAG) without assembling a pipeline from components. The workspace model is particularly useful for keeping different projects or topics separated with their own context.
 
@@ -122,7 +120,7 @@ These provide a web-based or desktop chat experience on top of a model runner li
 
 **What it is:** A desktop application that provides a unified interface to multiple local and cloud models. Supports Ollama, LM Studio, and cloud providers through a single chat interface.
 
-**Why it matters:** Msty's differentiator is model comparison -- you can send the same prompt to multiple models simultaneously and compare responses side by side. It also supports local RAG with document upload and has a prompt library system.
+**Why it matters:** Msty's differentiator is model comparison: you can send the same prompt to multiple models simultaneously and compare responses side by side. It also supports local RAG with document upload and has a prompt library system.
 
 **Best for:** Comparing model outputs. Useful for evaluation and for understanding how different models handle the same task differently.
 
@@ -150,9 +148,9 @@ These are command-line tools for integrating local models into workflows, script
 
 ### fabric
 
-**What it is:** A command-line framework by Daniel Miessler for augmenting human capability with AI. Organised around "patterns" -- reusable prompt templates for specific tasks like summarisation, code review, or extracting insights.
+**What it is:** A command-line framework by Daniel Miessler for augmenting human capability with AI. Organised around "patterns": reusable prompt templates for specific tasks like summarisation, code review, or extracting insights.
 
-**Why it matters:** fabric's contribution is the pattern library. Rather than writing prompts from scratch each time, you select a pattern that encodes best practices for that task. Patterns are community-contributed and cover a wide range of use cases. It connects to local models via Ollama or to cloud APIs.
+**Why it matters:** fabric's contribution is the pattern library. You select a pattern that encodes best practices for a task, so you are not writing prompts from scratch each time. Patterns are community-contributed and cover a wide range of use cases. It connects to local models via Ollama or to cloud APIs.
 
 **Best for:** Users who find themselves repeating similar prompts. The pattern library is a practical prompt engineering resource even if you don't use fabric itself. Good for building repeatable AI-augmented workflows.
 
@@ -164,20 +162,20 @@ These are command-line tools for integrating local models into workflows, script
 
 ## How LocoLLM Relates
 
-LocoLLM uses Ollama as its inference backend. It does not replace any of the tools above -- it builds on top of them.
+LocoLLM uses Ollama as its inference backend. It does not replace any of the tools above; it builds on top of them.
 
 The tools on this page solve the problem of **running and interacting with models**. LocoLLM addresses a different problem: **what happens when you want to specialise a small model for a specific task, benchmark it across hardware tiers, and understand why the results look the way they do?**
 
-If you want to chat with a local model, use any of the tools above. If you want to train an adapter, evaluate it against the base model, route queries to specialised adapters, and benchmark across consumer GPUs -- that's where LocoLLM operates.
+If you want to chat with a local model, use any of the tools above. If you want to train an adapter, evaluate it against the base model, route queries to specialised adapters, and benchmark across consumer GPUs, that's where LocoLLM operates.
 
 Most of the tools above are complementary rather than competitive:
 
 - **Ollama** is LocoLLM's runtime. LocoLLM registers adapter models with Ollama and queries them through its API.
-- **Open WebUI** or **AnythingLLM** can serve as a frontend for models that LocoLLM has trained and registered with Ollama.
+- **Open WebUI** or **AnythingLLM** can be a frontend for models that LocoLLM has trained and registered with Ollama.
 - **llm** can query LocoLLM's adapter models via the Ollama plugin, integrating them into shell pipelines.
 - **LM Studio** can load the same GGUF files that LocoLLM produces, providing an alternative way to interact with trained adapters.
 
-The honest assessment: for most people exploring local AI, the tools on this page are sufficient. LocoLLM is for the subset who want to go further -- to train, evaluate, and understand small models on hardware they own.
+The honest assessment: for most people exploring local AI, the tools on this page are sufficient. LocoLLM is for the subset who want to go further, to train, evaluate, and understand small models on hardware they own.
 
 ---
 

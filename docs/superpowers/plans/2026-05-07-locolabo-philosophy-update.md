@@ -40,7 +40,7 @@
 
 ### Task 0: Verify the site builds clean before any changes
 
-**Files:** none modified — runtime check only.
+**Files:** none modified, runtime check only.
 
 - [ ] **Step 1: Verify dependencies are installed**
 
@@ -57,7 +57,7 @@ Expected: directory listing showing Astro packages installed. If empty or missin
 npm run build 2>&1 | tail -20
 ```
 
-Expected: build succeeds (`X pages built in Yms`). No errors, no warnings about broken links. If the build fails on existing content, stop and surface to the user — fixing pre-existing breakage is out of scope for this plan.
+Expected: build succeeds (`X pages built in Yms`). No errors, no warnings about broken links. If the build fails on existing content, stop and surface to the user: fixing pre-existing breakage is out of scope for this plan.
 
 - [ ] **Step 3: Confirm git working tree is clean**
 
@@ -67,7 +67,7 @@ git status --short
 
 Expected: empty output (no uncommitted changes). If anything is dirty, commit or stash before proceeding.
 
-No commit for this task — it's a baseline verification.
+No commit for this task; it's a baseline verification.
 
 ---
 
@@ -319,7 +319,7 @@ git commit -m "Add findings: living research notebook with status-marked artifac
 
 ## Phase 2: Edited files
 
-### Task 3: Edit `index.mdx` — replace Card 4, edit Card 3, add subhead, add hero action
+### Task 3: Edit index.mdx: replace Card 4, edit Card 3, add subhead, add hero action
 
 **Files:**
 - Modify: `src/content/docs/index.mdx`
@@ -431,7 +431,7 @@ Expected: build succeeds. Cards 1 and 2 unchanged; Cards 3 and 4 have new copy; 
 grep -i 'student' src/content/docs/index.mdx
 ```
 
-Expected: no output. (The two original references — "student privacy" in Card 3 and "Students learn by building" in Card 4 — are gone.)
+Expected: no output. (The two original references, "student privacy" in Card 3 and "Students learn by building" in Card 4, are gone.)
 
 - [ ] **Step 8: Commit**
 
@@ -442,7 +442,7 @@ git commit -m "index: surface five principles + findings; broaden privacy framin
 
 ---
 
-### Task 4: Edit `why-local-ai.md` — insert the offensive section
+### Task 4: Edit why-local-ai.md: insert the offensive section
 
 **Files:**
 - Modify: `src/content/docs/why-local-ai.md`
@@ -477,7 +477,7 @@ The "matches cloud on focused tasks" framing above is true and useful. It is als
 ---
 ```
 
-(Note the trailing `---` — preserve the separator pattern of the file.)
+(Note the trailing `---`: preserve the separator pattern of the file.)
 
 - [ ] **Step 3: Verify the site builds**
 
@@ -496,7 +496,7 @@ git commit -m "why-local-ai: add 'where local wins' offensive section"
 
 ---
 
-### Task 5: Edit `research.md` — framing line + Principles column
+### Task 5: Edit research.md: framing line + Principles column
 
 **Files:**
 - Modify: `src/content/docs/research.md`
@@ -580,7 +580,7 @@ git commit -m "research: link to thesis + findings; tag papers with enacted prin
 
 ---
 
-### Task 6: Edit `audience.md` — one connective sentence per persona
+### Task 6: Edit audience.md: one connective sentence per persona
 
 **Files:**
 - Modify: `src/content/docs/audience.md`
@@ -665,7 +665,7 @@ git commit -m "audience: connective tissue from each persona to relevant princip
 
 ### Task 7: Final integrity check
 
-**Files:** none modified — verification only.
+**Files:** none modified, verification only.
 
 - [ ] **Step 1: Build the entire site clean**
 
@@ -673,7 +673,7 @@ git commit -m "audience: connective tissue from each persona to relevant princip
 npm run build 2>&1 | tail -20
 ```
 
-Expected: build succeeds with no errors and no broken-link warnings. Note the page count — should be one or two higher than the Phase 0 baseline (two new pages, modulo Astro's index/redirect page count).
+Expected: build succeeds with no errors and no broken-link warnings. Note the page count: should be one or two higher than the Phase 0 baseline (two new pages, modulo Astro's index/redirect page count).
 
 - [ ] **Step 2: Verify all cross-links resolve**
 
@@ -702,7 +702,7 @@ kill $DEV_PID 2>/dev/null
 wait 2>/dev/null
 ```
 
-Expected: matching lines including the new "different bet" subhead and the new "five principles" card. (If the dev server uses a different port — Starlight's default is `4321`; check `astro.config.mjs` if needed — adjust the URL.)
+Expected: matching lines including the new "different bet" subhead and the new "five principles" card. (If the dev server uses a different port, Starlight's default is `4321`; check `astro.config.mjs` if needed, and adjust the URL.)
 
 - [ ] **Step 4: Verify no stale "student" references in the changed home-page cards**
 
@@ -726,7 +726,7 @@ Expected: no output.
 git log --oneline ae57a90..HEAD
 ```
 
-Expected: 6 commits — one per task (Tasks 1-6), in order. No spurious "fix typo" or "amend" commits.
+Expected: 6 commits, one per task (Tasks 1-6), in order. No spurious "fix typo" or "amend" commits.
 
 - [ ] **Step 6: If everything is clean, no further commit needed**
 
@@ -745,12 +745,12 @@ git commit -m "Final integrity sweep: <what was fixed>"
 
 These are documented in the spec's parking-lot section and are **not** in this plan:
 
-- **Visual diagram of the four-axis stack** — a new SVG/PNG image could supplement the existing 3-pillar image; defer until empirical results from MoE+RAM and harness work mature.
-- **Per-principle deep-dive pages** — if `the-loco-thesis.md` grows over time, individual principles might warrant their own pages.
-- **Translation to Spanish** — separate project.
-- **Update the index.mdx hero image (`lab.svg`)** to reflect the bridge framing visually — design work, separate from this content update.
-- **External-facing pitch deck or one-pager** — separate artifact.
-- **Footer / about-this-site updates** — defer.
+- **Visual diagram of the four-axis stack**: a new SVG/PNG image could supplement the existing 3-pillar image; defer until empirical results from MoE+RAM and harness work mature.
+- **Per-principle deep-dive pages**: if `the-loco-thesis.md` grows over time, individual principles might warrant their own pages.
+- **Translation to Spanish**: separate project.
+- **Update the index.mdx hero image (`lab.svg`)** to reflect the bridge framing visually: design work, separate from this content update.
+- **External-facing pitch deck or one-pager**: separate artifact.
+- **Footer / about-this-site updates**: defer.
 
 ---
 
@@ -761,6 +761,6 @@ These are documented in the spec's parking-lot section and are **not** in this p
 - **Build, don't lint.** There is no markdown lint configured. The build (`npm run build`) is the validation. If it succeeds, the content is structurally valid for Starlight.
 - **No `student` references in changed home-page cards or new pages.** The user explicitly broadened away from student-specific framing on the home page; the privacy and educational arguments live elsewhere (in `audience.md`'s Educator persona, in `why-local-ai.md` once that's read).
 - **Commit per task, not per file.** Each task ends in one commit; six commits total across Tasks 1-6, with Task 7 only committing if the integrity sweep finds something to fix.
-- **The findings page is a living document.** Don't try to make it complete or polished at launch — its job is to track what's actually built/measured/published, with status markers showing maturity. As the moe-budget runs land and the Keep Asking studies execute, entries move down the status ladder.
+- **The findings page is a living document.** Don't try to make it complete or polished at launch; its job is to track what's built/measured/published, with status markers showing maturity. As the moe-budget runs land and the Keep Asking studies execute, entries move down the status ladder.
 - **Voice check while writing.** The site uses second person sparingly and avoids hype. The thesis can be confident but not preachy. No buzzwords ("game-changing", "revolutionary"). Each principle should be defensible against a hostile reviewer. If a sentence sounds like marketing copy, rewrite it as a measurable claim.
-- **The `running` status on LocoPuente** in findings.md is intentional — it's the same operational maturity as `measured` (working in production), but `running` is more accurate for a service rather than an experiment.
+- **The `running` status on LocoPuente** in findings.md is intentional: it's the same operational maturity as `measured` (working in production), but `running` is more accurate for a service rather than an experiment.

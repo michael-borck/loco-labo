@@ -2,15 +2,15 @@
 title: "Nvidia GPU Generations -- An AI Inference Perspective"
 ---
 
-A reference for understanding Nvidia's consumer GPU lineup through the lens of local LLM inference rather than gaming performance. The two use cases share hardware but reward different specifications.
+A reference for understanding Nvidia's consumer GPU lineup for local LLM inference. The two use cases share hardware but reward different specifications.
 
-This document serves two distinct purposes and it is worth being clear about both upfront.
+It has two purposes, both worth stating upfront.
 
-**For readers choosing hardware:** each generation section identifies the best-in-class card per VRAM tier -- the card that delivers the most inference performance for that memory capacity. These are acquisition targets. If you are buying, this is what you should be aiming for.
+**For readers choosing hardware:** each generation section identifies the best-in-class card per VRAM tier, the card that delivers the most inference performance for that memory capacity. These are acquisition targets. If you are buying, this is what you should be aiming for.
 
-**For LocoBanco:** the benchmark lab deliberately inverts this. LocoBanco runs the *worst-in-class* card per VRAM tier -- the floor, not the ceiling. This is a constraint-based research discipline. By benchmarking the slowest representative of each tier, results are honest baselines that readers with better hardware can only improve on. More importantly, it keeps the research focused on optimisation rather than hardware. If a technique only works on a top-tier card, it is not a useful technique for most people. If it works on the floor card, it works everywhere in that tier.
+**For LocoBanco:** the benchmark lab deliberately inverts this. LocoBanco runs the *worst-in-class* card per VRAM tier, the floor, not the ceiling. This is a constraint-based research discipline. By benchmarking the slowest representative of each tier, results are honest baselines that readers with better hardware can only improve on. More importantly, it keeps the research focused on optimisation rather than hardware. If a technique only works on a top-tier card, it is not a useful technique for most people. If it works on the floor card, it works everywhere in that tier.
 
-The constraint is intentional. "Just buy a better card" is not a solution. The goal is to find out what is actually achievable within a given VRAM budget, using whatever card represents the worst realistic starting point. That discipline surfaces optimisations that comfortable hardware conceals.
+The constraint is intentional. "Just buy a better card" is not a solution. The goal is to find out what is achievable within a given VRAM budget, using whatever card represents the worst realistic starting point. That discipline surfaces optimisations that comfortable hardware conceals.
 
 **A note on the figures in this document:** VRAM capacity and memory bandwidth figures are theoretical specifications from manufacturer data. Real-world inference throughput (tokens per second) depends on model format, quantisation level, context length, framework version, driver, and operating system. Treat the bandwidth numbers as a ranking signal, not a performance prediction. For actual measured results at each VRAM tier and architecture, see [LocoBanco](https://github.com/michael-borck/loco-banco).
 
@@ -20,19 +20,19 @@ The constraint is intentional. "Just buy a better card" is not a solution. The g
 
 Before the tables, the metrics worth understanding:
 
-**Memory bandwidth** -- how fast weights move from VRAM to compute units. This is the primary bottleneck for LLM inference. More bandwidth = more tokens per second.
+**Memory bandwidth**: how fast weights move from VRAM to compute units. This is the primary bottleneck for LLM inference. More bandwidth = more tokens per second.
 
-**VRAM** -- how large a model you can load. The hard ceiling. A model that doesn't fit in VRAM doesn't run (or runs agonisingly slowly via system RAM offload).
+**VRAM**: how large a model you can load. The hard ceiling. A model that doesn't fit in VRAM doesn't run (or runs agonisingly slowly via system RAM offload).
 
-**Tensor Cores** -- dedicated hardware for mixed-precision matrix operations. Enable QLoRA adapter training and accelerate inference on supported frameworks. Arrived with Turing (RTX 2000 series). Absent from GTX cards including the GTX 1600 series.
+**Tensor Cores**: dedicated hardware for mixed-precision matrix operations. Enable QLoRA adapter training and accelerate inference on supported frameworks. Arrived with Turing (RTX 2000 series). Absent from GTX cards including the GTX 1600 series.
 
-**CUDA Compute Capability** -- the version floor that frameworks require. Ollama's minimum is Compute 5.0 (Maxwell). Modern tools like bitsandbytes, Unsloth, and current quantisation kernels require 6.0+ (Pascal). Cards below Compute 5.0 are unsupported by any current inference framework. Maxwell (5.x) works for basic Ollama inference but is excluded from advanced tooling.
+**CUDA Compute Capability**: the version floor that frameworks require. Ollama's minimum is Compute 5.0 (Maxwell). Modern tools like bitsandbytes, Unsloth, and current quantisation kernels require 6.0+ (Pascal). Cards below Compute 5.0 are unsupported by any current inference framework. Maxwell (5.x) works for basic Ollama inference but is excluded from advanced tooling.
 
-**CUDA Core count** -- largely irrelevant for inference. Matters for gaming and rendering. Don't optimise for this.
+**CUDA Core count**: largely irrelevant for inference. Matters for gaming and rendering. Don't optimise for this.
 
 ---
 
-## Pre-Maxwell (600/700 Kepler Series) -- Not Supported
+## Pre-Maxwell (600/700 Kepler Series): Not Supported
 
 Kepler (600 series and most 700 series) sits at Compute 3.x. No current inference framework supports it. These cards will not run Ollama, bitsandbytes, or any modern AI tooling. There is no workaround. If you own one, it is not useful for inference.
 
@@ -40,32 +40,32 @@ Kepler (600 series and most 700 series) sits at Compute 3.x. No current inferenc
 
 ---
 
-## GTX 700 Maxwell / GTX 900 Series -- Maxwell (2014--2016)
+## GTX 700 Maxwell / GTX 900 Series: Maxwell (2014--2016)
 
-The true compute floor for Ollama is Compute 5.0, which means Maxwell qualifies. No Tensor Cores, GDDR5 memory throughout, and bitsandbytes/Unsloth will not run here -- but Ollama does, and that makes these cards legitimate LocoBanco data points for the bottom of each VRAM tier.
+The true compute floor for Ollama is Compute 5.0, which means Maxwell qualifies. No Tensor Cores, GDDR5 memory throughout, and bitsandbytes/Unsloth will not run here, but Ollama does, and that makes these cards legitimate LocoBanco data points for the bottom of each VRAM tier.
 
 The GTX 750 Ti is technically a 700 series card but Maxwell architecture, making it the single lowest-compute card that Ollama will use. The 900 series is fully Maxwell.
 
-**Note on the GTX 970:** Avoid for inference. The advertised 4 GB is actually 3.5 GB of full-speed VRAM plus 0.5 GB of slow VRAM accessed via a narrower bus. Models that exceed 3.5 GB will suffer a severe performance cliff. It is not a true 4 GB card.
+**Note on the GTX 970:** Avoid for inference. The advertised 4 GB is 3.5 GB of full-speed VRAM plus 0.5 GB of slow VRAM accessed via a narrower bus. Models that exceed 3.5 GB will suffer a severe performance cliff. It is not a true 4 GB card.
 
 | Card | VRAM | Memory BW | Compute | AI Notes |
 |------|------|-----------|---------|----------|
 | GTX 750 Ti | 2 GB GDDR5 | 86 GB/s | 5.0 | True floor. Minimum compute Ollama accepts. TinyLlama only. |
-| GTX 950 | 2 GB GDDR5 | 105 GB/s | 5.2 | 2 GB ceiling -- TinyLlama, Phi-2 territory only. |
+| GTX 950 | 2 GB GDDR5 | 105 GB/s | 5.2 | 2 GB ceiling: TinyLlama, Phi-2 territory only. |
 | GTX 960 2 GB | 2 GB GDDR5 | 112 GB/s | 5.2 | Same VRAM ceiling as 950, slightly more bandwidth. |
 | GTX 960 4 GB | 4 GB GDDR5 | 112 GB/s | 5.2 | Floor of 4 GB tier in this generation. Low bandwidth. |
-| GTX 970 | 3.5 GB GDDR5 | 196 GB/s | 5.2 | Avoid -- memory architecture defect. Not a true 4 GB card. |
+| GTX 970 | 3.5 GB GDDR5 | 196 GB/s | 5.2 | Avoid: memory architecture defect. Not a true 4 GB card. |
 | GTX 980 | 4 GB GDDR5 | 224 GB/s | 5.2 | Better 4 GB option than 960. Twice the bandwidth. |
 | GTX 980 Ti | 6 GB GDDR5 | 336 GB/s | 5.2 | Only 6 GB card in this generation. Reasonable bandwidth. |
 | GTX Titan X | 12 GB GDDR5 | 336 GB/s | 5.2 | 12 GB VRAM is the headline. Bandwidth modest for the tier. |
 
-**AI sweet spot in this generation:** There isn't one for acquisition purposes. These cards are useful as LocoBanco floor representatives -- particularly the GTX 960 4 GB (floor of 4 GB Maxwell), GTX 980 Ti (only 6 GB option), and GTX Titan X (floor of 12 GB tier predating Pascal). The Titan X's 12 GB at $150--200 AUD secondhand is marginal value given Pascal alternatives, but as a benchmark data point for the absolute bandwidth floor of the 12 GB tier it has research utility.
+**AI sweet spot in this generation:** There isn't one for acquisition purposes. These cards are useful as LocoBanco floor representatives, particularly the GTX 960 4 GB (floor of 4 GB Maxwell), GTX 980 Ti (only 6 GB option), and GTX Titan X (floor of 12 GB tier predating Pascal). The Titan X's 12 GB at $150-200 AUD secondhand is marginal value given Pascal alternatives, but as a benchmark data point for the absolute bandwidth floor of the 12 GB tier it has research utility.
 
-**LocoBanco notes:** Maxwell cards are worth acquiring cheaply as tier floor representatives. None should be prioritised over Pascal or later equivalents. If a GTX 960 4 GB or GTX 980 Ti appears for under $30--40 AUD, it rounds out the Maxwell tier data. The Titan X at current secondhand prices ($150--200 AUD) does not represent good value when a Pascal 1080 Ti offers more bandwidth for a similar outlay.
+**LocoBanco notes:** Maxwell cards are worth acquiring cheaply as tier floor representatives. None should be prioritised over Pascal or later equivalents. If a GTX 960 4 GB or GTX 980 Ti appears for under $30-40 AUD, it rounds out the Maxwell tier data. The Titan X at current secondhand prices ($150-200 AUD) does not represent good value when a Pascal 1080 Ti offers more bandwidth for a similar outlay.
 
 ---
 
-## GTX 1000 Series -- Pascal (2016--2017)
+## GTX 1000 Series: Pascal (2016--2017)
 
 Compute capability 6.x. No Tensor Cores. Still functional for inference but heading toward framework deprecation. The floor for anything worth running today.
 
@@ -78,11 +78,11 @@ Compute capability 6.x. No Tensor Cores. Still functional for inference but head
 | GTX 1080 Ti | 11 GB GDDR5X | 484 GB/s | Interesting: 11 GB and high bandwidth. Aging fast. |
 | Titan X Pascal | 12 GB GDDR5X | 480 GB/s | 12 GB VRAM attractive but Pascal lifespan limited. |
 
-**AI sweet spot in this generation:** GTX 1060 6 GB for minimum viable 7B inference. GTX 1080 Ti if you find one cheaply -- the bandwidth still holds up. Everything else is either too little VRAM or too little bandwidth to be worth acquiring now.
+**AI sweet spot in this generation:** GTX 1060 6 GB for minimum viable 7B inference. GTX 1080 Ti if you find one cheaply; the bandwidth still holds up. Everything else is either too little VRAM or too little bandwidth to be worth acquiring now.
 
 ---
 
-## GTX 1600 Series -- Turing Without Tensor Cores (2019)
+## GTX 1600 Series: Turing Without Tensor Cores (2019)
 
 Turing architecture but deliberately stripped of RT Cores and Tensor Cores to protect RTX pricing. Compute capability 7.5. Better efficiency than Pascal, GDDR6 memory on top models.
 
@@ -94,13 +94,13 @@ Turing architecture but deliberately stripped of RT Cores and Tensor Cores to pr
 | GTX 1660 Super | 6 GB GDDR6 | 336 GB/s | Big bandwidth jump over base 1660. Good value. |
 | GTX 1660 Ti | 6 GB GDDR6 | 288 GB/s | Top of GTX line. Turing efficiency, no Tensor Cores. |
 
-**AI sweet spot in this generation:** GTX 1660 Super -- same VRAM as the Ti but higher bandwidth. The GTX 1660 Ti is the better-known card but the Super edges it on the metric that matters. No Tensor Cores means inference only, no QLoRA training.
+**AI sweet spot in this generation:** GTX 1660 Super: same VRAM as the Ti but higher bandwidth. The GTX 1660 Ti is the better-known card but the Super edges it on the metric that matters. No Tensor Cores means inference only, no QLoRA training.
 
 **Note on the 1650:** Low power draw and no external connector makes it practical in office machines (Optiplex, ThinkCentre). That's its value, not inference performance.
 
 ---
 
-## RTX 2000 Series -- Turing With Tensor Cores (2018--2019)
+## RTX 2000 Series: Turing With Tensor Cores (2018--2019)
 
 The RTX brand debut. First generation Tensor Cores enable mixed-precision training and accelerated inference. Compute capability 7.5. The first generation worth considering for QLoRA adapter training.
 
@@ -115,13 +115,13 @@ The RTX brand debut. First generation Tensor Cores enable mixed-precision traini
 | RTX 2080 Ti | 11 GB GDDR6 | 616 GB/s | Good bandwidth, 11 GB useful. Premium pricing. |
 | Titan RTX | 24 GB GDDR6 | 672 GB/s | 24 GB VRAM, high bandwidth. Rare and expensive. |
 
-**AI sweet spot in this generation:** RTX 2060 Super. Punches well above its name and price. Matches the 2070 Super and 2080 on inference-relevant specs while trading on a lower reputation. The 2080 Super is the only card in this range that meaningfully improves on it -- and the price gap rarely justifies the modest bandwidth gain.
+**AI sweet spot in this generation:** RTX 2060 Super. Punches well above its name and price. Matches the 2070 Super and 2080 on inference-relevant specs while trading on a lower reputation. The 2080 Super is the only card in this range that meaningfully improves on it, and the price gap rarely justifies the modest bandwidth gain.
 
 ---
 
-## RTX 3000 Series -- Ampere (2020--2022)
+## RTX 3000 Series: Ampere (2020--2022)
 
-Second generation Tensor Cores, significant efficiency gains, DLSS 2.0. Compute capability 8.6. The generation where VRAM choices became fragmented -- Nvidia made some unusual decisions.
+Second generation Tensor Cores, significant efficiency gains, DLSS 2.0. Compute capability 8.6. The generation where VRAM choices became fragmented, and Nvidia made some unusual decisions.
 
 | Card | VRAM | Memory BW | AI Notes |
 |------|------|-----------|----------|
@@ -137,29 +137,29 @@ Second generation Tensor Cores, significant efficiency gains, DLSS 2.0. Compute 
 
 **AI sweet spots in this generation:**
 
-RTX 3060 -- the cheapest path to 12 GB VRAM. Counterintuitively slower than the 2060 Super for models that fit in 8 GB due to lower bandwidth. Its value is entirely in the VRAM headroom.
+RTX 3060: the cheapest path to 12 GB VRAM. Counterintuitively slower than the 2060 Super for models that fit in 8 GB due to lower bandwidth. Its value is entirely in the VRAM headroom.
 
-RTX 3080 12 GB -- if budget allows. Near 1 TB/s bandwidth plus 12 GB VRAM is a genuinely strong combination.
+RTX 3080 12 GB: if budget allows. Near 1 TB/s bandwidth plus 12 GB VRAM is a genuinely strong combination.
 
-RTX 3090 -- the consumer ceiling worth waiting for. 24 GB VRAM handles 13B models comfortably. Secondhand pricing is elevated while demand from AI workloads keeps it high, but will fall as 40-series supply increases.
+RTX 3090: the consumer ceiling worth waiting for. 24 GB VRAM handles 13B models comfortably. Secondhand pricing is elevated while demand from AI workloads keeps it high, but will fall as 40-series supply increases.
 
-**A note on scope:** For a lab focused on small models -- 3B to 13B quantised -- 12 GB is the practical ceiling where new VRAM headroom stops unlocking meaningfully different use cases. The 3060 is the workhorse tier. The 3090 is documented for completeness and to answer the question of whether results scale predictably to larger VRAM, not because 24 GB is necessary for the lab's primary purpose. Everything above 12 GB in this document is reference material, not a recommendation.
+**A note on scope:** For a lab focused on small models (3B to 13B quantised), 12 GB is the practical ceiling where new VRAM headroom stops unlocking meaningfully different use cases. The 3060 is the workhorse tier. The 3090 is documented for completeness and to answer the question of whether results scale predictably to larger VRAM, not because 24 GB is necessary for the lab's primary purpose. Everything above 12 GB in this document is reference material, not a recommendation.
 
 ---
 
-## RTX 4000 and 5000 Series -- Reference Only
+## RTX 4000 and 5000 Series: Reference Only
 
 The sections below cover Ada Lovelace (40-series) and Blackwell (50-series). They are included as a reference for bandwidth progression and VRAM tiers, not as acquisition targets for a lab built on opportunistic secondhand purchasing.
 
-Two things make these generations practically out of scope. First, pricing: 40-series secondhand values remain elevated, and 50-series has no meaningful secondhand market at all. Second, and more fundamentally, Nvidia has changed its approach to consumer memory. High-bandwidth GDDR6X and GDDR7 is increasingly allocated to datacenter products, while consumer cards -- particularly in the 60-class -- receive narrower memory buses and lower bandwidth than their predecessors. The 4060 Ti is slower for inference than a 2060 Super from 2019. The 5060 Ti 16 GB launched, sold out, and was quietly designated end of life by major AIB partners within months. This is not an accident; it reflects where Nvidia's memory supply priorities sit.
+Two things make these generations practically out of scope. First, pricing: 40-series secondhand values remain elevated, and 50-series has no meaningful secondhand market at all. Second, and more fundamentally, Nvidia has changed its approach to consumer memory. High-bandwidth GDDR6X and GDDR7 is increasingly allocated to datacenter products, while consumer cards, particularly in the 60-class, receive narrower memory buses and lower bandwidth than their predecessors. The 4060 Ti is slower for inference than a 2060 Super from 2019. The 5060 Ti 16 GB launched, sold out, and was designated end of life by major AIB partners within months. This is not an accident; it reflects where Nvidia's memory supply priorities sit.
 
 The 40 and 50 series tables are here so readers with newer hardware can locate themselves in the bandwidth progression and extrapolate from LocoBanco's floor-card results. They are not recommendations.
 
 ---
 
-## RTX 4000 Series -- Ada Lovelace (2022--2024)
+## RTX 4000 Series: Ada Lovelace (2022--2024)
 
-Third generation Tensor Cores, DLSS 3, AV1 encode. Compute capability 8.9. The generation where Nvidia made memory bus decisions that directly penalise LLM inference on the lower-end cards -- and introduced 16 GB as a meaningful new VRAM tier at the high end.
+Third generation Tensor Cores, DLSS 3, AV1 encode. Compute capability 8.9. The generation where Nvidia made memory bus decisions that directly penalise LLM inference on the lower-end cards, and introduced 16 GB as a meaningful new VRAM tier at the high end.
 
 | Card | VRAM | Memory BW | AI Notes |
 |------|------|-----------|----------|
@@ -167,7 +167,7 @@ Third generation Tensor Cores, DLSS 3, AV1 encode. Compute capability 8.9. The g
 | RTX 4060 Ti 8 GB | 8 GB GDDR6 | 288 GB/s | Same bus problem. Skip unless price is exceptional. |
 | RTX 4060 Ti 16 GB | 16 GB GDDR6 | 288 GB/s | The 16 GB VRAM is tempting; the 288 GB/s is not. Slowest path to 16 GB. |
 | RTX 4070 | 12 GB GDDR6X | 504 GB/s | Returns to reasonable bandwidth. Solid 12 GB card. |
-| RTX 4070 Super | 12 GB GDDR6X | 504 GB/s | Same bandwidth as 4070, slightly more CUDA cores -- irrelevant for inference. |
+| RTX 4070 Super | 12 GB GDDR6X | 504 GB/s | Same bandwidth as 4070, slightly more CUDA cores: irrelevant for inference. |
 | RTX 4070 Ti | 12 GB GDDR6X | 504 GB/s | No bandwidth gain over 4070. Premium for gaming features that don't help here. |
 | RTX 4070 Ti Super | 16 GB GDDR6X | 672 GB/s | First 16 GB card with meaningful bandwidth. Good inference card at the right price. |
 | RTX 4080 | 16 GB GDDR6X | 717 GB/s | Strong 16 GB card. 34% more bandwidth than the 4080 Super's predecessor. |
@@ -176,29 +176,29 @@ Third generation Tensor Cores, DLSS 3, AV1 encode. Compute capability 8.9. The g
 
 **AI sweet spots in this generation:**
 
-RTX 4070 Super -- the lowest Ada card where the bandwidth story holds up. Matches the 3070 Ti on bandwidth while bringing Ada efficiency and longer framework support horizon.
+RTX 4070 Super: the lowest Ada card where the bandwidth story holds up. Matches the 3070 Ti on bandwidth while bringing Ada efficiency and longer framework support horizon.
 
-RTX 4070 Ti Super -- opens the 16 GB tier without the bandwidth penalty of the 4060 Ti 16 GB. If 16 GB is the target and budget is flexible, this is the floor to look for.
+RTX 4070 Ti Super: opens the 16 GB tier without the bandwidth penalty of the 4060 Ti 16 GB. If 16 GB is the target and budget is flexible, this is the floor to look for.
 
-RTX 4080 / 4080 Super -- the practical 16 GB high watermark for Ada. Not meaningfully different from each other; buy whichever is cheaper.
+RTX 4080 / 4080 Super: the practical 16 GB high watermark for Ada. Not meaningfully different from each other; buy whichever is cheaper.
 
-**What to avoid:** The 4060 and 4060 Ti in any configuration. The 128-bit memory bus makes them slower for inference than cards released years earlier. The 4060 Ti 16 GB is particularly frustrating -- the VRAM is there, the bandwidth is not.
+**What to avoid:** The 4060 and 4060 Ti in any configuration. The 128-bit memory bus makes them slower for inference than cards released years earlier. The 4060 Ti 16 GB is particularly frustrating: the VRAM is there, the bandwidth is not.
 
 ---
 
-## RTX 5000 Series -- Blackwell (2025--)
+## RTX 5000 Series: Blackwell (2025--)
 
-Fourth generation RT Cores, fifth generation Tensor Cores. GDDR7 memory across the range -- the first consumer generation where the memory technology itself is a step change. Compute capability 10.0. FP4 precision support is new to this generation, with potential benefits for quantised inference as frameworks mature to use it.
+Fourth generation RT Cores, fifth generation Tensor Cores. GDDR7 memory across the range, the first consumer generation where the memory technology itself is a step change. Compute capability 10.0. FP4 precision support is new to this generation, with potential benefits for quantised inference as frameworks mature to use it.
 
 The 50-series has no meaningful secondhand market at time of writing. This section is included as a reference for the bandwidth ceiling and VRAM tiers the generation introduces, and for future reference as pricing eventually normalises.
 
 **On the RTX 5050 8GB and RTX 5060 8GB:**
 
-The RTX 5050 uses GDDR6 rather than GDDR7 — a cost decision that puts it at 320 GB/s on a 128-bit bus. The RTX 5060 uses GDDR7 on the same 128-bit bus, yielding approximately 420 GB/s. Both are 8 GB only. Both use PCIe x8.
+The RTX 5050 uses GDDR6 rather than GDDR7, a cost decision that puts it at 320 GB/s on a 128-bit bus. The RTX 5060 uses GDDR7 on the same 128-bit bus, yielding approximately 420 GB/s. Both are 8 GB only. Both use PCIe x8.
 
-Neither card is a recommended acquisition for inference throughput. The secondhand 2060 Super at 448 GB/s outperforms the 5060 on the metric that matters, costs less, and carries no PCIe lane penalty. These are Blackwell badges on constrained memory buses — a segmentation decision that sends GDDR7 supply to higher-margin products.
+Neither card is a recommended acquisition for inference throughput. The secondhand 2060 Super at 448 GB/s outperforms the 5060 on the metric that matters, costs less, and carries no PCIe lane penalty. These are Blackwell badges on constrained memory buses, a segmentation decision that sends GDDR7 supply to higher-margin products.
 
-The RTX 5050 8 GB is now in the LocoLabo fleet and is included in the table as the Blackwell floor for the 8 GB tier. The research question is whether Blackwell's fifth-generation Tensor Cores and FP4 support produce measurable inference gains despite the bandwidth deficit — and whether those gains appear as framework support for FP4 matures. See [LocoBanco](https://github.com/michael-borck/loco-banco) for measured results.
+The RTX 5050 8 GB is now in the LocoLabo fleet and is included in the table as the Blackwell floor for the 8 GB tier. The research question is whether Blackwell's fifth-generation Tensor Cores and FP4 support produce measurable inference gains despite the bandwidth deficit, and whether those gains appear as framework support for FP4 matures. See [LocoBanco](https://github.com/michael-borck/loco-banco) for measured results.
 
 | Card | VRAM | Memory BW | AI Notes |
 |------|------|-----------|----------|
@@ -206,25 +206,25 @@ The RTX 5050 8 GB is now in the LocoLabo fleet and is included in the table as t
 | RTX 5070 | 12 GB GDDR7 | 672 GB/s | Same VRAM as 4070, substantially more bandwidth. Matches the 4070 Ti Super. |
 | RTX 5070 Ti | 16 GB GDDR7 | 896 GB/s | Strong 16 GB card. Better bandwidth than the 4090 for token generation. In LocoLabo fleet. |
 | RTX 5080 | 16 GB GDDR7 | 960 GB/s | 16 GB at near 1 TB/s. Outperforms the 4090 in token throughput. |
-| RTX 5090 | 32 GB GDDR7 | 1792 GB/s | First consumer 32 GB card. 1.79 TB/s -- 77% more than the 4090. |
+| RTX 5090 | 32 GB GDDR7 | 1792 GB/s | First consumer 32 GB card. 1.79 TB/s: 77% more than the 4090. |
 
 **AI notes on this generation:**
 
-The bandwidth gains from GDDR7 are real and inference-relevant. The 5090 leads every consumer card on token generation throughput by a meaningful margin. The 5080 at 960 GB/s exceeds the 4090's 1008 GB/s -- near enough to be comparable with the advantage of 16 GB rather than 24 GB.
+The bandwidth gains from GDDR7 are real and inference-relevant. The 5090 leads every consumer card on token generation throughput by a meaningful margin. The 5080 at 960 GB/s exceeds the 4090's 1008 GB/s, near enough to be comparable with the advantage of 16 GB rather than 24 GB.
 
-The 5070's 12 GB VRAM is a missed opportunity. Nvidia held VRAM constant while doubling bandwidth -- a deliberate segmentation decision. For 12 GB workloads it is fast; for 13B+ models it still can't load them.
+The 5070's 12 GB VRAM is a missed opportunity. Nvidia held VRAM constant while doubling bandwidth, a deliberate segmentation decision. For 12 GB workloads it is fast; for 13B+ models it still can't load them.
 
 The 5090's 32 GB tier is genuinely new. No previous consumer card has reached it. It opens 30B-class models in quantised form and enables larger context windows on 13B models that previously fit but ran out of KV-cache headroom.
 
 FP4 inference support lands in this generation but framework maturity lags. As bitsandbytes, llama.cpp, and Unsloth add FP4 kernels, 50-series cards will see throughput gains that 40-series cannot match architecturally. This is the long-term reason to prefer Blackwell, ahead of any near-term secondhand market.
 
-**The 5060 Ti 16 GB situation:** This card launched in April 2025 at around AUD $750-850, with GDDR7 on a 128-bit bus yielding approximately 448 GB/s -- the same as a 2060 Super, but with GDDR7 efficiency gains. It sold quickly and was designated end of life by major AIB partners within months, with Nvidia apparently halting GPU supply to that SKU. Production has shifted to 8 GB variants. The 16 GB version may reappear secondhand but treat any remaining new stock with caution regarding long-term availability of drivers and support. It is a better 16 GB option than the 4060 Ti 16 GB on bandwidth, but the EOL status complicates it as a LocoBanco acquisition target.
+**The 5060 Ti 16 GB situation:** This card launched in April 2025 at around AUD $750-850, with GDDR7 on a 128-bit bus yielding approximately 448 GB/s, the same as a 2060 Super, but with GDDR7 efficiency gains. It sold quickly and was designated end of life by major AIB partners within months, with Nvidia apparently halting GPU supply to that SKU. Production has shifted to 8 GB variants. The 16 GB version may reappear secondhand but treat any remaining new stock with caution regarding long-term availability of drivers and support. It is a better 16 GB option than the 4060 Ti 16 GB on bandwidth, but the EOL status complicates it as a LocoBanco acquisition target.
 
 ---
 
-## Server GPUs -- Deprecated Datacenter Hardware
+## Server GPUs: Deprecated Datacenter Hardware
 
-The sections above cover consumer cards designed for gamers. A parallel market exists in secondhand datacenter GPUs -- passively cooled, displayless cards originally deployed in servers and now available as institutions refresh their hardware. For headless inference workloads these cards often offer more VRAM and more bandwidth than the consumer cards that shipped alongside them.
+The sections above cover consumer cards designed for gamers. A parallel market exists in secondhand datacenter GPUs: passively cooled, displayless cards originally deployed in servers and now available as institutions refresh their hardware. For headless inference workloads these cards often offer more VRAM and more bandwidth than the consumer cards that shipped alongside them.
 
 **The thesis:** deprecated server GPUs make serious VRAM capacity accessible to people who cannot justify new consumer flagships. The tradeoffs are cooling (passive heatsinks expecting datacenter airflow), power (often 250W+ on EPS rather than PCIe connectors), and no display output. For an inference server these are acceptable. For a primary workstation they are not.
 
@@ -240,47 +240,47 @@ The sections above cover consumer cards designed for gamers. A parallel market e
 
 ### Why Each Card Matters
 
-**Tesla M4** -- an 8 GB Maxwell server card at Compute 5.2. Low bandwidth (88 GB/s) and the same compute ceiling as the M40, which means Ollama only -- no bitsandbytes, no Unsloth. Its research value is as the Maxwell floor for the 8 GB tier: the data point that shows what the architecture contributes independently of VRAM size. Incoming to the fleet; LocoBanco results forthcoming.
+**Tesla M4**: an 8 GB Maxwell server card at Compute 5.2. Low bandwidth (88 GB/s) and the same compute ceiling as the M40, which means Ollama only, no bitsandbytes and no Unsloth. Its research value is as the Maxwell floor for the 8 GB tier: the data point that shows what the architecture contributes independently of VRAM size. Incoming to the fleet; LocoBanco results forthcoming.
 
-**Tesla M40 24 GB** -- among the most accessible paths to 24 GB VRAM. Maxwell architecture at Compute 5.2 clears the Ollama floor but sits below the 6.0 threshold required by bitsandbytes, Unsloth, and modern quantisation kernels. Inference only, Ollama only. Bandwidth is modest. The research interest is the comparison against the P40: same VRAM, same memory technology, different architecture and compute capability. The pair isolates what Pascal actually buys on top of Maxwell at 24 GB.
+**Tesla M40 24 GB**: among the most accessible paths to 24 GB VRAM. Maxwell architecture at Compute 5.2 clears the Ollama floor but sits below the 6.0 threshold required by bitsandbytes, Unsloth, and modern quantisation kernels. Inference only, Ollama only. Bandwidth is modest. The research interest is the comparison against the P40: same VRAM, same memory technology, different architecture and compute capability. The pair isolates what Pascal buys on top of Maxwell at 24 GB.
 
-**Tesla P4** -- an 8 GB Pascal server card at Compute 6.1. At 192 GB/s it more than doubles the M4's bandwidth and clears the full modern inference stack. Remarkably low TDP (50--75W configurable), fanless, and common in the secondhand datacenter market as institutions retire P-series hardware. The P4 is the Pascal floor for the 8 GB tier and pairs directly with the M4 to isolate what Pascal architecture buys at identical VRAM. Incoming to the fleet; LocoBanco results forthcoming.
+**Tesla P4**: an 8 GB Pascal server card at Compute 6.1. At 192 GB/s it more than doubles the M4's bandwidth and clears the full modern inference stack. Remarkably low TDP (50-75W configurable), fanless, and common in the secondhand datacenter market as institutions retire P-series hardware. The P4 is the Pascal floor for the 8 GB tier and pairs directly with the M4 to isolate what Pascal architecture buys at identical VRAM. Incoming to the fleet; LocoBanco results forthcoming.
 
-**Tesla P40** -- the recommendation for a 24 GB inference server. Pascal architecture at Compute 6.1 supports the full modern inference stack. Twenty-four gigabytes of VRAM fits 13B models at useful quantisations with generous context, or 30B-class models at aggressive quantisations. No Tensor Cores, but the combination of capacity and workable bandwidth is the point.
+**Tesla P40**: the recommendation for a 24 GB inference server. Pascal architecture at Compute 6.1 supports the full modern inference stack. Twenty-four gigabytes of VRAM fits 13B models at useful quantisations with generous context, or 30B-class models at aggressive quantisations. No Tensor Cores, but the combination of capacity and workable bandwidth is the point.
 
-**Tesla P100** -- a LocoBanco workhorse. Sixteen gigabytes of HBM2 at 732 GB/s places bandwidth well above any consumer card of the same generation, and above most consumer cards for several generations after. No Tensor Cores limits adapter training to full-precision PEFT, but for inference the bandwidth story remains competitive with far newer hardware.
+**Tesla P100**: a LocoBanco workhorse. Sixteen gigabytes of HBM2 at 732 GB/s places bandwidth well above any consumer card of the same generation, and above most consumer cards for several generations after. No Tensor Cores limits adapter training to full-precision PEFT, but for inference the bandwidth story remains competitive with far newer hardware.
 
-**Tesla V100 16 GB and 32 GB** -- the flagships of this accessible tier. Volta introduces first-generation Tensor Cores, making the V100 the oldest server card capable of mixed-precision adapter training. HBM2 at 900 GB/s exceeds every consumer card through the 3000 series. The 32 GB variant opens 70B-class quantised inference -- a capability that otherwise requires recent consumer flagships. The V100 sits at the upper edge of what "deprecated and accessible" still describes, but remains in the spirit of the category.
+**Tesla V100 16 GB and 32 GB**: the flagships of this accessible tier. Volta introduces first-generation Tensor Cores, making the V100 the oldest server card capable of mixed-precision adapter training. HBM2 at 900 GB/s exceeds every consumer card through the 3000 series. The 32 GB variant opens 70B-class quantised inference, a capability that otherwise requires recent consumer flagships. The V100 sits at the upper edge of what "deprecated and accessible" still describes, but remains in the spirit of the category.
 
 ### The Compute 5.0 Floor Applied
 
-The framework boundary discussed at the top of this document -- Compute 5.0 for Ollama, 6.0+ for modern quantisation kernels and adapter training -- maps cleanly onto the server lineup and determines which datacenter cards remain worth acquiring:
+The framework boundary discussed at the top of this document (Compute 5.0 for Ollama, 6.0+ for modern quantisation kernels and adapter training) maps cleanly onto the server lineup and determines which datacenter cards remain worth acquiring:
 
 - **Kepler (K40, K80)** at Compute 3.5/3.7 falls below the floor. These cards turn up cheaply in the secondhand market but modern inference toolchains have dropped Kepler support. They are not worth the fight.
 - **Maxwell (M40)** at Compute 5.2 is the oldest practical entry point. Ollama runs; nothing else does.
 - **Pascal and later** at Compute 6.0+ cleared for the full stack, including Tensor Core adapter training from Volta onward.
 
-That boundary is why the server tier in LocoBanco starts at M40 and not K80. Reproducible results require cards current frameworks actually support.
+That boundary is why the server tier in LocoBanco starts at M40 and not K80. Reproducible results require cards current frameworks support.
 
 ### Practical Considerations
 
 Server GPUs are not drop-in replacements for consumer cards. Plan for:
 
-- **Passive cooling** -- these cards expect 1U or 2U server airflow. A workstation chassis needs aftermarket blower shrouds, ducting, or dedicated fans for reliable operation under sustained load.
-- **Power connectors** -- most use EPS (CPU) 8-pin rather than PCIe 8-pin. Adapters are inexpensive but required.
-- **No display output** -- headless only. The host system needs integrated graphics, a second GPU for display, or remote management.
-- **Driver branch** -- Nvidia's data center driver branch is separate from GeForce. On Linux this is rarely a problem; on Windows it is more intrusive.
+- **Passive cooling**: these cards expect 1U or 2U server airflow. A workstation chassis needs aftermarket blower shrouds, ducting, or dedicated fans for reliable operation under sustained load.
+- **Power connectors**: most use EPS (CPU) 8-pin rather than PCIe 8-pin. Adapters are inexpensive but required.
+- **No display output**: headless only. The host system needs integrated graphics, a second GPU for display, or remote management.
+- **Driver branch**: Nvidia's data center driver branch is separate from GeForce. On Linux this is rarely a problem; on Windows it is more intrusive.
 
 ### The Bigger Story
 
 Each card represents a VRAM capability tier reachable through the secondhand datacenter market rather than the consumer retail market:
 
-- **8 GB** -- M4 (Maxwell floor) or P4 (Pascal floor). Same VRAM as the consumer 8 GB tier but in server form factors. The M4/P4 pair isolates what architecture and compute capability contribute independently of VRAM size.
-- **24 GB** -- M40 or P40. Thirteen-billion-parameter inference with headroom, or 30B quantised.
-- **16 GB at high bandwidth** -- P100. Faster per-token generation than most consumer cards in the same VRAM tier.
-- **16--32 GB with Tensor Cores** -- V100 family. Mixed-precision adapter training and 70B quantised inference at the 32 GB tier.
+- **8 GB**: M4 (Maxwell floor) or P4 (Pascal floor). Same VRAM as the consumer 8 GB tier but in server form factors. The M4/P4 pair isolates what architecture and compute capability contribute independently of VRAM size.
+- **24 GB**: M40 or P40. Thirteen-billion-parameter inference with headroom, or 30B quantised.
+- **16 GB at high bandwidth**: P100. Faster per-token generation than most consumer cards in the same VRAM tier.
+- **16-32 GB with Tensor Cores**: V100 family. Mixed-precision adapter training and 70B quantised inference at the 32 GB tier.
 
-LocoBanco documents what is actually achievable at each of these tiers on this class of hardware. That directly supports the digital divide argument underpinning the wider LocoLabo programme: meaningful local AI does not require the newest consumer flagship, nor a workstation budget. It requires knowing which deprecated datacenter parts remain useful, and accepting the ergonomic cost of working with them.
+LocoBanco documents what is achievable at each of these tiers on this class of hardware. That directly supports the digital divide argument underpinning the wider LocoLabo programme: meaningful local AI does not require the newest consumer flagship, nor a workstation budget. It requires knowing which deprecated datacenter parts remain useful, and accepting the ergonomic cost of working with them.
 
 ---
 
@@ -298,23 +298,19 @@ A few things this data shows that contradict the obvious assumption that newer =
 
 **The 4060 Ti 16 GB is slower than the 2060 Super** despite being four years newer and having twice the VRAM. 288 GB/s vs 448 GB/s. The VRAM is real; the inference performance is not. It is the starkest example of Nvidia's memory bus decisions working against this use case.
 
-**Nvidia is increasingly treating high-bandwidth memory as a datacenter resource.** The pattern across 40 and 50 series consumer cards is narrower buses, lower bandwidth, and deliberate segmentation of VRAM. The 5060 Ti 16 GB being quietly discontinued months after launch is consistent with this. For local inference, the secondhand 30-series market remains better value per GB/s than new consumer hardware in the 60-class.
+**Nvidia is increasingly treating high-bandwidth memory as a datacenter resource.** The pattern across 40 and 50 series consumer cards is narrower buses, lower bandwidth, and deliberate segmentation of VRAM. The 5060 Ti 16 GB being discontinued months after launch is consistent with this. For local inference, the secondhand 30-series market remains better value per GB/s than new consumer hardware in the 60-class.
 
-**The oddball VRAM cards: 10 GB and 11 GB.** Three cards don't map cleanly to LocoBanco's VRAM tiers: the GTX 1080 Ti (11 GB), RTX 2080 Ti (11 GB), and RTX 3080 10 GB. They sit between the 8 GB and 12 GB tiers -- they can load models that won't fit in 8 GB, but can't quite reach everything a 12 GB card handles. For benchmarking purposes LocoBanco doesn't run a separate tier for them. If you own one, extrapolate from the 8 GB tier results and expect some headroom for larger quantisations or longer context windows. They're good cards if the price is right -- the 2080 Ti's 616 GB/s bandwidth is excellent and the 3080 10 GB's 760 GB/s is outstanding -- but the VRAM amount means they occupy an awkward middle ground that doesn't justify a dedicated benchmark tier.
-
----
-
----
+**The oddball VRAM cards: 10 GB and 11 GB.** Three cards don't map cleanly to LocoBanco's VRAM tiers: the GTX 1080 Ti (11 GB), RTX 2080 Ti (11 GB), and RTX 3080 10 GB. They sit between the 8 GB and 12 GB tiers: they can load models that won't fit in 8 GB, but can't quite reach everything a 12 GB card handles. For benchmarking purposes LocoBanco doesn't run a separate tier for them. If you own one, extrapolate from the 8 GB tier results and expect some headroom for larger quantisations or longer context windows. They're good cards if the price is right (the 2080 Ti's 616 GB/s bandwidth is excellent and the 3080 10 GB's 760 GB/s is outstanding), but the VRAM amount means they occupy an awkward middle ground that doesn't justify a dedicated benchmark tier.
 
 ## Why This Document Focuses on Nvidia
 
-Nvidia dominates local AI inference tooling because of CUDA. The ecosystem built on top of it — cuBLAS, cuDNN, bitsandbytes, Flash Attention, Unsloth, llama.cpp's CUDA kernels, and the quantisation tooling in the Hugging Face stack — is substantially more mature, better tested, and more widely deployed than the alternatives. When a new quantisation technique ships, when a new adapter training method appears, when a framework adds a new capability, it is almost always CUDA-first. AMD and Apple support typically follows weeks to months later, if at all.
+Nvidia dominates local AI inference tooling because of CUDA. The ecosystem built on top of it (cuBLAS, cuDNN, bitsandbytes, Flash Attention, Unsloth, llama.cpp's CUDA kernels, and the quantisation tooling in the Hugging Face stack) is substantially more mature, better tested, and more widely deployed than the alternatives. When a new quantisation technique ships, when a new adapter training method appears, when a framework adds a new capability, it is almost always CUDA-first. AMD and Apple support typically follows weeks to months later, if at all.
 
-**AMD** is catching up seriously. ROCm has improved substantially over the past two years. Ollama, llama.cpp, and Hugging Face now support AMD via the HIP/ROCm path, and for pure inference the gap has narrowed to acceptable on well-supported cards. For advanced quantisation kernels and adapter training tooling, ROCm still trails. AMD's unified memory architecture (Strix Halo / Ryzen AI 395) is a compelling inference platform in terms of raw VRAM capacity per dollar — see [HARDWARE.md](https://github.com/michael-borck/loco-puente/blob/main/HARDWARE.md) in the LocoPuente project for more on AMD unified memory deployment. As LocoLabo's AMD hardware grows, it will get its own reference documentation.
+**AMD** is catching up seriously. ROCm has improved substantially over the past two years. Ollama, llama.cpp, and Hugging Face now support AMD via the HIP/ROCm path, and for pure inference the gap has narrowed to acceptable on well-supported cards. For advanced quantisation kernels and adapter training tooling, ROCm still trails. AMD's unified memory architecture (Strix Halo / Ryzen AI 395) is a compelling inference platform in terms of raw VRAM capacity per dollar; see [HARDWARE.md](https://github.com/michael-borck/loco-puente/blob/main/HARDWARE.md) in the LocoPuente project for more on AMD unified memory deployment. As LocoLabo's AMD hardware grows, it will get its own reference documentation.
 
-**Apple MLX** is a well-engineered framework specific to Apple Silicon. For users on M-series hardware it is often the best inference path — native, power-efficient, actively developed by Apple, with strong community momentum. It is Apple-only; results don't transfer directly to other deployments. Apple Silicon's unified memory architecture (up to 512 GB on Mac Studio Ultra) is the most accessible path to very large VRAM pools without enterprise pricing. The MLX ecosystem is a legitimate research and deployment platform that this document does not cover.
+**Apple MLX** is a well-engineered framework specific to Apple Silicon. For users on M-series hardware it is often the best inference path: native, power-efficient, actively developed by Apple, with strong community momentum. It is Apple-only; results don't transfer directly to other deployments. Apple Silicon's unified memory architecture (up to 512 GB on Mac Studio Ultra) is the most accessible path to very large VRAM pools without enterprise pricing. The MLX ecosystem is a legitimate research and deployment platform that this document does not cover.
 
-**The practical position:** LocoLabo's hardware fleet is primarily Nvidia, so Nvidia is what gets benchmarked. The relationship between memory bandwidth and inference throughput holds across architectures — the absolute numbers differ, but the relative comparisons and tier logic apply. As AMD and Apple Silicon hardware enters the fleet, benchmark data for those architectures will be published separately. The goal is not Nvidia advocacy; it is honest data from the hardware that is actually available.
+**The practical position:** LocoLabo's hardware fleet is primarily Nvidia, so Nvidia is what gets benchmarked. The relationship between memory bandwidth and inference throughput holds across architectures: the absolute numbers differ, but the relative comparisons and tier logic apply. As AMD and Apple Silicon hardware enters the fleet, benchmark data for those architectures will be published separately. The goal is honest data from the hardware that is available, not Nvidia advocacy.
 
 ---
 

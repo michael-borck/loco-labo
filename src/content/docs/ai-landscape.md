@@ -2,11 +2,9 @@
 title: "AI Landscape"
 ---
 
-LocoLLM does not exist in isolation. Students and educators have a growing set of options for accessing AI, from free cloud tiers to fully local tools. This document maps the landscape honestly so that users can make informed choices — including the choice not to use LocoLLM.
+LocoLLM does not exist in isolation. Students and educators have a growing set of options for accessing AI, from free cloud tiers to fully local tools. This document maps the options honestly so users can make informed choices, including the choice not to use LocoLLM.
 
 A project that pretends its alternatives do not exist is selling something. We are not selling anything.
-
----
 
 ## Free and Low-Cost Cloud Options
 
@@ -46,22 +44,20 @@ Free tiers are not guaranteed. As the financial realities of inference compute b
 - Student-specific programmes (GitHub Education, Google for Education) are the most stable but require institutional partnerships
 - Free tiers are a user-acquisition strategy, and their long-term availability is not guaranteed
 
-This is not a criticism. It is the economics. But it means that any curriculum built entirely on free cloud AI is one pricing change away from disruption.
+That is the economics, and it means any curriculum built entirely on free cloud AI is one pricing change away from disruption.
 
----
+## GPU Rental: Self-Hosted in the Cloud
 
-## GPU Rental — Self-Hosted in the Cloud
+This is the option most comparisons miss. Between "use someone else's model via subscription" and "run your own model on your own hardware" sits a third path: rent GPU hardware and run your own model on it.
 
-This is the option most comparisons miss. Between "use someone else's model via subscription" and "run your own model on your own hardware" sits a third path: **rent GPU hardware and run your own model on it**.
-
-This is categorically different from subscribing to ChatGPT or Claude. You are not accessing an AI provider's model through their API. You are renting raw compute, deploying Ollama or llama.cpp yourself, and running an open-weight model of your choosing. Your data goes to your rented server — not through any AI company's inference infrastructure.
+This is categorically different from subscribing to ChatGPT or Claude. You are not accessing an AI provider's model through their API. You are renting raw compute, deploying Ollama or llama.cpp yourself, and running an open-weight model of your choosing. Your data goes to your rented server, not through any AI company's inference infrastructure.
 
 ### Why This Matters
 
 | | Managed AI (ChatGPT, Claude) | GPU Rental (RunPod, etc.) | Local Inference |
 |--|-----|-----|-----|
-| Data sovereignty | No — processed by provider | Yes — your server, your model | Yes — never leaves device |
-| Subscription model | Yes | No — pay for compute time used | No |
+| Data sovereignty | No: processed by provider | Yes: your server, your model | Yes: never leaves device |
+| Subscription model | Yes | No: pay for compute time used | No |
 | Hardware required | None | None | Yes |
 | Model choice | Provider's models only | Any open-weight model | Any open-weight model |
 | Availability | Requires internet | Requires internet | Works offline |
@@ -72,7 +68,7 @@ This is categorically different from subscribing to ChatGPT or Claude. You are n
 | Provider | Notes |
 |----------|-------|
 | **RunPod** | Best GPU-per-dollar for AI workloads. Spot (cheap, interruptible) and on-demand. Straightforward setup. |
-| **Vast.ai** | Peer-to-peer GPU marketplace — cheapest option, variable reliability. Good for short burst jobs. |
+| **Vast.ai** | Peer-to-peer GPU marketplace: cheapest option, variable reliability. Good for short burst jobs. |
 | **Lambda Labs** | Reserved instances, more predictable than spot markets. Good for longer-running deployments. |
 | **Paperspace** | Clean interface, good for students. Gradient notebooks lower the setup barrier. |
 | **AWS / GCP / Azure** | Enterprise SLAs and compliance, significantly higher cost. Relevant for institutional deployments. |
@@ -81,16 +77,14 @@ This is categorically different from subscribing to ChatGPT or Claude. You are n
 
 - You need more VRAM than your hardware provides (e.g., want to run a 70B model without buying a $2,000 machine)
 - You want a persistent server accessible to multiple users or from multiple locations
-- You are evaluating whether local inference is worth the hardware investment — rent first, buy later
+- You are evaluating whether local inference is worth the hardware investment: rent first, buy later
 - You need burst compute for a specific project without committing to hardware
 
 ### The Honest Trade-off
 
-GPU rental gives you data sovereignty and model choice without upfront hardware cost. The trade-off is ongoing compute cost — it is not free to leave a rented GPU instance running. For a student who uses it occasionally for a few hours at a time, RunPod spot instances can be surprisingly cheap. For a persistent always-on server, costs accumulate.
+GPU rental gives you data sovereignty and model choice without upfront hardware cost. The trade-off is ongoing compute cost: it is not free to leave a rented GPU instance running. For a student who uses it occasionally for a few hours at a time, RunPod spot instances can be surprisingly cheap. For a persistent always-on server, costs accumulate.
 
 **Honest assessment:** For students who cannot run capable models on their own hardware and are uncomfortable with the data implications of managed AI subscriptions, a RunPod spot instance running Ollama is a practical and principled middle path. It is also useful for experimenting with larger models before deciding whether to invest in hardware.
-
----
 
 ## Local Inference Tools
 
@@ -115,9 +109,7 @@ LocoLLM is not the only way to run models locally. The local AI ecosystem is mat
 | **Msty** | Lightweight local AI chat | Clean interface, low resource usage, ~5-10 tok/s on CPU | Limited advanced features |
 | **GPT4All** | Desktop chat with local models | Simple installation, curated model library | Less flexible than Ollama ecosystem |
 
-**Honest assessment:** A student who installs Ollama and runs Qwen3-4B with a thoughtful system prompt gets roughly 80% of what LocoLLM aims to provide — with dramatically less complexity. If their needs are "brainstorm, draft, iterate, think out loud," that is probably sufficient. Msty deserves particular mention: it provides a polished chat experience with CPU-viable models at 5-10 tokens per second, which is usable for conversation-style interaction.
-
----
+**Honest assessment:** A student who installs Ollama and runs Qwen3-4B with a thoughtful system prompt gets roughly 80% of what LocoLLM aims to provide, with dramatically less complexity. If their needs are "brainstorm, draft, iterate, think out loud," that is probably sufficient. Msty deserves particular mention: it provides a polished chat experience with CPU-viable models at 5-10 tokens per second, which is usable for conversation-style interaction.
 
 ## Where LocoLLM Fits
 
@@ -135,12 +127,12 @@ Given all of the above, LocoLLM needs to be clear about what it adds and what it
 - **Specialist routing.** No other local tool automatically dispatches queries to domain-specific trained adapters. Whether this adds meaningful value over a single generalist is an open research question (see [The Router Question](known-challenges.md#the-router-question)), but it is the core differentiator.
 - **Systematic evaluation.** Every adapter must prove it beats the base model. No vibes. This evaluation infrastructure does not exist in any of the tools listed above.
 - **Inference stacking.** RE2 prompting and self-consistency voting are free on local inference and expensive via API. LocoLLM applies these systematically.
-- **A research framework.** The semester-based contribution model, the evaluation gates, the benchmark infrastructure — these produce replicable findings, not just a chatbot.
+- **A research framework.** The semester-based contribution model, the evaluation gates, and the benchmark infrastructure produce replicable findings, not a chatbot.
 - **Benchmark data.** Systematic benchmarking of quantized small models on consumer hardware fills a genuine gap in the literature. This data has value independent of whether anyone uses the LocoLLM CLI.
 
 ### The Honest Positioning
 
-LocoLLM's value proposition is not "better than the alternatives." It is:
+LocoLLM's value proposition:
 
 1. **For students:** A local AI tool that works without internet, without rate limits, without cost, and without sending your work to a third party. Use free tiers when they are available. Use LocoLLM when they are not, or when you need unlimited iteration.
 
@@ -148,13 +140,11 @@ LocoLLM's value proposition is not "better than the alternatives." It is:
 
 3. **For researchers:** Benchmark data and methodology for quantized small models that does not exist elsewhere. Routing experiments under hard constraints. Publishable findings regardless of whether the results are positive or negative.
 
-4. **For anyone who cares about dependency:** A small demonstration that useful AI capability does not require a subscription to a company that might change its terms tomorrow. Not a revolution. A proof of concept.
-
----
+4. **For anyone who cares about dependency:** A small demonstration that useful AI capability does not require a subscription to a company that might change its terms tomorrow. It is a proof of concept, not a revolution.
 
 ## Recommendations for Students
 
-This is what LocoLLM actually recommends, not what a marketing page would say:
+Here is what LocoLLM recommends, without the marketing gloss:
 
 1. **Start with free tiers.** Google Gemini's free offering is excellent. Use it. Learn prompting, learn to evaluate output critically, develop AI literacy. This costs nothing and teaches the most important skill: working *with* AI, not *for* AI.
 
@@ -164,21 +154,19 @@ This is what LocoLLM actually recommends, not what a marketing page would say:
 
 4. **Consider GPU rental if you care about sovereignty but lack the hardware.** A RunPod spot instance running Ollama costs a few cents per hour and gives you full model choice and data control without buying a GPU. Useful for trying larger models, running a persistent shared server, or evaluating whether local inference is worth a hardware investment.
 
-6. **Use LocoLLM when it makes sense.** If you need unlimited local inference with no cost anxiety. If you are contributing to the project as a learning exercise. If you care about privacy. If you want to understand how adapter training and routing work by building the system yourself.
+6. **Use LocoLLM when it makes sense.** Use it when you need unlimited local inference with no cost anxiety, when you are contributing as a learning exercise, when you care about privacy, or when you want to understand adapter training and routing by building the system yourself.
 
 7. **Do not use LocoLLM because you think you should.** If free Gemini meets your needs, use free Gemini. The goal is student capability, not project adoption.
 
----
-
 ## The Bigger Picture
 
-The AI landscape is moving fast. Tools that are cutting-edge today may be commoditised or deprecated within a year. Free tiers may get more generous or may tighten. Local models will get better. New tools will emerge.
+AI is moving fast. Tools that are cutting-edge today may be commoditised or deprecated within a year. Free tiers may get more generous or may tighten. Local models will get better. New tools will emerge.
 
 LocoLLM's bet is that local capability retains value even as cloud capability improves, for practical reasons:
 
 - **Provider terms change.** Pricing, rate limits, and model availability are not under the user's control. Local inference is.
 - **Privacy is structural, not policy-based.** Local inference cannot leak what it does not send.
-- **Understanding how AI works** — by building it, not just using it — creates technical skills that using a hosted service does not develop.
+- **Understanding how AI works** by building it creates technical skills that a hosted service does not develop.
 - **Offline capability matters** for users with unreliable connectivity or in environments where cloud access is restricted.
 
-Whether that bet pays off is an empirical question. This document exists so that anyone evaluating LocoLLM can see the full landscape and make their own informed decision.
+Whether that bet pays off is an empirical question. Anyone evaluating LocoLLM can see the full picture and make their own informed decision.

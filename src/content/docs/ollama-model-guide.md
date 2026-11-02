@@ -2,7 +2,7 @@
 title: "Ollama Model Guide for 8GB VRAM"
 ---
 
-A practical guide to choosing and running models with Ollama on an 8GB VRAM card. This covers general inference use -- if you're here to train adapters, see the [adapter primer](adapter-primer.md) and [base model selection](base-model-selection.md) instead.
+A practical guide to choosing and running models with Ollama on an 8GB VRAM card. This covers general inference use. If you're here to train adapters, see the [adapter primer](adapter-primer.md) and [base model selection](base-model-selection.md) instead.
 
 ## The 8GB Sweet Spot
 
@@ -16,7 +16,7 @@ If you're unsure what quantisation format to use, Q4_K_M is almost always the ri
 
 | Rank | Model | Size | Why |
 |---|---|---|---|
-| 1 | **mistral:7b** | 4.4 GB | Best all-rounder -- fast, reliable, loads comfortably with plenty of headroom |
+| 1 | **mistral:7b** | 4.4 GB | Best all-rounder: fast, reliable, loads comfortably with plenty of headroom |
 | 2 | **deepseek-r1:8b** | 4.9 GB | Unbeatable for reasoning and logic, fits well within VRAM limits |
 | 3 | **qwen2.5vl:7b** | 6.0 GB | Adds multimodal (vision) capability with strong base performance |
 
@@ -41,7 +41,7 @@ If you're unsure what quantisation format to use, Q4_K_M is almost always the ri
 | **DeepSeek-R1 8B** | ~6.2GB VRAM | ~68 tok/s. Thinking is enabled by default in Ollama. |
 | **Qwen3 8B** | ~5.6GB VRAM | ~41 tok/s on RTX 4060. Leads maths reasoning benchmarks at this size. Also has thinking mode. |
 
-Both models have built-in chain-of-thought reasoning -- they think through problems before answering, which significantly improves accuracy on analytical tasks at the cost of some latency.
+Both models have built-in chain-of-thought reasoning: they think through problems before answering, which significantly improves accuracy on analytical tasks at the cost of some latency.
 
 ### Coding
 
@@ -80,17 +80,15 @@ Each command downloads the model on first run (one-time, typically 4-5GB) and st
 
 **Start with two models.** `mistral:7b` and `deepseek-r1:8b` are complementary: Mistral for fast general chat and assistants, DeepSeek-R1 for anything requiring chain-of-thought reasoning. Both fit comfortably on 8GB and get you running in under five minutes.
 
-**Watch your VRAM.** Only one model loads at a time by default. If you switch models frequently, Ollama keeps the previous model in memory for fast switching -- this can exceed 8GB with two large models. Use `ollama stop <model>` to unload explicitly.
+**Watch your VRAM.** Only one model loads at a time by default. If you switch models frequently, Ollama keeps the previous model in memory for fast switching, and this can exceed 8GB with two large models. Use `ollama stop <model>` to unload explicitly.
 
 **Context window matters.** A 7B model at Q4_K_M uses ~4.5GB for weights, but the KV cache grows with conversation length. On 8GB cards, keep context windows at 4,096-8,192 tokens to avoid spilling to system RAM. See [KV cache](small-model-strategies.md#kv-cache-the-hidden-vram-cost) for details.
 
-**Bigger model at lower quant beats smaller model at higher quant** for general inference. More parameters give better reasoning ability. If your card can fit a 7B at Q4_K_M, that's almost always better than a 3B at Q8. The exception is adapter training workflows (like LocoLLM's) where VRAM headroom for adapters and training matters more -- see [base model selection](base-model-selection.md#why-not-7b).
-
----
+**Bigger model at lower quant beats smaller model at higher quant** for general inference. More parameters give better reasoning ability. If your card can fit a 7B at Q4_K_M, that's almost always better than a 3B at Q8. The exception is adapter training workflows (like LocoLLM's) where VRAM headroom for adapters and training matters more; see [base model selection](base-model-selection.md#why-not-7b).
 
 ## Relation to LocoLLM
 
-LocoLLM standardises on **Qwen3-4B** at Q4_K_M -- deliberately smaller than the models above. This isn't because 4B is "best" for inference. It's because LocoLLM's architecture requires headroom for adapter swapping, KV cache, and training on 8GB machines. The [tunability inversion](base-model-selection.md#the-tunability-inversion) means adapter-trained 4B models close the gap to larger general-purpose models anyway.
+LocoLLM standardises on **Qwen3-4B** at Q4_K_M, deliberately smaller than the models above. LocoLLM's architecture requires headroom for adapter swapping, KV cache, and training on 8GB machines. The [tunability inversion](base-model-selection.md#the-tunability-inversion) means adapter-trained 4B models close the gap to larger general-purpose models anyway.
 
 If you're exploring local AI for personal use (not training adapters), the 7-9B models on this page are the right starting point.
 
@@ -118,7 +116,7 @@ These are the models currently pulled on the LocoLLM lab machines, categorised b
 | `phi3:3.8b` | 2.2 GB | Previous-generation Phi. Superseded by phi4-mini. |
 | `granite3.2:2b` | 1.5 GB | Lightweight IBM model. |
 | `granite3.3:2b` | 1.5 GB | Updated small Granite. |
-| `granite4:1b` | 3.3 GB | Surprisingly large for 1B -- latest architecture. |
+| `granite4:1b` | 3.3 GB | Surprisingly large for 1B: latest architecture. |
 | `granite3.1-moe:1b` | 1.4 GB | Tiny MoE model. |
 | `llama3.2:1b` | 1.3 GB | Very limited. |
 | `gemma3:1b` | 815 MB | Very limited. |
@@ -149,8 +147,8 @@ These are the models currently pulled on the LocoLLM lab machines, categorised b
 
 | Model | Size | Notes |
 |---|---|---|
-| `qwen2.5vl:7b` | 6.0 GB | **Best in class.** Strong image reasoning and document understanding. Borderline VRAM -- watch at longer context. |
-| `llava-llama3:8b` | 5.5 GB | LLaVA built on Llama 3. Borderline VRAM -- monitor usage. |
+| `qwen2.5vl:7b` | 6.0 GB | **Best in class.** Strong image reasoning and document understanding. Borderline VRAM: watch at longer context. |
+| `llava-llama3:8b` | 5.5 GB | LLaVA built on Llama 3. Borderline VRAM: monitor usage. |
 | `llava:7b` | 4.7 GB | The original open vision-language model. Solid general image understanding. |
 | `bakllava:7b` | 4.7 GB | LLaVA variant built on Mistral. |
 | `qwen2.5vl:3b` | 3.2 GB | Compact Qwen vision-language model. Good quality for the size. |
@@ -168,8 +166,8 @@ If you install two, add **`qwen2.5-coder:7b`** for dedicated coding work. The co
 | Comfort | Size Range | Examples |
 |---|---|---|
 | **Loads easily** | < 4.5 GB | `mistral:7b`, `phi4-mini`, `qwen3.5:4b`, `gemma3:4b` |
-| **Fine with headroom** | 4.5 -- 5.5 GB | `granite3.3:8b`, `qwen2.5-coder:7b`, `cogito:8b`, `qwen3`, `deepseek-r1:8b` |
-| **Borderline** | 5.5 -- 6.5 GB | `qwen2.5vl:7b`, `llava-llama3:8b` |
+| **Fine with headroom** | 4.5: 5.5 GB | `granite3.3:8b`, `qwen2.5-coder:7b`, `cogito:8b`, `qwen3`, `deepseek-r1:8b` |
+| **Borderline** | 5.5: 6.5 GB | `qwen2.5vl:7b`, `llava-llama3:8b` |
 | **Avoid** | > 6.5 GB | (too large for reliable 8GB use) |
 
 ---
@@ -178,12 +176,12 @@ If you install two, add **`qwen2.5-coder:7b`** for dedicated coding work. The co
 
 ### Image Understanding (Vision / Multimodal)
 
-Vision-language models accept images as input alongside text -- describe what's in a photo, answer questions about a diagram, extract text from a screenshot. Ollama supports these natively.
+Vision-language models accept images as input alongside text: describe what's in a photo, answer questions about a diagram, extract text from a screenshot. Ollama supports these natively.
 
 | Model | Size (Q4_K_M) | Notes |
 |---|---|---|
 | **Moondream** | ~1.8B | Tiny and fast. Good for basic image description and visual QA. Fits easily alongside other workloads. |
-| **Gemma 3 4B** | ~2.5GB | Built-in vision capability -- processes images natively without a separate vision encoder. Strong quality-to-size ratio. |
+| **Gemma 3 4B** | ~2.5GB | Built-in vision capability: processes images natively without a separate vision encoder. Strong quality-to-size ratio. |
 | **MiniCPM-V** | ~3-4GB | Compact multimodal model. Punches above its weight on visual reasoning. |
 | **LLaVA 7B** | ~4.5GB | The original open vision-language model. Solid general image understanding. |
 | **BakLLaVA** | ~4.5GB | LLaVA variant built on Mistral. Similar capability, different base model strengths. |
@@ -219,12 +217,12 @@ Image generation uses a different model architecture (diffusion models) and does
 | Model | VRAM | Notes |
 |---|---|---|
 | **Stable Diffusion 1.5** | ~4GB | Fast, huge community of fine-tunes and LoRAs. Lower resolution (512x512 native). |
-| **SDXL** | ~6-7GB | Higher quality, 1024x1024 native. Tight fit on 8GB -- use Forge or ComfyUI with memory optimisations enabled. |
+| **SDXL** | ~6-7GB | Higher quality, 1024x1024 native. Tight fit on 8GB: use Forge or ComfyUI with memory optimisations enabled. |
 | **SDXL Turbo / Lightning** | ~6-7GB | Distilled SDXL variants that generate in 1-4 steps instead of 20-50. Much faster, slightly lower quality. |
 | **Flux Schnell** | ~6-8GB | Latest generation. High quality, fast. Fits on 8GB with quantisation and offloading. |
 | **Stable Diffusion 3.5 Medium** | ~6GB | Multimodal Diffusion Transformer (MMDiT) architecture. Good balance of quality and VRAM. |
 
-**Practical note:** Image generation and LLM inference compete for the same VRAM. Don't run both simultaneously on an 8GB card -- unload your Ollama model first (`ollama stop <model>`) before generating images, and vice versa.
+**Practical note:** Image generation and LLM inference compete for the same VRAM. Don't run both simultaneously on an 8GB card: unload your Ollama model first (`ollama stop <model>`) before generating images, and vice versa.
 
 ---
 

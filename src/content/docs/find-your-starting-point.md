@@ -3,7 +3,7 @@ title: "Find Your Starting Point"
 description: A short interactive guide to where in LocoLabo to start, based on what pulls you in, what hardware you have, and what you actually want to do next.
 ---
 
-LocoLabo has six active projects and several supporting docs. Three short questions, and we'll point you at the one to start with — plus which of the others fit alongside.
+LocoLabo has six active projects and several supporting docs. Three short questions, and we'll point you at the one to start with, plus which of the others fit alongside.
 
 <div id="loco-wizard"></div>
 
@@ -436,7 +436,7 @@ LocoLabo has six active projects and several supporting docs. Three short questi
 
 If you'd rather browse directly:
 
-- **[All nine personas in detail](/audience/)** — the full audience page this wizard draws from
-- **[The thesis](/the-loco-thesis/)** — the five principles the projects sit on
-- **[Findings](/findings/)** — what's measured, what's claimed, and what would invalidate each
-- **[Research](/research/)** — active and planned studies across the lab
+- **[All nine personas in detail](/audience/):** the full audience page this wizard draws from
+- **[The thesis](/the-loco-thesis/):** the five principles the projects sit on
+- **[Findings](/findings/):** what's measured, what's claimed, and what would invalidate each
+- **[Research](/research/):** active and planned studies across the lab

@@ -3,15 +3,15 @@ title: "What We've Discovered"
 description: The artifacts behind each principle, with status markers — a living research notebook that evolves as work matures.
 ---
 
-LocoLabo claims [five principles](the-loco-thesis). Below are the artifacts — built, measured, or in progress — that those claims rest on. Each entry has a status marker borrowed from [research](research) (where papers carry similar markers):
+LocoLabo claims [five principles](the-loco-thesis). Below are the artifacts, built, measured, or in progress, that those claims rest on. Each entry has a status marker borrowed from [research](research) (where papers carry similar markers):
 
-- `claim` — position taken, not yet built
-- `architecture` — designed and specced, implementation pending
-- `built` — implementation shipped, not yet measured at scale
-- `measured` — empirical results, not yet published
-- `published` — paper or report public
+- `claim`: position taken, not yet built
+- `architecture`: designed and specced, implementation pending
+- `built`: implementation shipped, not yet measured at scale
+- `measured`: empirical results, not yet published
+- `published`: paper or report public
 
-This page evolves. Items move down the status ladder as work matures. Failed claims stay on the page with their evidence — that's the point.
+This page evolves. Items move down the status ladder as work matures. Failed claims stay on the page with their evidence.
 
 ---
 
@@ -28,7 +28,7 @@ This page evolves. Items move down the status ladder as work matures. Failed cla
 
 ## Specialize and harness
 
-### LocoAgente conversational harness — Phase 1
+### LocoAgente conversational harness: Phase 1
 
 - **Status:** `built`
 - **Claim:** a routed harness around small models (four-subsystem architecture: Orchestration / Context / Tools / Inference) makes a Qwen3-4B genuinely useful as a thinking partner for tasks where frontier models converge to the average
@@ -51,7 +51,7 @@ This page evolves. Items move down the status ladder as work matures. Failed cla
 - **Status:** `built`
 - **Claim:** N variants engineered to differ (identity frames, discipline frames, constraint inversions) produce more useful divergent output than N samples hoping to differ
 - **Artifacts:** four `FrameStrategy` implementations in `harness/frames.py` (`IdentityFrames`, `DisciplineFrames`, `TemperatureLadder`, `ConstraintInversion`); test suite verifying each strategy produces structurally distinct prompts; documented variance-collapse warning on `TemperatureLadder` for narrow temperature spreads
-- **What would invalidate:** if the four strategies all collapse to the same output distribution on small models — i.e., engineered framing doesn't actually channel variance through the model — the principle is just an aesthetic claim
+- **What would invalidate:** if the four strategies all collapse to the same output distribution on small models, that is, if engineered framing doesn't channel variance through the model, the principle is just an aesthetic claim
 
 ---
 
@@ -62,9 +62,9 @@ This page evolves. Items move down the status ladder as work matures. Failed cla
 - **Status:** `built`
 - **Claim:** every harness output carries a rationale and surfaced uncertainty (load-bearing `flags` + `verification_hooks`; auxiliary `confidence`); singular outputs are forbidden at the primitive level; the human's verification loop is cheap because the harness does the prep work
 - **Artifacts:** `Variant` and `Uncertainty` dataclasses in `harness/core.py`; XML tag parser enforcing required `<text>` and `<rationale>`; `CalibrationLog` recording user picks/rejects/edits as JSONL for downstream analysis
-- **What would invalidate:** if users routinely ignore the `verification_hooks` field — i.e., the harness produces hooks but they're not the right hooks — the principle is performative not functional
+- **What would invalidate:** if users routinely ignore the `verification_hooks` field (the harness produces hooks but they're not the right hooks), the principle is performative rather than functional
 
-### [Keep Asking](https://keep-asking.locolabo.org) — Study 1: Does the Nudge Work?
+### [Keep Asking](https://keep-asking.locolabo.org): Study 1: Does the Nudge Work?
 
 - **Status:** `architecture`
 - **Claim:** a conversational nudge shifts students from passive delegation to active conversation and improves task outcomes (using frontier models, to isolate the nudge effect from model quality)

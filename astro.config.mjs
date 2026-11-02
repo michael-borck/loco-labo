@@ -37,6 +37,7 @@ export default defineConfig({
           items: [
             { label: 'Papers & Projects', slug: 'research' },
             { label: 'Findings', slug: 'findings' },
+            { label: 'Capstone', slug: 'capstone' },
           ],
         },
         {
@@ -44,6 +45,7 @@ export default defineConfig({
           items: [
             { label: 'LocoLLM', link: 'https://locollm.org' },
             { label: 'LocoBanco', link: 'https://locobanco.org' },
+            { label: 'LocoBench Picker', link: 'https://picker.locobanco.org' },
             { label: 'LocoMusa', link: 'https://locomusa.org' },
             { label: 'LocoConvoy', link: 'https://lococonvoy.org' },
             { label: 'LocoEnsayo', link: 'https://locoensayo.org' },

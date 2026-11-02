@@ -79,6 +79,23 @@ The sub-4 GB tiers are included deliberately. Most inference guides assert a "4 
 
 **Community:** Results are designed to be reproducible. A single GPU owner can run the same harness and submit results. The benchmark matrix expands beyond what any single lab can cover.
 
+**Try the picker:** [LocoBench Picker](https://picker.locobanco.org) turns the tier data into an interactive GPU shortlist. Filter by VRAM, compute capability, cost, and benchmark metric, then read the Pareto frontier.
+
+---
+
+### LocoMusa
+*Which local model is the better thinking partner?*
+
+LocoMusa measures thinking-partner quality: ideation, reframing, steelmanning, and multi-turn dialogue. It complements LocoBanco, which measures precision knowledge and reasoning, by asking a different question: does the model make your next thought better?
+
+Tasks run in three tiers. Deterministic tasks are scored in code, open-ended tasks are judged pairwise and blind against frontier anchors, and scripted multi-turn conversations are judged on the full transcript. Human votes validate the judge, and the agreement rate is published with the leaderboard.
+
+**Hardware:** Poco for Apple Silicon validation; runs against any OpenAI-compatible endpoint
+
+**Questions:** Which local models are already good thinking partners? Does a harness add thinking-partner quality beyond the raw model? How closely does a frontier judge track human preference?
+
+**Site:** [locomusa.org](https://locomusa.org) · **Code:** [github.com/michael-borck/loco-musa](https://github.com/michael-borck/loco-musa)
+
 ---
 
 ### LocoConvoy
@@ -129,6 +146,10 @@ Every experiment after the frontier baseline runs free on local hardware. The ex
 **Hardware:** Shared with LocoLLM fleet (same base model, same adapters)
 
 **Questions:** Can a 4B model make productive decisions in an agent loop? Which scaffolding strategies compound most effectively across multiple reasoning steps? Is it more effective to make the agent smarter (better prompting) or to make the task simpler (constrained action spaces)? Where is the hard capability floor for small-model agents?
+
+## Capstone
+
+LocoLabo hosts student teams through Curtin's Industry Capstone program. The Semester 2 2026 pilot has two briefs: a total cost of ownership model for local versus cloud AI, and a domain-specialist adapter built on Qwen3-4B. Students work in the [capstone workspace](https://github.com/michael-borck/locolabo-capstone), and finished adapters are contributed to LocoLLM. The [capstone page](https://locolabo.org/capstone/) has the briefs and the supervision pack.
 
 ## The Lab
 

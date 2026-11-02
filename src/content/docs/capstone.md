@@ -1,6 +1,6 @@
 ---
 title: "Capstone"
-description: Student capstone projects with LocoLabo: a local-versus-cloud cost model and a domain-specialist adapter.
+description: "Student capstone projects with LocoLabo: a local-versus-cloud cost model and a domain-specialist adapter."
 ---
 
 LocoLabo hosts student teams through Curtin's Industry Capstone program. The lab brings a real problem, a working codebase, and the training scaffold. Students bring the analysis, the data work, and the evaluation.

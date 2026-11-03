@@ -2,7 +2,7 @@
 title: "Research"
 ---
 
-LocoLabo's research explores how local AI can support education, what small language models can do on consumer hardware, and how students interact with AI systems. Each paper is its own repository, and published papers become public with links to the full text.
+LocoLabo's research explores how local AI can support education, what small language models can do on consumer hardware, and how students interact with AI systems. Each paper is its own repository, and published papers become public with links to the full text. Formal papers, preprints, and the academic record also live at [research.borck.dev](https://research.borck.dev).
 
 Each paper enacts one or more of the lab's [five principles](the-loco-thesis). The artifacts behind these papers, built but not yet published, live in [findings](findings).
 

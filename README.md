@@ -83,6 +83,21 @@ The sub-4 GB tiers are included deliberately. Most inference guides assert a "4 
 
 ---
 
+### LocoFósil
+*Second-life GPUs, measured*
+
+LocoFósil extends the floor below LocoBanco: Kepler, Maxwell, Pascal, Turing, and old server cards that no longer receive modern CUDA. The question is what the minimum useful local inference node looks like in 2026, measured in capability, watts, and dollars.
+
+The first reference build is an Optiplex plus a Quadro K1200 running Kindi and a ternary 2B model. The project tracks a compatibility matrix, a benchmark suite, a low-power serving node, and a lightweight harness.
+
+**Hardware:** Quadro K420, 2x K1200, Tesla K40, K80, M10, K5200, and an Optiplex host
+
+**Questions:** What is the minimum useful node? Where does each runtime stop working? Does a 2B model become useful when the harness carries the structure? What does it cost per million tokens and per joule?
+
+**Site:** [locofosil.org](https://locofosil.org)
+
+---
+
 ### LocoMusa
 *Which local model is the better thinking partner?*
 
@@ -150,6 +165,10 @@ Every experiment after the frontier baseline runs free on local hardware. The ex
 ## Capstone
 
 LocoLabo hosts student teams through Curtin's Industry Capstone program. The Semester 2 2026 pilot has two briefs: a total cost of ownership model for local versus cloud AI, and a domain-specialist adapter built on Qwen3-4B. Students work in a private capstone workspace, and finished adapters are contributed to LocoLLM. The [capstone page](https://locolabo.org/capstone/) explains the programme and how the briefs are shared.
+
+## Notebook
+
+Dated notes, reading notes, experiment logs, and field observations live at [LocoNotas](https://loconotas.org). Formal papers and preprints live at [research.borck.dev](https://research.borck.dev).
 
 ## The Lab
 

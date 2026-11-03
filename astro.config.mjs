@@ -38,6 +38,8 @@ export default defineConfig({
             { label: 'Papers & Projects', slug: 'research' },
             { label: 'Findings', slug: 'findings' },
             { label: 'Capstone', slug: 'capstone' },
+            { label: 'LocoNotas', link: 'https://loconotas.org' },
+            { label: 'Research (borck.dev)', link: 'https://research.borck.dev' },
           ],
         },
         {
@@ -46,6 +48,7 @@ export default defineConfig({
             { label: 'LocoLLM', link: 'https://locollm.org' },
             { label: 'LocoBanco', link: 'https://locobanco.org' },
             { label: 'LocoBench Picker', link: 'https://picker.locobanco.org' },
+            { label: 'LocoFósil', link: 'https://locofosil.org' },
             { label: 'LocoMusa', link: 'https://locomusa.org' },
             { label: 'LocoConvoy', link: 'https://lococonvoy.org' },
             { label: 'LocoEnsayo', link: 'https://locoensayo.org' },

@@ -90,7 +90,7 @@ LocoFósil extends the floor below LocoBanco: Kepler, Maxwell, Pascal, Turing, a
 
 The first reference build is an Optiplex plus a Quadro K1200 running Kindi and a ternary 2B model. The project tracks a compatibility matrix, a benchmark suite, a low-power serving node, and a lightweight harness.
 
-**Hardware:** Quadro K420, 2x K1200, Tesla K40, K80, M10, K5200, and an Optiplex host
+**Hardware:** GeForce GTX 770, 2x Tesla K10, Tesla K80, Quadro K5200, K6000, K620, 2x K1200, P600, P1000, P2000, P4000
 
 **Questions:** What is the minimum useful node? Where does each runtime stop working? Does a 2B model become useful when the harness carries the structure? What does it cost per million tokens and per joule?
 

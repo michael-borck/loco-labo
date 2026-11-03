@@ -10,7 +10,7 @@ Sub-projects under LocoLabo:
 
 - **LocoLLM** (Búho): adapter training on the V100 32 GB; dedicated single-card training and inference
 - **LocoBanco** (Colmena + Tortuga + Hormiga + Hidra): benchmarking platform; Colmena covers RTX-era consumer tiers, Tortuga covers pre-RTX tiers, Hormiga anchors the SFF floor, Hidra covers the server GPU tiers. The [LocoBench Picker](https://picker.locobanco.org) turns that data into an interactive GPU shortlist.
-- **LocoFósil** (bench shelf): second-life GPUs from Kepler to Turing, measured for capability, watts, and cost; the first node is an Optiplex plus a K1200
+- **LocoFósil** (bench shelf): second-life GPUs across Kepler, Maxwell, and Pascal, measured for capability, watts, and cost; the first node is an Optiplex plus a K1200
 - **LocoMusa** (Poco): thinking-partner benchmark: ideation, reframing, and dialogue quality scored by pairwise judging against frontier anchors; runs anywhere an OpenAI-compatible endpoint speaks
 - **LocoConvoy** (Hidra): multi-GPU architecture experiments on full-bandwidth PCIe x16, on an open frame for rapid card swaps
 - **LocoPuente** (Puente): student-facing BridgeAI PoC: primary LLM, cited search, image generation, voice, research tooling, all on the Ryzen 5 2600 + RTX 3090 24 GB

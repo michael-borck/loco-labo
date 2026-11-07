@@ -38,13 +38,20 @@ single source of truth without merging the independent project repos.
       a pointer plus quick-start commands. Short READMEs left as-is; all gain a live-site link.
 - Acceptance met: each topic has one canonical explanation, and GitHub READMEs point at it.
 
-## Phase 4: tools and missing sources
+## Phase 4: tools and shared results (in progress)
 
-- [ ] Move LocoBench Picker into LocoBanco as an Astro island fed by real result JSON.
-- [ ] Bring LocoMusa and LocoEnsayo site sources into this workspace.
-- [ ] Add a shared result schema (`gpu.results[benchmark_id]` with confidence).
-- Acceptance: every public surface is versioned here and every benchmark result is
-  traceable to a raw run.
+- [x] Shared result contract: `loco-banco/src/data/results.schema.json`.
+- [x] Dependency-free validator: `loco-banco/scripts/validate-results.mjs` (`npm run validate:results`).
+- [x] GPU Picker moved into LocoBanco at `/picker/`, served under locobanco.org and fed at
+      build time from `loco-banco/src/data/picker-data.json`. Placeholder values relabelled
+      `estimated` so no unmeasured number is presented as measured.
+- [x] Public [result contract page](https://locobanco.org/result-contract/) documents the shape.
+- [ ] Convert `/picker/` from a standalone Astro route to a hydrated island. The current
+      route keeps the instrument UI intact and is the safer base.
+- [~] Musa and Ensayo sources are in their repos (`loco-musa/docs/index.html`,
+      `loco-ensayo/loco-ensayo/`) but are not yet on the shared theme.
+- Acceptance: every public surface is versioned here and every result traces to a raw run.
+  The contract enforces the second half; real runs still have to replace the estimates.
 
 ## Deferred: single-site consolidation
 

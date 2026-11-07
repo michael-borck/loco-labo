@@ -1,0 +1,34 @@
+---
+title: "Projects"
+description: "Every LocoLabo project in one place."
+---
+
+LocoLabo is a set of small, independent projects that share one question: how much useful AI can run on hardware people actually own. Start with the question you have.
+
+- **I want to run a model.** [LocoLLM](/projects/#build) builds the models, [LocoBanco](/projects/#measure) tells you what fits, [LocoPuente](/projects/#run) puts it to work.
+- **I want to know what old hardware can do.** Start with [LocoFósil](/projects/#measure).
+- **I want to know if it is any good.** [LocoMusa](/projects/#measure) measures thinking-partner quality.
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import projects from '../../data/projects.json';
+
+{['Build', 'Measure', 'Run', 'Notes'].map((category) => {
+  const items = projects.filter((p) => p.category === category);
+  return items.length ? (
+    <section>
+      <h2 id={category.toLowerCase()}>{category}</h2>
+      <CardGrid stagger>
+        {items.map((p) => (
+          <Card title={p.name} icon={p.icon}>
+            <p>{p.tagline}</p>
+            <p>
+              <a href={p.url}>Open {p.name} →</a>
+              {" · "}
+              <small>{p.status}</small>
+            </p>
+          </Card>
+        ))}
+      </CardGrid>
+    </section>
+  ) : null;
+})}

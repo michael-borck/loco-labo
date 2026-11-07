@@ -53,6 +53,8 @@ We are not mapping the floor of what AI can do because we cannot afford the ceil
 
 ## The Projects
 
+The live, maintained index is at [locolabo.org/projects](https://locolabo.org/projects/). It is generated from [`src/data/projects.json`](src/data/projects.json), the single source of truth for project names, links, and status.
+
 ### LocoLLM
 *Routed swarm of tiny specialist models*
 

@@ -4,6 +4,10 @@ title: "Nvidia GPU Generations -- An AI Inference Perspective"
 
 A reference for understanding Nvidia's consumer GPU lineup for local LLM inference. The two use cases share hardware but reward different specifications.
 
+:::note
+This is the general reference. For the measured relic-shelf inventory, driver branches, and the per-card compatibility matrix, see [LocoFósil's hardware page](https://locofosil.org/hardware/).
+:::
+
 It has two purposes, both worth stating upfront.
 
 **For readers choosing hardware:** each generation section identifies the best-in-class card per VRAM tier, the card that delivers the most inference performance for that memory capacity. These are acquisition targets. If you are buying, this is what you should be aiming for.

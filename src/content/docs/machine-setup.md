@@ -6,6 +6,8 @@ Every lab machine runs Ubuntu 22.04 LTS minimal server, provisioned by LocoBase,
 
 **Repository:** [github.com/michael-borck/loco-base](https://github.com/michael-borck/loco-base)
 
+LocoBase provisions the host. Bringing a second-life card online (Kepler, Maxwell, Pascal) is a separate job: driver branch, card checks, and benchmark validation. That is covered by [LocoFósil's Setup runbook](https://locofosil.org/setup/).
+
 ## Quick start
 
 ```bash

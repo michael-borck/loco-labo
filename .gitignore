@@ -21,3 +21,6 @@ __pycache__/
 # IDE
 .idea/
 .vscode/
+
+# macOS + Node hygiene
+._*

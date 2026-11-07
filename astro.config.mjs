@@ -45,6 +45,7 @@ export default defineConfig({
         {
           label: 'Projects',
           items: [
+            { label: 'All Projects', slug: 'projects' },
             { label: 'LocoLLM', link: 'https://locollm.org' },
             { label: 'LocoBanco', link: 'https://locobanco.org' },
             { label: 'LocoBench Picker', link: 'https://picker.locobanco.org' },
@@ -54,6 +55,8 @@ export default defineConfig({
             { label: 'LocoEnsayo', link: 'https://locoensayo.org' },
             { label: 'LocoAgente', link: 'https://locoagente.org' },
             { label: 'LocoPuente', link: 'https://locopuente.org' },
+            { label: 'LocoNotas', link: 'https://loconotas.org' },
+            { label: 'LocoBase', link: 'https://github.com/michael-borck/loco-base' },
           ],
         },
         {

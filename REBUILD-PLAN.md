@@ -46,10 +46,12 @@ single source of truth without merging the independent project repos.
       build time from `loco-banco/src/data/picker-data.json`. Placeholder values relabelled
       `estimated` so no unmeasured number is presented as measured.
 - [x] Public [result contract page](https://locobanco.org/result-contract/) documents the shape.
+- [x] LocoEnsayo migrated to the shared theme (nested repo `loco-ensayo/loco-ensayo`).
+- [x] LocoMusa migrated from the static `docs/index.html` to an Astro Starlight site on the
+      shared theme, with the methodology, human-judging, and authoring docs as pages.
+- [ ] Switch the LocoMusa GitHub Pages source to GitHub Actions; until then `docs/` keeps serving.
 - [ ] Convert `/picker/` from a standalone Astro route to a hydrated island. The current
       route keeps the instrument UI intact and is the safer base.
-- [~] Musa and Ensayo sources are in their repos (`loco-musa/docs/index.html`,
-      `loco-ensayo/loco-ensayo/`) but are not yet on the shared theme.
 - Acceptance: every public surface is versioned here and every result traces to a raw run.
   The contract enforces the second half; real runs still have to replace the estimates.
 

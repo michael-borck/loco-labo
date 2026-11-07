@@ -10,7 +10,7 @@ LocoLabo is a set of small, independent projects that share one question: how mu
 - **I want to know if it is any good.** [LocoMusa](/projects/#measure) measures thinking-partner quality.
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
-import projects from '../../data/projects.json';
+import projects from '@locolabo/theme/projects.json';
 
 {['Build', 'Measure', 'Run', 'Notes'].map((category) => {
   const items = projects.filter((p) => p.category === category);

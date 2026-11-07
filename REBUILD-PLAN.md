@@ -19,12 +19,14 @@ single source of truth without merging the independent project repos.
 - [ ] Add `public/CNAME` to sites that rely only on repo settings.
 - [ ] Add cross-links from duplicated reference pages to their canonical source.
 
-## Phase 2: shared theme package
+## Phase 2: shared theme package (done)
 
-- [ ] Create `@locolabo/theme`: design tokens, Starlight config factory, `<ProjectNav>`.
-- [ ] Replace the ~50 lines of copied `custom.css` in each site with the shared package.
-- [ ] Generate the Related sidebar from the manifest so it can never drift again.
-- Acceptance: changing the accent colour or a project URL is a one-file change.
+- [x] `loco-theme` repo: `@locolabo/theme`, shipped as a git dependency (`#v0.1.1`).
+- [x] `loco()` builds social links, accent tokens, shared CSS, and the generated Related group.
+- [x] `src/projects.json` moved to `loco-theme`; the hub imports it directly.
+- [x] All eight sites migrated off copied `custom.css` and bespoke Related blocks.
+- [x] `ignore-scripts=true` is set globally, so build cleanup lives in the `build` script.
+- Acceptance met: accent colour or project URL is a one-file change plus a version tag.
 
 ## Phase 3: consolidate content
 

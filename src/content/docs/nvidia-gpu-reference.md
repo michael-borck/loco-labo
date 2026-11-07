@@ -5,7 +5,7 @@ title: "Nvidia GPU Generations -- An AI Inference Perspective"
 A reference for understanding Nvidia's consumer GPU lineup for local LLM inference. The two use cases share hardware but reward different specifications.
 
 :::note
-This is the general reference for consumer cards. Buying an older card? LocoFósil is the acquisition guide: [hardware inventory](https://locofosil.org/hardware/), [build tiers](https://locofosil.org/builds/), and [setup](https://locofosil.org/setup/). For measured results at each VRAM tier, see [LocoBanco](https://locobanco.org).
+This is the general reference for consumer cards. Buying an older card? LocoFósil is the acquisition guide: [hardware inventory](https://locofosil.org/hardware/), [build tiers](https://locofosil.org/builds/), and [setup](https://locofosil.org/setup/). For measured results at each VRAM tier, see [LocoBanco](https://locobanco.org). For what the lab actually owns, see the [GPU Registry](/gpu-registry/).
 :::
 
 It has two purposes, both worth stating upfront.

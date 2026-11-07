@@ -1,0 +1,28 @@
+---
+title: "GPU Registry"
+description: "Every GPU the lab owns, by machine and shelf."
+---
+
+This is the canonical answer to "do we have this card, and where is it?". It reconciles the benchmark fleet and the relic shelf, and counts the one card recorded in both places once.
+
+import GpuRegistry from '../../components/GpuRegistry.astro';
+
+<GpuRegistry />
+
+## Which list is canonical
+
+| Question | Canonical source |
+|---|---|
+| What do we own, and where is it? | This page |
+| Which card is in which benchmark machine? | [LocoBanco GPU Inventory](https://locobanco.org/gpu-inventory/) |
+| Old-card specs, CUDA levels, drivers, devices | [LocoFósil Hardware](https://locofosil.org/hardware/) |
+| What should I buy? | [LocoFósil build tiers](https://locofosil.org/builds/) for old cards; [Nvidia GPU Reference](/nvidia-gpu-reference/) for modern ones |
+
+The project pages remain the detailed views and are the source of truth for their own fields. This registry is the single place to check ownership, count, machine, and status. When a card moves or arrives, update `src/data/gpus.json` here first.
+
+## Counts
+
+- Cards are physical cards. GPU devices count each GPU on a dual-GPU card separately.
+- The Tesla K10 is two cards and four devices; the Tesla K80 is one card and two devices.
+- "Incoming" cards are listed but not counted as owned.
+- The GTX 960 appears in both LocoBanco (Tortuga) and LocoFósil (relic shelf). It is counted once until the two records are confirmed as separate cards.

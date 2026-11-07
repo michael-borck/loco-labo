@@ -13,6 +13,7 @@ The thesis is **Conversation, not Delegation**: for the most educationally valua
 - [The Loco Thesis](https://locolabo.org/the-loco-thesis/)
 - [Why Local AI](https://locolabo.org/why-local-ai/)
 - [Machine Setup](https://locolabo.org/machine-setup/)
+- [GPU Registry](https://locolabo.org/gpu-registry/)
 - [Research](https://locolabo.org/research/)
 - [Findings](https://locolabo.org/findings/)
 

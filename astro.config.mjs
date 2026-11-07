@@ -30,6 +30,7 @@ export default defineConfig({
               { label: 'Find Your Starting Point', slug: 'find-your-starting-point' },
               { label: 'Meet the Team', slug: 'meet-the-team' },
               { label: 'Machine Setup', slug: 'machine-setup' },
+              { label: 'GPU Registry', slug: 'gpu-registry' },
               { label: 'FAQ', slug: 'faq' },
             ],
           },

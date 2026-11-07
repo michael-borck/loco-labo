@@ -1,0 +1,114 @@
+---
+import data from '../data/gpus.json';
+
+const groups = ['Colmena', 'Tortuga', 'Hidra', 'Puente', 'Búho', 'Hormiga', 'Unassigned', 'Relic shelf'];
+const cards = data.cards;
+
+const has = (r, p) => r.projects.includes(p);
+const total = (rows, f = (r) => r.count) => rows.reduce((n, r) => n + f(r), 0);
+
+const banco = cards.filter((r) => has(r, 'LocoBanco'));
+const fosil = cards.filter((r) => has(r, 'LocoFósil'));
+const shared = cards.filter((r) => has(r, 'LocoBanco') && has(r, 'LocoFósil'));
+
+const bancoInstalled = total(banco.filter((r) => r.status === 'installed'));
+const bancoIncoming = total(banco.filter((r) => r.status === 'incoming'));
+const fosilCards = total(fosil);
+const fosilDevices = total(fosil, (r) => r.count * (r.device_count ?? 1));
+const sharedCount = total(shared);
+const combinedCards = bancoInstalled + fosilCards - sharedCount;
+const combinedDevices = bancoInstalled + fosilDevices - sharedCount;
+---
+
+<div class="registry-summary">
+  <div><strong>{combinedCards}</strong><span>owned cards</span></div>
+  <div><strong>{combinedDevices}</strong><span>GPU devices</span></div>
+  <div><strong>{bancoInstalled}</strong><span>benchmark fleet</span></div>
+  <div><strong>{bancoIncoming}</strong><span>incoming</span></div>
+  <div><strong>{fosilCards}</strong><span>relic shelf cards</span></div>
+  <div><strong>{fosilDevices}</strong><span>relic devices</span></div>
+</div>
+
+{groups.map((group) => {
+  const rows = cards.filter((r) => r.group === group);
+  if (rows.length === 0) return null;
+  const groupCards = total(rows);
+  const source = rows[0].source;
+  return (
+    <section>
+      <h3>{group} <small>({groupCards} {groupCards === 1 ? 'card' : 'cards'})</small></h3>
+      <p class="source"><a href={source}>Source inventory</a></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Card</th>
+            <th>Count</th>
+            <th>VRAM</th>
+            <th>Bandwidth</th>
+            <th>Arch</th>
+            <th>CC</th>
+            <th>Status</th>
+            <th>Projects</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr>
+              <td>
+                {r.card}
+                {r.notes && <><br /><small>{r.notes}</small></>}
+              </td>
+              <td>{r.count}</td>
+              <td>{r.vram_gb} GB{r.device_count > 1 ? ' / GPU' : ''}</td>
+              <td>~{r.bandwidth_gb_s} GB/s{r.device_count > 1 ? ' / GPU' : ''}</td>
+              <td>{r.architecture}</td>
+              <td>{r.cc ?? '—'}</td>
+              <td>{r.status}</td>
+              <td>{r.projects.join(' + ')}</td>
+              <td>{r.role}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  );
+})}
+
+<style>
+  .registry-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .registry-summary div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+  }
+  .registry-summary strong {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--sl-color-accent);
+  }
+  .registry-summary span {
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-2);
+  }
+  section {
+    margin-top: 2rem;
+  }
+  h3 small {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--sl-color-gray-2);
+  }
+  .source {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+  }
+</style>

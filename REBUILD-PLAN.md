@@ -38,22 +38,22 @@ single source of truth without merging the independent project repos.
       a pointer plus quick-start commands. Short READMEs left as-is; all gain a live-site link.
 - Acceptance met: each topic has one canonical explanation, and GitHub READMEs point at it.
 
-## Phase 4: tools and shared results (in progress)
+## Phase 4: tools and shared results (done)
 
 - [x] Shared result contract: `loco-banco/src/data/results.schema.json`.
 - [x] Dependency-free validator: `loco-banco/scripts/validate-results.mjs` (`npm run validate:results`).
+      A `measured` result without a `source_run_id` is now an error, not a warning.
 - [x] GPU Picker moved into LocoBanco at `/picker/`, served under locobanco.org and fed at
-      build time from `loco-banco/src/data/picker-data.json`. Placeholder values relabelled
-      `estimated` so no unmeasured number is presented as measured.
+      build time from `loco-banco/src/data/picker-data.json`.
+- [x] Picker shipped as a page-scoped bundled client module (D3 from npm, no CDN).
+- [x] Placeholder values relabelled `estimated` so no unmeasured number is presented as measured.
 - [x] Public [result contract page](https://locobanco.org/result-contract/) documents the shape.
 - [x] LocoEnsayo migrated to the shared theme (nested repo `loco-ensayo/loco-ensayo`).
 - [x] LocoMusa migrated from the static `docs/index.html` to an Astro Starlight site on the
       shared theme, with the methodology, human-judging, and authoring docs as pages.
-- [ ] Switch the LocoMusa GitHub Pages source to GitHub Actions; until then `docs/` keeps serving.
-- [ ] Convert `/picker/` from a standalone Astro route to a hydrated island. The current
-      route keeps the instrument UI intact and is the safer base.
-- Acceptance: every public surface is versioned here and every result traces to a raw run.
-  The contract enforces the second half; real runs still have to replace the estimates.
+- [x] LocoMusa GitHub Pages source switched to GitHub Actions and redeployed.
+- Acceptance: every public surface is versioned here, and every `measured` result must trace
+  to a raw run. The contract enforces the second half; real runs still replace the estimates.
 
 ## Deferred: single-site consolidation
 

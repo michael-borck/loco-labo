@@ -28,12 +28,15 @@ single source of truth without merging the independent project repos.
 - [x] `ignore-scripts=true` is set globally, so build cleanup lives in the `build` script.
 - Acceptance met: accent colour or project URL is a one-file change plus a version tag.
 
-## Phase 3: consolidate content
+## Phase 3: consolidate content (done)
 
-- [ ] `loco-labo/nvidia-gpu-reference.md` becomes a short page linking to LocoFósil.
-- [ ] `loco-labo/machine-setup.md` becomes a short page linking to LocoBase and Fósil Setup.
-- [ ] Slim project READMEs to a 20-line pointer at the live site (keep install commands).
-- Acceptance: no topic has two canonical explanations.
+- [x] `loco-labo/nvidia-gpu-reference.md` keeps the modern consumer reference but its
+      outdated Kepler claim now defers to LocoFósil, which is canonical for the relic shelf.
+- [x] `loco-labo/machine-setup.md` already defers to LocoBase for provisioning and to
+      LocoFósil Setup for second-life cards; no duplication left.
+- [x] Slimmed the four READMEs that mirrored their sites (labo, banco, llm, puente) to
+      a pointer plus quick-start commands. Short READMEs left as-is; all gain a live-site link.
+- Acceptance met: each topic has one canonical explanation, and GitHub READMEs point at it.
 
 ## Phase 4: tools and missing sources
 

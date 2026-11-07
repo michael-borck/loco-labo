@@ -36,9 +36,9 @@ Before the tables, the metrics worth understanding:
 
 ---
 
-## Pre-Maxwell (600/700 Kepler Series): Not Supported
+## Kepler (600/700 Series): Toolchain-Limited, Not Useless
 
-Kepler (600 series and most 700 series) sits at Compute 3.x. No current inference framework supports it. These cards will not run Ollama, bitsandbytes, or any modern AI tooling. There is no workaround. If you own one, it is not useful for inference.
+Kepler sits at Compute 3.x. Current frameworks (Ollama, bitsandbytes, Unsloth, modern llama.cpp wheels) do not support it, so it is not a sensible target for a new consumer purchase. It is not dead, though: Kindi ships a CUDA 10.2 image for Compute 3.0, and legacy llama.cpp builds still run. The card-by-card results and the exact runtime cliffs live on [LocoFósil's hardware page](https://locofosil.org/hardware/), which is the canonical source for Kepler and other second-life hardware.
 
 **Exception within the 700 series:** The GTX 750 and GTX 750 Ti are Maxwell architecture (Compute 5.0) despite carrying a 700 series number. They are covered in the Maxwell section below.
 

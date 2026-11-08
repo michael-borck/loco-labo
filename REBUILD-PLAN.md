@@ -55,6 +55,16 @@ single source of truth without merging the independent project repos.
 - Acceptance: every public surface is versioned here, and every `measured` result must trace
   to a raw run. The contract enforces the second half; real runs still replace the estimates.
 
+## Phase 5: single hardware registry (done)
+
+- [x] Canonical `gpus.json` lives in `@locolabo/theme` (v0.2.0).
+- [x] Hub `/gpu-registry/` renders it with reconciled totals.
+- [x] LocoBanco GPU Inventory is generated from it (fleet view by machine).
+- [x] LocoFósil hardware inventory is generated from it (relic-shelf view with CUDA/driver).
+- [x] The GTX 960 is recorded once and flagged for physical confirmation.
+- Acceptance: a card change is one edit to `loco-theme/src/gpus.json` plus a version tag;
+  the hub, Banco, and Fósil tables all follow. No table is hand-maintained in three places.
+
 ## Deferred: single-site consolidation
 
 Only if cross-domain SEO and unified search become the top priority. Cost is high and it

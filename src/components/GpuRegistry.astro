@@ -1,9 +1,7 @@
 ---
 import data from '@locolabo/theme/gpus.json';
 
-const groups = ['Colmena', 'Tortuga', 'Hidra', 'Puente', 'Búho', 'Hormiga', 'Unassigned', 'Relic shelf'];
 const cards = data.cards;
-
 const has = (r, p) => r.projects.includes(p);
 const total = (rows, f = (r) => r.count) => rows.reduce((n, r) => n + f(r), 0);
 
@@ -18,6 +16,12 @@ const fosilDevices = total(fosil, (r) => r.count * (r.device_count ?? 1));
 const sharedCount = total(shared);
 const combinedCards = bancoInstalled + fosilCards - sharedCount;
 const combinedDevices = bancoInstalled + fosilDevices - sharedCount;
+
+const machinesOf = (r) => [...new Set([r.banco_machine, r.group].filter(Boolean))];
+const machines = [...new Set(cards.flatMap(machinesOf))].sort();
+const architectures = [...new Set(cards.map((r) => r.architecture))].sort();
+const projects = [...new Set(cards.flatMap((r) => r.projects))].sort();
+const statuses = [...new Set(cards.map((r) => r.status))].sort();
 ---
 
 <div class="registry-summary">
@@ -29,51 +33,173 @@ const combinedDevices = bancoInstalled + fosilDevices - sharedCount;
   <div><strong>{fosilDevices}</strong><span>relic devices</span></div>
 </div>
 
-{groups.map((group) => {
-  const rows = cards.filter((r) => r.group === group);
-  if (rows.length === 0) return null;
-  const groupCards = total(rows);
-  const source = rows[0].source;
-  return (
-    <section>
-      <h3>{group} <small>({groupCards} {groupCards === 1 ? 'card' : 'cards'})</small></h3>
-      <p class="source"><a href={source}>Source inventory</a></p>
-      <table>
-        <thead>
-          <tr>
-            <th>Card</th>
-            <th>Count</th>
-            <th>VRAM</th>
-            <th>Bandwidth</th>
-            <th>Arch</th>
-            <th>CC</th>
-            <th>Status</th>
-            <th>Projects</th>
-            <th>Role</th>
+<div class="registry-controls">
+  <label class="search">
+    <span>Search</span>
+    <input id="gpu-search" type="search" placeholder="Card or role" autocomplete="off" />
+  </label>
+  <label>
+    <span>Machine</span>
+    <select id="gpu-machine">
+      <option value="">All machines</option>
+      {machines.map((m) => <option value={m}>{m}</option>)}
+    </select>
+  </label>
+  <label>
+    <span>Architecture</span>
+    <select id="gpu-arch">
+      <option value="">All architectures</option>
+      {architectures.map((a) => <option value={a}>{a}</option>)}
+    </select>
+  </label>
+  <label>
+    <span>Project</span>
+    <select id="gpu-project">
+      <option value="">All projects</option>
+      {projects.map((p) => <option value={p}>{p}</option>)}
+    </select>
+  </label>
+  <label>
+    <span>Status</span>
+    <select id="gpu-status">
+      <option value="">All statuses</option>
+      {statuses.map((s) => <option value={s}>{s}</option>)}
+    </select>
+  </label>
+  <button id="gpu-reset" type="button">Reset</button>
+  <span id="gpu-count" class="count" aria-live="polite"></span>
+</div>
+
+<div class="registry-table-wrap">
+  <table class="registry-table">
+    <thead>
+      <tr>
+        <th data-key="card" data-type="text">Card</th>
+        <th data-key="machine" data-type="text">Machine</th>
+        <th data-key="count" data-type="num">Cards</th>
+        <th data-key="devices" data-type="num">Devices</th>
+        <th data-key="vram" data-type="num">VRAM</th>
+        <th data-key="bandwidth" data-type="num">Bandwidth</th>
+        <th data-key="arch" data-type="text">Arch</th>
+        <th data-key="cc" data-type="num">CC</th>
+        <th data-key="status" data-type="text">Status</th>
+        <th data-key="project" data-type="text">Projects</th>
+        <th data-key="role" data-type="text">Role</th>
+      </tr>
+    </thead>
+    <tbody id="gpu-rows">
+      {cards.map((r) => {
+        const machinesList = machinesOf(r);
+        const devices = r.count * (r.device_count ?? 1);
+        return (
+          <tr
+            data-card={r.card.toLowerCase()}
+            data-machine={machinesList.join('|')}
+            data-count={r.count}
+            data-devices={devices}
+            data-vram={r.vram_gb}
+            data-bandwidth={r.bandwidth_gb_s}
+            data-arch={r.architecture}
+            data-cc={r.cc ?? -1}
+            data-status={r.status}
+            data-project={r.projects.join('|')}
+            data-role={r.role.toLowerCase()}
+          >
+            <td>
+              {r.card}
+              {r.notes && <><br /><small>{r.notes}</small></>}
+            </td>
+            <td>{machinesList.join(' + ')}</td>
+            <td>{r.count}</td>
+            <td>{devices}</td>
+            <td>{r.vram_gb} GB{r.device_count > 1 ? ' / GPU' : ''}</td>
+            <td>~{r.bandwidth_gb_s} GB/s{r.device_count > 1 ? ' / GPU' : ''}</td>
+            <td>{r.architecture}</td>
+            <td>{r.cc !== null ? r.cc.toFixed(1) : '—'}</td>
+            <td>{r.status}</td>
+            <td>{r.projects.join(' + ')}</td>
+            <td>{r.role}</td>
           </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr>
-              <td>
-                {r.card}
-                {r.notes && <><br /><small>{r.notes}</small></>}
-              </td>
-              <td>{r.count}</td>
-              <td>{r.vram_gb} GB{r.device_count > 1 ? ' / GPU' : ''}</td>
-              <td>~{r.bandwidth_gb_s} GB/s{r.device_count > 1 ? ' / GPU' : ''}</td>
-              <td>{r.architecture}</td>
-              <td>{r.cc ?? '—'}</td>
-              <td>{r.status}</td>
-              <td>{r.projects.join(' + ')}</td>
-              <td>{r.role}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  );
-})}
+        );
+      })}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  const table = document.getElementById('gpu-rows');
+  const rows = table ? Array.from(table.querySelectorAll('tr')) : [];
+  const search = document.getElementById('gpu-search');
+  const filters = {
+    machine: document.getElementById('gpu-machine'),
+    arch: document.getElementById('gpu-arch'),
+    project: document.getElementById('gpu-project'),
+    status: document.getElementById('gpu-status'),
+  };
+  const countLabel = document.getElementById('gpu-count');
+  const reset = document.getElementById('gpu-reset');
+  const headers = Array.from(document.querySelectorAll('.registry-table th[data-key]'));
+
+  let sort = { key: 'machine', type: 'text', dir: 1 };
+
+  function matches(row) {
+    const q = search.value.trim().toLowerCase();
+    if (q && !row.dataset.card.includes(q) && !row.dataset.role.includes(q)) return false;
+    if (filters.machine.value && !row.dataset.machine.split('|').includes(filters.machine.value)) return false;
+    if (filters.arch.value && row.dataset.arch !== filters.arch.value) return false;
+    if (filters.project.value && !row.dataset.project.split('|').includes(filters.project.value)) return false;
+    if (filters.status.value && row.dataset.status !== filters.status.value) return false;
+    return true;
+  }
+
+  function sortRows() {
+    const { key, type, dir } = sort;
+    const sorted = [...rows].sort((a, b) => {
+      const av = a.dataset[key] ?? '';
+      const bv = b.dataset[key] ?? '';
+      if (type === 'num') return (Number(av) - Number(bv)) * dir;
+      return av.localeCompare(bv) * dir;
+    });
+    for (const row of sorted) table.appendChild(row);
+  }
+
+  function update() {
+    let visible = 0;
+    for (const row of rows) {
+      const ok = matches(row);
+      row.hidden = !ok;
+      if (ok) visible += 1;
+    }
+    countLabel.textContent = `Showing ${visible} of ${rows.length}`;
+    sortRows();
+  }
+
+  for (const th of headers) {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      const type = th.dataset.type;
+      if (sort.key === key) sort.dir *= -1;
+      else sort = { key, type, dir: 1 };
+      for (const h of headers) h.removeAttribute('aria-sort');
+      th.setAttribute('aria-sort', sort.dir === 1 ? 'ascending' : 'descending');
+      update();
+    });
+  }
+
+  search.addEventListener('input', update);
+  for (const select of Object.values(filters)) select.addEventListener('change', update);
+  reset.addEventListener('click', () => {
+    search.value = '';
+    for (const select of Object.values(filters)) select.value = '';
+    sort = { key: 'machine', type: 'text', dir: 1 };
+    for (const h of headers) h.removeAttribute('aria-sort');
+    update();
+  });
+
+  const initial = headers.find((h) => h.dataset.key === sort.key);
+  if (initial) initial.setAttribute('aria-sort', 'ascending');
+  update();
+</script>
 
 <style>
   .registry-summary {
@@ -99,16 +225,74 @@ const combinedDevices = bancoInstalled + fosilDevices - sharedCount;
     font-size: 0.8rem;
     color: var(--sl-color-gray-2);
   }
-  section {
-    margin-top: 2rem;
+
+  .registry-controls {
+    display: grid;
+    grid-template-columns: minmax(12rem, 2fr) repeat(4, minmax(8rem, 1fr)) auto auto;
+    gap: 0.6rem;
+    align-items: end;
+    margin: 1rem 0;
   }
-  h3 small {
+  .registry-controls label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     font-size: 0.75rem;
-    font-weight: 400;
     color: var(--sl-color-gray-2);
   }
-  .source {
-    margin: 0 0 0.5rem;
+  .registry-controls input,
+  .registry-controls select,
+  .registry-controls button {
+    font: inherit;
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+  }
+  .registry-controls button {
+    cursor: pointer;
+  }
+  .registry-controls .count {
     font-size: 0.75rem;
+    color: var(--sl-color-gray-2);
+    padding-bottom: 0.55rem;
+    white-space: nowrap;
+  }
+
+  .registry-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+  }
+  .registry-table {
+    width: 100%;
+    font-size: 0.85rem;
+  }
+  .registry-table th {
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .registry-table th[aria-sort='ascending']::after {
+    content: ' ▲';
+    font-size: 0.65rem;
+  }
+  .registry-table th[aria-sort='descending']::after {
+    content: ' ▼';
+    font-size: 0.65rem;
+  }
+  .registry-table td:nth-child(3),
+  .registry-table td:nth-child(4),
+  .registry-table td:nth-child(8) {
+    text-align: right;
+  }
+
+  @media (max-width: 60rem) {
+    .registry-controls {
+      grid-template-columns: repeat(2, minmax(8rem, 1fr));
+    }
+    .registry-controls .search {
+      grid-column: 1 / -1;
+    }
   }
 </style>

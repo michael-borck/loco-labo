@@ -65,6 +65,46 @@ single source of truth without merging the independent project repos.
 - Acceptance: a card change is one edit to `loco-theme/src/gpus.json` plus a version tag;
   the hub, Banco, and Fósil tables all follow. No table is hand-maintained in three places.
 
+## Phases 6-10: make it fun to explore
+
+Direction: self-funded and independent, so optimise for curiosity and contribution, not
+sponsors. Personality lives on the hub and landing pages; the docs stay clean and plain.
+Art style is 16-bit pixel art (fits secondhand hardware and "the floor"), generated with
+`limn` + `juggernautXL_v9` + the `pixel-art-xl` LoRA, as in assume-breach and Lorekeeper.
+
+### Phase 6: cleanup
+
+- [ ] Hub homepage links the project map; counts come from the manifest; CTA explores projects.
+- [ ] Hub gets its own tagline (LocoLLM keeps "Frontier AI on a budget").
+- [ ] Naming: LocoBanco (not LocoBench), LocoLabo (not LocoLab), LocoFósil (with accent).
+- [ ] Musa gets a favicon, logo and 404; Ensayo gets a 404.
+- [ ] Puente footer links the hub; Puente's second splash stops looping to `/`.
+- [ ] Hub sidebar loses duplicate entries; orphan pages are linked (labo, llm).
+- [ ] Shared theme footer links every page on every site back to the hub.
+
+### Phase 7: art bible and assets
+
+- [ ] Art bible: prompt prefix, palette, negative prompt, seeds, sizes, per-site location.
+- [ ] Test batch: hub map, LocoFósil dig, LocoBanco bench. Judge before scaling up.
+- [ ] One 1216x832 location hero and one pixel favicon per project.
+
+### Phase 8: identity rollout
+
+- [ ] Every landing page leads with its location art, a one-line what/why, and a start path.
+- [ ] Emoji favicons replaced by pixel sprites.
+
+### Phase 9: hub as hub-and-spoke
+
+- [ ] Homepage is a clickable pixel overworld of the projects, with a stats strip.
+- [ ] Wayfinder: a few questions suggest a starting trail.
+- [ ] A plain path ("just the docs") sits next to the playful one.
+
+### Phase 10: quests
+
+- [ ] Quest trails defined as data, progress and badges stored on the hub (spokes are on
+      other domains, so progress cannot be shared across them).
+- [ ] First quests: run a local model, wake a fossil GPU, benchmark your card, submit a result.
+
 ## Deferred: single-site consolidation
 
 Only if cross-domain SEO and unified search become the top priority. Cost is high and it

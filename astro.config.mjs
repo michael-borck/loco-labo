@@ -9,7 +9,7 @@ export default defineConfig({
       loco({
         project: 'loco-labo',
         title: 'LocoLabo',
-        description: 'Frontier AI on a Budget. Crazy, Right?',
+        description: 'A self-funded lab mapping what AI can do on hardware people already own.',
         home: 'https://locolabo.org',
         github: 'loco-labo',
         labo: false,
@@ -25,6 +25,7 @@ export default defineConfig({
             label: 'Lab Overview',
             items: [
               { label: 'Meet the Lab', slug: 'meet-the-lab' },
+              { label: 'Origin Story', slug: 'origin-story' },
               { label: 'The Loco Thesis', slug: 'the-loco-thesis' },
               { label: 'Are You Loco Enough?', slug: 'audience' },
               { label: 'Find Your Starting Point', slug: 'find-your-starting-point' },
@@ -39,7 +40,6 @@ export default defineConfig({
             items: [
               { label: 'Papers & Projects', slug: 'research' },
               { label: 'Findings', slug: 'findings' },
-              { label: 'Capstone', slug: 'capstone' },
               { label: 'LocoNotas', link: 'https://loconotas.org' },
               { label: 'Research (borck.dev)', link: 'https://research.borck.dev' },
             ],

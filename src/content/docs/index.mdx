@@ -1,44 +1,55 @@
 ---
 title: LocoLabo
-description: Independent applied AI research. The work is deliberate. The hardware is secondhand. The questions are serious.
+description: A self-funded lab mapping what AI can do on hardware people already own.
 template: splash
 hero:
+  title: Welcome to the valley
   tagline: |
-    The work is deliberate. The hardware is secondhand. The questions are serious.
+    LocoLabo is a self-funded lab mapping what AI can do on hardware people already own. Secondhand GPUs, small models, serious questions.
 
-    Local AI as a different bet, not a smaller one.
+    Pick a place on the map, or let the Wayfinder choose you a quest.
   image:
-    file: ../../assets/lab.svg
+    file: ../../assets/art/icons/labo.png
+    alt: A glowing brass lantern
   actions:
-    - text: Meet the Lab
-      link: /meet-the-lab/
-      icon: right-arrow
+    - text: Explore the map
+      link: '#map'
+      icon: down-arrow
       variant: primary
-    - text: Find Your Starting Point
-      link: /find-your-starting-point/
-      icon: random
+    - text: Start a quest
+      link: /quests/
+      icon: rocket
       variant: secondary
-    - text: Read the thesis
-      link: /the-loco-thesis/
-      icon: right-arrow
+    - text: Just the docs
+      link: /projects/
+      icon: open-book
       variant: minimal
 ---
 
+import LabStats from '../../components/LabStats.astro';
+import Overworld from '../../components/Overworld.astro';
+import Wayfinder from '../../components/Wayfinder.astro';
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-<CardGrid stagger>
-  <Card title="Eight active projects" icon="puzzle">
-    LocoLLM, LocoBanco, LocoFósil, LocoMusa, LocoConvoy, LocoEnsayo, LocoAgente, LocoPuente. Each is a distinct research question, all running on consumer hardware.
+<LabStats />
 
-    [LocoBench Picker](https://picker.locobanco.org) turns the LocoBanco dataset into an interactive GPU shortlist. [LocoFósil](https://locofosil.org) extends the floor below LocoBanco. [LocoNotas](https://loconotas.org) holds the dated notes and field observations.
-  </Card>
+<Overworld />
+
+<Wayfinder />
+
+## Why this lab exists
+
+<CardGrid>
   <Card title="Mapping the floor" icon="down-caret">
-    Most AI research documents the ceiling. We document the floor, what local small models can do on modest hardware, because most people live there and nobody is doing it honestly.
+    Most AI research documents the ceiling. We document the floor: what small local models can do on modest hardware, because that is where most people live.
   </Card>
   <Card title="Local and private by design" icon="approve-check">
-    Data sovereignty, individual privacy, institutional governance. Local inference is the only fully compliant path for many organisations, and the only honest answer for anyone who doesn't want their data on someone else's machine.
+    Local inference keeps student work, research data, and private conversations on a machine you control. No token tax, no data leaving the room.
   </Card>
-  <Card title="Five principles, one bridge" icon="random">
-    Engineer before hardware. Specialize and harness. Vary, don't average. Conversation, not delegation. LocoPuente is the bridge that brings frontier-equivalent tools onto local infrastructure.
+  <Card title="Conversation, not delegation" icon="comment">
+    A small model that keeps you thinking beats a big one that thinks for you. Read [the Loco thesis](/the-loco-thesis/) for the principles behind every project.
+  </Card>
+  <Card title="Open to explorers" icon="rocket">
+    Everything is public: code, data, and failures. Try a [quest](/quests/), or contribute a measured result to the [GPU registry](/gpu-registry/) and LocoBanco.
   </Card>
 </CardGrid>

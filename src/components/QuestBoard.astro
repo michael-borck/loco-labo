@@ -1,0 +1,234 @@
+---
+// Quest trails across the LocoLabo sites. Progress is stored in this browser
+// only (localStorage on locolabo.org); nothing is sent anywhere.
+import data from '../data/quests.json';
+import { icons } from './icons.mjs';
+
+const quests = data.quests;
+const totalSteps = quests.reduce((n, q) => n + q.steps.length, 0);
+const isExternal = (url) => /^https?:\/\//.test(url) && !url.startsWith('https://locolabo.org');
+---
+
+<div class="quest-board not-content" data-total={totalSteps} data-levels={JSON.stringify(data.levels)}>
+  <section class="player" aria-label="Your progress">
+    <div class="player-head">
+      <img src={icons.labo.src} width="56" height="56" alt="" />
+      <div>
+        <p class="player-eyebrow">Wanderer of the valley</p>
+        <p class="player-level" data-level>{data.levels[0]}</p>
+      </div>
+    </div>
+    <div class="bar" aria-hidden="true"><span data-bar></span></div>
+    <p class="player-meta"><span data-done>0</span> of {totalSteps} steps · <span data-badges>0</span> of {quests.length} badges</p>
+    <button type="button" class="reset" data-reset>Reset progress</button>
+  </section>
+
+  <section class="badges" aria-label="Badges">
+    {quests.map((q) => (
+      <div class="badge" data-badge={q.id} title={q.badge.text}>
+        <img src={icons[q.icon].src} width="40" height="40" alt="" />
+        <span>{q.badge.name}</span>
+      </div>
+    ))}
+  </section>
+
+  {quests.map((q) => (
+    <article class="quest" id={q.id} data-quest={q.id} data-steps={q.steps.length}>
+      <header>
+        <img src={icons[q.icon].src} width="64" height="64" alt="" />
+        <div>
+          <p class="quest-eyebrow">{q.level} · {q.steps.length} steps</p>
+          <h2>{q.title}</h2>
+          <p class="quest-sub">{q.subtitle}</p>
+        </div>
+        <span class="quest-done" data-complete hidden>✓ {q.badge.name}</span>
+      </header>
+      <div class="bar" aria-hidden="true"><span data-qbar></span></div>
+      <ol class="steps">
+        {q.steps.map((s) => (
+          <li>
+            <label>
+              <input type="checkbox" data-step={s.id} />
+              <span>
+                {s.url ? (
+                  <a href={s.url} data-step-link={s.id} {...(isExternal(s.url) ? { target: '_blank', rel: 'noopener' } : {})}>{s.label}</a>
+                ) : (
+                  s.label
+                )}
+                {s.manual && <small> (tick this one yourself)</small>}
+              </span>
+            </label>
+          </li>
+        ))}
+      </ol>
+    </article>
+  ))}
+
+  <div class="toast" role="status" aria-live="polite" data-toast hidden></div>
+</div>
+
+<script>
+  const KEY = 'locolabo.quests.v1';
+  const board = document.querySelector<HTMLElement>('.quest-board');
+
+  if (board) {
+    const levels: string[] = JSON.parse(board.dataset.levels ?? '[]');
+    const total = Number(board.dataset.total);
+    const toast = board.querySelector<HTMLElement>('[data-toast]')!;
+
+    const load = (): Record<string, string[]> => {
+      try { return JSON.parse(localStorage.getItem(KEY) ?? '{}'); } catch { return {}; }
+    };
+    const save = (state: Record<string, string[]>) => {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {}
+    };
+
+    let state = load();
+    const quests = Array.from(board.querySelectorAll<HTMLElement>('[data-quest]'));
+
+    const isComplete = (q: HTMLElement) =>
+      (state[q.dataset.quest!] ?? []).length >= Number(q.dataset.steps);
+
+    function showToast(text: string) {
+      toast.textContent = text;
+      toast.hidden = false;
+      clearTimeout((showToast as any).t);
+      (showToast as any).t = setTimeout(() => (toast.hidden = true), 3200);
+    }
+
+    function render() {
+      let done = 0;
+      let badges = 0;
+      for (const q of quests) {
+        const id = q.dataset.quest!;
+        const steps = state[id] ?? [];
+        done += steps.length;
+        q.querySelectorAll<HTMLInputElement>('[data-step]').forEach((box) => {
+          box.checked = steps.includes(box.dataset.step!);
+        });
+        const pct = Math.round((steps.length / Number(q.dataset.steps)) * 100);
+        q.querySelector<HTMLElement>('[data-qbar]')!.style.width = `${pct}%`;
+        const complete = isComplete(q);
+        q.classList.toggle('is-complete', complete);
+        q.querySelector<HTMLElement>('[data-complete]')!.hidden = !complete;
+        board.querySelector(`[data-badge="${id}"]`)?.classList.toggle('earned', complete);
+        if (complete) badges += 1;
+      }
+      const ratio = total ? done / total : 0;
+      // One level per badge earned; the last title is reserved for earning them all.
+      const levelIndex = badges === quests.length ? levels.length - 1 : Math.min(levels.length - 2, badges);
+      board.querySelector('[data-level]')!.textContent = levels[levelIndex];
+      board.querySelector<HTMLElement>('[data-bar]')!.style.width = `${Math.round(ratio * 100)}%`;
+      board.querySelector('[data-done]')!.textContent = String(done);
+      board.querySelector('[data-badges]')!.textContent = String(badges);
+    }
+
+    function setStep(questId: string, stepId: string, on: boolean) {
+      const q = quests.find((el) => el.dataset.quest === questId)!;
+      const wasComplete = isComplete(q);
+      const steps = new Set(state[questId] ?? []);
+      on ? steps.add(stepId) : steps.delete(stepId);
+      state = { ...state, [questId]: [...steps] };
+      save(state);
+      render();
+      if (!wasComplete && isComplete(q)) {
+        const name = q.querySelector('[data-complete]')!.textContent!.replace('✓ ', '');
+        showToast(`Badge earned: ${name}`);
+      }
+    }
+
+    for (const q of quests) {
+      const id = q.dataset.quest!;
+      q.querySelectorAll<HTMLInputElement>('[data-step]').forEach((box) => {
+        box.addEventListener('change', () => setStep(id, box.dataset.step!, box.checked));
+      });
+      // Visiting a step's page counts as doing it.
+      q.querySelectorAll<HTMLAnchorElement>('[data-step-link]').forEach((link) => {
+        link.addEventListener('click', () => setStep(id, link.dataset.stepLink!, true));
+      });
+    }
+
+    board.querySelector('[data-reset]')!.addEventListener('click', () => {
+      if (confirm('Reset all quest progress in this browser?')) {
+        state = {};
+        save(state);
+        render();
+      }
+    });
+
+    render();
+
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target?.classList.contains('quest')) target.classList.add('is-focus');
+  }
+</script>
+
+<style>
+  .quest-board { margin: 1.5rem 0 3rem; display: grid; gap: 1.25rem; }
+
+  .player, .badges, .quest {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 12px;
+    background: var(--sl-color-gray-6);
+    padding: 1.1rem 1.25rem;
+  }
+  .player-head { display: flex; gap: 0.9rem; align-items: center; }
+  .player-eyebrow, .quest-eyebrow {
+    margin: 0;
+    font-family: var(--sl-font-mono);
+    font-size: var(--sl-text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sl-color-accent-high);
+  }
+  .player-level { margin: 0; font-size: var(--sl-text-2xl); font-weight: 700; color: var(--sl-color-white); }
+  .player-meta { margin: 0.5rem 0 0; font-size: var(--sl-text-sm); color: var(--sl-color-gray-2); }
+  .reset {
+    margin-top: 0.75rem;
+    font: inherit;
+    font-size: var(--sl-text-xs);
+    background: none;
+    border: 1px solid var(--sl-color-gray-4);
+    color: var(--sl-color-gray-2);
+    border-radius: 6px;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+  }
+
+  .bar { height: 10px; margin-top: 0.75rem; background: var(--sl-color-black); border: 1px solid var(--sl-color-gray-5); border-radius: 3px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: repeating-linear-gradient(90deg, var(--sl-color-accent) 0 8px, var(--sl-color-accent-high) 8px 10px); transition: width 0.3s steps(6); }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .badge {
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+    width: 6.5rem; padding: 0.5rem; border-radius: 8px; border: 1px dashed var(--sl-color-gray-4);
+    font-size: var(--sl-text-xs); text-align: center; color: var(--sl-color-gray-3);
+  }
+  .badge img { filter: grayscale(1) brightness(0.5); }
+  .badge.earned { border-style: solid; border-color: var(--sl-color-accent); color: var(--sl-color-white); }
+  .badge.earned img { filter: none; }
+
+  .quest header { display: flex; gap: 1rem; align-items: center; }
+  .quest h2 { margin: 0.1rem 0; font-size: var(--sl-text-xl); color: var(--sl-color-white); }
+  .quest-sub { margin: 0; color: var(--sl-color-gray-2); }
+  .quest-done { margin-left: auto; font-weight: 700; color: var(--sl-color-accent-high); white-space: nowrap; }
+  .quest.is-complete { border-color: var(--sl-color-accent); }
+  .quest.is-focus { outline: 2px solid var(--sl-color-accent); outline-offset: 3px; }
+  .steps { margin: 0.9rem 0 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+  .steps label { display: flex; gap: 0.6rem; align-items: baseline; cursor: pointer; }
+  .steps input { accent-color: var(--sl-color-accent); transform: translateY(2px); }
+  .steps a { color: var(--sl-color-white); text-decoration-color: var(--sl-color-accent); }
+  .steps small { color: var(--sl-color-gray-3); }
+  .steps label:has(input:checked) > span { color: var(--sl-color-gray-3); }
+  .steps label:has(input:checked) a { color: var(--sl-color-gray-3); text-decoration: line-through; }
+
+  .toast {
+    position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 50;
+    padding: 0.7rem 1.1rem; border-radius: 8px; font-weight: 700;
+    background: var(--sl-color-accent); color: var(--sl-color-black);
+    box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.7);
+  }
+  .toast[hidden] { display: none; }
+
+  @media (prefers-reduced-motion: reduce) { .bar span { transition: none; } }
+</style>

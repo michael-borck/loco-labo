@@ -1,0 +1,2 @@
+/* The hub hero is a small sprite scaled up: keep hard pixel edges. */
+.hero img { image-rendering: pixelated; max-width: 16rem; margin-inline: auto; }

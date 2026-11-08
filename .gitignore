@@ -24,3 +24,8 @@ __pycache__/
 
 # macOS + Node hygiene
 ._*
+
+# Art pipeline working files (only processed art ships)
+art/candidates/
+art/picks/
+art/sheet-*.png

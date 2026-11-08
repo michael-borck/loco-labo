@@ -1,0 +1,96 @@
+---
+// One question, one suggested quest. Borrowed from Lorekeeper's Wayfinder.
+import quests from '../data/quests.json';
+import { icons } from './icons.mjs';
+
+const choices = [
+  { for: 'run', label: 'Run AI on a machine I already own' },
+  { for: 'choose', label: 'Find the best model for my GPU' },
+  { for: 'revive', label: 'Bring an old graphics card back to life' },
+  { for: 'teach', label: 'Teach or learn with AI that keeps people thinking' },
+  { for: 'contribute', label: 'Help measure the floor' },
+  { for: 'explore', label: 'Just look around' },
+];
+const byFor = Object.fromEntries(quests.quests.map((q) => [q.for, q]));
+---
+
+<section class="wayfinder not-content" aria-labelledby="wayfinder-title">
+  <h2 id="wayfinder-title">Not sure where to start?</h2>
+  <p class="wf-q">What brings you to the valley?</p>
+  <div class="wf-choices" role="group" aria-label="Choose what brings you here">
+    {choices.map((c) => (
+      <button type="button" class="wf-choice" data-for={c.for} aria-pressed="false">{c.label}</button>
+    ))}
+  </div>
+
+  {choices.map((c) => {
+    const q = byFor[c.for];
+    return (
+      <div class="wf-result" data-result={c.for} hidden>
+        <img src={icons[q.icon].src} width="64" height="64" alt="" />
+        <div>
+          <p class="wf-eyebrow">Your quest · {q.level}</p>
+          <h3>{q.title}</h3>
+          <p>{q.subtitle}. {q.steps.length} steps, ending with the <strong>{q.badge.name}</strong> badge.</p>
+          <a class="wf-go" href={`/quests/#${q.id}`}>Start this quest →</a>
+        </div>
+      </div>
+    );
+  })}
+</section>
+
+<script>
+  const root = document.querySelector('.wayfinder');
+  if (root) {
+    const buttons = root.querySelectorAll<HTMLButtonElement>('.wf-choice');
+    const results = root.querySelectorAll<HTMLElement>('.wf-result');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        results.forEach((r) => (r.hidden = r.dataset.result !== btn.dataset.for));
+        try { localStorage.setItem('locolabo.wayfinder', btn.dataset.for ?? ''); } catch {}
+      });
+    });
+  }
+</script>
+
+<style>
+  .wayfinder {
+    margin: 2.5rem 0;
+    padding: 1.5rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 12px;
+    background: var(--sl-color-gray-6);
+  }
+  .wayfinder h2 { margin: 0 0 0.25rem; font-size: var(--sl-text-2xl); color: var(--sl-color-white); font-weight: 600; }
+  .wf-result h3 { color: var(--sl-color-white); }
+  .wf-q { margin: 0 0 1rem; color: var(--sl-color-gray-2); }
+  .wf-choices { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .wf-choice {
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--sl-color-gray-4);
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+    cursor: pointer;
+  }
+  .wf-choice:hover { border-color: var(--sl-color-accent); }
+  .wf-choice[aria-pressed='true'] { background: var(--sl-color-accent); color: var(--sl-color-black); border-color: var(--sl-color-accent); }
+  .wf-result {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border: 1px dashed var(--sl-color-accent);
+    border-radius: 10px;
+  }
+  .wf-result[hidden] { display: none; }
+  .wf-result img { flex-shrink: 0; }
+  .wf-result h3 { margin: 0.1rem 0 0.25rem; }
+  .wf-result p { margin: 0 0 0.5rem; }
+  .wf-eyebrow { font-family: var(--sl-font-mono); font-size: var(--sl-text-xs); color: var(--sl-color-accent-high); text-transform: uppercase; letter-spacing: 0.05em; }
+  .wf-go { font-weight: 700; color: var(--sl-color-accent-high); }
+</style>

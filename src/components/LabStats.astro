@@ -1,0 +1,52 @@
+---
+// Live counts, computed at build time from the shared manifest and GPU registry.
+import projects from '@locolabo/theme/projects.json';
+import quests from '../data/quests.json';
+import { gpuStats } from '../lib/gpu-stats.mjs';
+
+const gpu = gpuStats();
+const stats = [
+  { value: projects.length, label: 'projects', href: '/projects/' },
+  { value: gpu.owned, label: 'GPUs owned', href: '/gpu-registry/' },
+  { value: gpu.devices, label: 'GPU devices', href: '/gpu-registry/' },
+  { value: quests.quests.length, label: 'quests', href: '/quests/' },
+  { value: '$0', label: 'sponsorship', href: '/meet-the-lab/' },
+];
+---
+
+<ul class="lab-stats not-content" aria-label="The lab in numbers">
+  {stats.map((s) => (
+    <li>
+      <a href={s.href}><strong>{s.value}</strong><span>{s.label}</span></a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .lab-stats {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 0.6rem;
+  }
+  .lab-stats a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    text-decoration: none;
+    background: var(--sl-color-gray-6);
+  }
+  .lab-stats a:hover { border-color: var(--sl-color-accent); }
+  .lab-stats strong {
+    font-family: var(--sl-font-mono);
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--sl-color-accent-high);
+  }
+  .lab-stats span { font-size: var(--sl-text-xs); color: var(--sl-color-gray-2); }
+</style>

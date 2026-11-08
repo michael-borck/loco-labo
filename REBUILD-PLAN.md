@@ -72,38 +72,50 @@ sponsors. Personality lives on the hub and landing pages; the docs stay clean an
 Art style is 16-bit pixel art (fits secondhand hardware and "the floor"), generated with
 `limn` + `juggernautXL_v9` + the `pixel-art-xl` LoRA, as in assume-breach and Lorekeeper.
 
-### Phase 6: cleanup
+### Phase 6: cleanup (done)
 
-- [ ] Hub homepage links the project map; counts come from the manifest; CTA explores projects.
-- [ ] Hub gets its own tagline (LocoLLM keeps "Frontier AI on a budget").
-- [ ] Naming: LocoBanco (not LocoBench), LocoLabo (not LocoLab), LocoFósil (with accent).
-- [ ] Musa gets a favicon, logo and 404; Ensayo gets a 404.
-- [ ] Puente footer links the hub; Puente's second splash stops looping to `/`.
-- [ ] Hub sidebar loses duplicate entries; orphan pages are linked (labo, llm).
-- [ ] Shared theme footer links every page on every site back to the hub.
+- [x] Hub homepage links the project map; counts come from the manifest; CTA explores projects.
+- [x] Hub gets its own tagline (LocoLLM keeps "Frontier AI on a budget").
+- [x] Naming: LocoBanco (not LocoBench), LocoLabo (not LocoLab), LocoFósil (with accent).
+- [x] Musa gets a favicon, logo and 404; Ensayo gets a 404.
+- [x] Puente footer links the hub; Puente's second splash stops looping to `/`.
+- [x] Hub sidebar loses duplicate entries; orphan pages are linked (labo, llm).
+- [x] Shared theme footer links every page on every site back to the hub.
 
-### Phase 7: art bible and assets
+### Phase 7: art bible and assets (done)
 
-- [ ] Art bible: prompt prefix, palette, negative prompt, seeds, sizes, per-site location.
-- [ ] Test batch: hub map, LocoFósil dig, LocoBanco bench. Judge before scaling up.
-- [ ] One 1216x832 location hero and one pixel favicon per project.
+- [x] Art bible: prompt prefix, palette, negative prompt, seeds, sizes, per-site location.
+- [x] Test batch: hub map, LocoFósil dig, LocoBanco bench. Judge before scaling up.
+- [x] One 1216x832 location hero and one pixel favicon per project.
 
-### Phase 8: identity rollout
+### Phase 8: identity rollout (done)
 
-- [ ] Every landing page leads with its location art, a one-line what/why, and a start path.
-- [ ] Emoji favicons replaced by pixel sprites.
+- [x] Every landing page leads with its location art, a one-line what/why, and a start path.
+- [x] Emoji favicons replaced by pixel sprites.
 
-### Phase 9: hub as hub-and-spoke
+### Phase 9: hub as hub-and-spoke (done)
 
-- [ ] Homepage is a clickable pixel overworld of the projects, with a stats strip.
-- [ ] Wayfinder: a few questions suggest a starting trail.
-- [ ] A plain path ("just the docs") sits next to the playful one.
+- [x] Homepage is a clickable pixel overworld of the projects, with a stats strip.
+- [x] Wayfinder: a few questions suggest a starting trail.
+- [x] A plain path ("just the docs") sits next to the playful one.
 
-### Phase 10: quests
+### Phase 10: quests (done)
 
-- [ ] Quest trails defined as data, progress and badges stored on the hub (spokes are on
+- [x] Quest trails defined as data, progress and badges stored on the hub (spokes are on
       other domains, so progress cannot be shared across them).
-- [ ] First quests: run a local model, wake a fossil GPU, benchmark your card, submit a result.
+- [x] First quests: run a local model, wake a fossil GPU, benchmark your card, submit a result.
+
+### Found along the way (done)
+
+- [x] Shared palette fixed: body text was about 3:1 contrast and failed WCAG AA; now about 11:1.
+- [x] Sites commit to one dark theme (`darkOnly`, default true). The light/dark mix showed a
+      white header over dark content. LocoNotas keeps its own light and dark palettes.
+- [x] Map sprites have transparent backgrounds; favicons keep a solid tile.
+
+### Next
+
+- Replace estimated benchmark values with measured runs, then add a "results published" stat.
+- Optional narrator characters per place (Lorekeeper style) if the quests get used.
 
 ## Deferred: single-site consolidation
 

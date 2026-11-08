@@ -15,15 +15,17 @@ export default defineConfig({
         labo: false,
         related: false,
         accent: { low: '#0a1628', main: '#3b82f6', high: '#bfdbfe' },
+        customCss: ['./src/styles/hub.css'],
         logo: {
           alt: 'LocoLabo',
-          src: './src/assets/lab.svg',
+          src: './src/assets/art/icon.png',
           replacesTitle: false,
         },
         sidebar: [
           {
             label: 'Lab Overview',
             items: [
+              { label: 'Quests', slug: 'quests' },
               { label: 'Meet the Lab', slug: 'meet-the-lab' },
               { label: 'Origin Story', slug: 'origin-story' },
               { label: 'The Loco Thesis', slug: 'the-loco-thesis' },

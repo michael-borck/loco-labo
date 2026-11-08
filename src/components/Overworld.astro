@@ -1,0 +1,166 @@
+---
+// The hub as an overworld: every project is a place on one pixel map.
+// Names, links, and taglines come from the shared manifest; only the map
+// position and sprite are set here.
+import projects from '@locolabo/theme/projects.json';
+import map from '../assets/art/map.webp';
+import { icons } from './icons.mjs';
+
+// x/y are percentages of the map, placed on land and themed where possible
+// (the bridge on the river crossing, the fossil dig on bare earth).
+const places = {
+  labo: { x: 13, y: 22, place: 'The lab cottage' },
+  'loco-llm': { x: 31, y: 16, place: 'The alchemist tower' },
+  'loco-musa': { x: 85, y: 14, place: 'The observatory' },
+  'loco-agente': { x: 77, y: 36, place: 'The robot workshop' },
+  'loco-puente': { x: 64, y: 54, place: 'The bridge' },
+  'loco-banco': { x: 40, y: 62, place: 'The test bench' },
+  'loco-fosil': { x: 49, y: 76, place: 'The fossil dig' },
+  'loco-convoy': { x: 14, y: 64, place: 'The mountain road' },
+  'loco-notas': { x: 12, y: 44, place: 'The library' },
+  'loco-ensayo': { x: 89, y: 56, place: 'The theatre' },
+  capstone: { x: 88, y: 84, place: 'The guild hall' },
+  'loco-bench-picker': { x: 31, y: 82, place: 'The market stall' },
+  'loco-base': { x: 8, y: 86, place: 'Base camp' },
+};
+
+const iconFor = (id) => icons[id.replace(/^loco-/, '').replace('bench-picker', 'picker')];
+
+const markers = [
+  {
+    id: 'labo',
+    name: 'LocoLabo',
+    url: '/meet-the-lab/',
+    tagline: 'Start here: who we are, what we run, and why.',
+    icon: icons.labo,
+  },
+  ...projects.map((p) => ({ id: p.id, name: p.name, url: p.url, tagline: p.tagline, icon: iconFor(p.id), status: p.status })),
+].filter((m) => places[m.id] && m.icon);
+---
+
+<section class="overworld not-content" id="map" aria-labelledby="map-title">
+  <h2 id="map-title" class="ow-title">The valley</h2>
+  <p class="ow-intro">Every project is a place. Hover or tap a marker, then step inside.</p>
+
+  <div class="ow-stage">
+    <img class="ow-map" src={map.src} width={map.width} height={map.height}
+         alt="A moonlit pixel-art valley with forests, a river, and a lake" />
+    {markers.map((m) => (
+      <a class:list={["ow-marker", places[m.id].x < 22 && "edge-left", places[m.id].x > 78 && "edge-right"]} href={m.url} style={`left:${places[m.id].x}%;top:${places[m.id].y}%`}>
+        <img src={m.icon.src} width="56" height="56" alt="" loading="lazy" />
+        <span class="ow-label">{m.name}</span>
+        <span class="ow-tip" role="tooltip">
+          <strong>{places[m.id].place}</strong>
+          {m.tagline}
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <ul class="ow-list">
+    {markers.map((m) => (
+      <li>
+        <a href={m.url}>
+          <img src={m.icon.src} width="40" height="40" alt="" loading="lazy" />
+          <span><strong>{m.name}</strong> · {places[m.id].place}<br /><small>{m.tagline}</small></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .overworld { margin: 2.5rem 0; }
+  .ow-title { font-size: var(--sl-text-2xl); margin: 0 0 0.25rem; color: var(--sl-color-white); font-weight: 600; }
+  .ow-intro { color: var(--sl-color-gray-2); margin: 0 0 1rem; }
+
+  .ow-stage {
+    position: relative;
+    border-radius: 14px;
+    overflow: visible;
+    border: 1px solid var(--sl-color-gray-5);
+    box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.75);
+  }
+  .ow-map { display: block; width: 100%; height: auto; border-radius: 14px; }
+
+  .ow-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    text-decoration: none;
+    z-index: 1;
+  }
+  .ow-marker img {
+    width: clamp(36px, 4.6vw, 56px);
+    height: auto;
+    filter: drop-shadow(0 4px 0 rgb(0 0 0 / 0.55));
+    transition: transform 0.15s steps(3);
+  }
+  .ow-label {
+    font-family: var(--sl-font-mono);
+    font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+    font-weight: 700;
+    color: #fff3d6;
+    background: rgb(10 10 20 / 0.78);
+    border: 1px solid rgb(255 220 150 / 0.35);
+    padding: 0.05rem 0.4rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .ow-tip {
+    position: absolute;
+    bottom: calc(100% + 0.4rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15rem;
+    padding: 0.6rem 0.75rem;
+    font-size: var(--sl-text-xs);
+    line-height: 1.4;
+    color: var(--sl-color-white);
+    background: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-accent);
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s;
+  }
+  .edge-left .ow-tip { left: 0; transform: none; }
+  .edge-right .ow-tip { left: auto; right: 0; transform: none; }
+  .ow-tip strong { display: block; color: var(--sl-color-accent-high); margin-bottom: 0.15rem; }
+  .ow-marker:hover, .ow-marker:focus-visible { z-index: 5; }
+  .ow-marker:hover img, .ow-marker:focus-visible img { transform: translateY(-4px) scale(1.08); }
+  .ow-marker:hover .ow-tip, .ow-marker:focus-visible .ow-tip { opacity: 1; }
+  .ow-marker:focus-visible .ow-label { outline: 2px solid var(--sl-color-accent); }
+
+  .ow-list {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    gap: 0.5rem;
+  }
+  .ow-list a {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--sl-color-white);
+  }
+  .ow-list small { color: var(--sl-color-gray-2); }
+
+  /* On narrow screens the markers crowd the map; show a list of places instead. */
+  @media (max-width: 50rem) {
+    .ow-marker { display: none; }
+    .ow-list { display: grid; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ow-marker img { transition: none; }
+  }
+</style>

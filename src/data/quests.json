@@ -1,0 +1,105 @@
+{
+  "levels": ["Newcomer", "Explorer", "Tinkerer", "Field Researcher", "Cartographer", "Loco Legend"],
+  "quests": [
+    {
+      "id": "light-the-lantern",
+      "title": "Light the lantern",
+      "subtitle": "Run your first local model",
+      "icon": "labo",
+      "for": "run",
+      "level": "Beginner",
+      "steps": [
+        { "id": "why", "label": "Read why local AI matters", "url": "https://locolabo.org/why-local-ai/" },
+        { "id": "tools", "label": "Pick a tool from the local LLM tools guide", "url": "https://locolabo.org/local-llm-tools/" },
+        { "id": "model", "label": "Choose a model that fits your machine", "url": "https://locolabo.org/ollama-model-guide/" },
+        { "id": "run", "label": "Run it and ask it something you actually care about", "manual": true },
+        { "id": "puente", "label": "See how LocoPuente serves a whole class from one box", "url": "https://locopuente.org/" }
+      ],
+      "badge": { "name": "Lamplighter", "text": "Ran a model on hardware you own" }
+    },
+    {
+      "id": "wake-a-fossil",
+      "title": "Wake a fossil",
+      "subtitle": "Bring an old GPU back to life",
+      "icon": "fosil",
+      "for": "revive",
+      "level": "Intermediate",
+      "steps": [
+        { "id": "cc", "label": "Find your card's compute capability", "url": "https://locofosil.org/hardware/" },
+        { "id": "driver", "label": "Pick the right driver branch for it", "url": "https://locofosil.org/setup/#one-host-one-driver-branch" },
+        { "id": "build", "label": "See what a $150 build can run", "url": "https://locofosil.org/builds/" },
+        { "id": "kindi", "label": "Install Kindi and run kindi verify", "url": "https://github.com/ahtx/kindi" },
+        { "id": "targets", "label": "Compare your speed with the validation targets", "url": "https://locofosil.org/setup/#validation-targets" }
+      ],
+      "badge": { "name": "Fossil Hunter", "text": "Woke a GPU the modern stack left behind" }
+    },
+    {
+      "id": "find-your-tier",
+      "title": "Find your tier",
+      "subtitle": "The best model for the card you have",
+      "icon": "banco",
+      "for": "choose",
+      "level": "Beginner",
+      "steps": [
+        { "id": "tiers", "label": "Learn how VRAM tiers work", "url": "https://locobanco.org/tiers/" },
+        { "id": "picker", "label": "Plot your card in the GPU Picker", "url": "https://locobanco.org/picker/" },
+        { "id": "quality", "label": "Compare model quality at your tier", "url": "https://locobanco.org/quality/" },
+        { "id": "bang", "label": "Weigh speed against quality: bang per bit", "url": "https://locobanco.org/bang-per-bit/" },
+        { "id": "registry", "label": "Check whether the lab owns your card", "url": "https://locolabo.org/gpu-registry/" }
+      ],
+      "badge": { "name": "Tier Scout", "text": "Matched a model to a VRAM budget" }
+    },
+    {
+      "id": "leave-your-mark",
+      "title": "Leave your mark",
+      "subtitle": "Contribute a measured result",
+      "icon": "picker",
+      "for": "contribute",
+      "level": "Advanced",
+      "steps": [
+        { "id": "contract", "label": "Read the result contract", "url": "https://locobanco.org/result-contract/" },
+        { "id": "guide", "label": "Follow the benchmarking guide", "url": "https://locobanco.org/guide/" },
+        { "id": "measure", "label": "Measure your card: three runs, median, wall power", "manual": true },
+        { "id": "notes", "label": "See how failures get written up in LocoNotas", "url": "https://loconotas.org/notes/" },
+        { "id": "submit", "label": "Open an issue with your run and source_run_id", "url": "https://github.com/michael-borck/loco-banco/issues" }
+      ],
+      "badge": { "name": "Cartographer", "text": "Added a measured point to the map of the floor" }
+    },
+    {
+      "id": "rehearse-with-the-cast",
+      "title": "Rehearse with the cast",
+      "subtitle": "Teach and learn with small models",
+      "icon": "ensayo",
+      "for": "teach",
+      "level": "Beginner",
+      "steps": [
+        { "id": "thesis", "label": "Read Conversation, not Delegation", "url": "https://locolabo.org/the-loco-thesis/" },
+        { "id": "musa", "label": "See how LocoMusa scores a thinking partner", "url": "https://locomusa.org/methodology/" },
+        { "id": "scenario", "label": "Walk through a rehearsal scenario", "url": "https://locoensayo.org/cloudcore/" },
+        { "id": "educators", "label": "Read the guide for educators", "url": "https://locoensayo.org/for-educators/" },
+        { "id": "capstone", "label": "See what student teams build", "url": "https://locolabo.org/capstone/" }
+      ],
+      "badge": { "name": "Stagehand", "text": "Set the stage for AI that keeps people thinking" }
+    },
+    {
+      "id": "grand-tour",
+      "title": "The grand tour",
+      "subtitle": "Visit every place in the valley",
+      "icon": "base",
+      "for": "explore",
+      "level": "Any",
+      "steps": [
+        { "id": "llm", "label": "The alchemist's tower: LocoLLM", "url": "https://locollm.org/" },
+        { "id": "banco", "label": "The test bench: LocoBanco", "url": "https://locobanco.org/" },
+        { "id": "fosil", "label": "The fossil museum: LocoFósil", "url": "https://locofosil.org/" },
+        { "id": "agente", "label": "The robot workshop: LocoAgente", "url": "https://locoagente.org/" },
+        { "id": "convoy", "label": "The mountain road: LocoConvoy", "url": "https://lococonvoy.org/" },
+        { "id": "puente", "label": "The bridge: LocoPuente", "url": "https://locopuente.org/" },
+        { "id": "musa", "label": "The observatory: LocoMusa", "url": "https://locomusa.org/" },
+        { "id": "ensayo", "label": "The theatre: LocoEnsayo", "url": "https://locoensayo.org/" },
+        { "id": "notas", "label": "The library: LocoNotas", "url": "https://loconotas.org/" }
+      ],
+      "badge": { "name": "Wayfarer", "text": "Walked every path in the valley" }
+    }
+  ]
+}

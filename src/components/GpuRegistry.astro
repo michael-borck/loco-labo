@@ -1,23 +1,13 @@
 ---
-import data from '@locolabo/theme/gpus.json';
+import { cards, gpuStats, machinesOf } from '../lib/gpu-stats.mjs';
 
-const cards = data.cards;
-const has = (r, p) => r.projects.includes(p);
-const total = (rows, f = (r) => r.count) => rows.reduce((n, r) => n + f(r), 0);
-
-const banco = cards.filter((r) => has(r, 'LocoBanco'));
-const fosil = cards.filter((r) => has(r, 'LocoFósil'));
-const shared = cards.filter((r) => has(r, 'LocoBanco') && has(r, 'LocoFósil'));
-
-const bancoInstalled = total(banco.filter((r) => r.status === 'installed'));
-const fosilCards = total(fosil);
-const fosilDevices = total(fosil, (r) => r.count * (r.device_count ?? 1));
-const sharedCount = total(shared);
-const combinedCards = bancoInstalled + fosilCards - sharedCount;
-const combinedDevices = bancoInstalled + fosilDevices - sharedCount;
-
-const machinesOf = (r) => [...new Set([r.banco_machine, r.group].filter(Boolean))];
-const unassigned = total(cards.filter((r) => machinesOf(r).includes('Unassigned')));
+const stats = gpuStats();
+const bancoInstalled = stats.fleet;
+const fosilCards = stats.relicCards;
+const fosilDevices = stats.relicDevices;
+const combinedCards = stats.owned;
+const combinedDevices = stats.devices;
+const unassigned = stats.unassigned;
 const machines = [...new Set(cards.flatMap(machinesOf))].sort();
 const architectures = [...new Set(cards.map((r) => r.architecture))].sort();
 const projects = [...new Set(cards.flatMap((r) => r.projects))].sort();

@@ -10,7 +10,6 @@ const fosil = cards.filter((r) => has(r, 'LocoFósil'));
 const shared = cards.filter((r) => has(r, 'LocoBanco') && has(r, 'LocoFósil'));
 
 const bancoInstalled = total(banco.filter((r) => r.status === 'installed'));
-const bancoIncoming = total(banco.filter((r) => r.status === 'incoming'));
 const fosilCards = total(fosil);
 const fosilDevices = total(fosil, (r) => r.count * (r.device_count ?? 1));
 const sharedCount = total(shared);
@@ -18,6 +17,7 @@ const combinedCards = bancoInstalled + fosilCards - sharedCount;
 const combinedDevices = bancoInstalled + fosilDevices - sharedCount;
 
 const machinesOf = (r) => [...new Set([r.banco_machine, r.group].filter(Boolean))];
+const unassigned = total(cards.filter((r) => machinesOf(r).includes('Unassigned')));
 const machines = [...new Set(cards.flatMap(machinesOf))].sort();
 const architectures = [...new Set(cards.map((r) => r.architecture))].sort();
 const projects = [...new Set(cards.flatMap((r) => r.projects))].sort();
@@ -28,7 +28,7 @@ const statuses = [...new Set(cards.map((r) => r.status))].sort();
   <div><strong>{combinedCards}</strong><span>owned cards</span></div>
   <div><strong>{combinedDevices}</strong><span>GPU devices</span></div>
   <div><strong>{bancoInstalled}</strong><span>benchmark fleet</span></div>
-  <div><strong>{bancoIncoming}</strong><span>incoming</span></div>
+  <div><strong>{unassigned}</strong><span>unassigned</span></div>
   <div><strong>{fosilCards}</strong><span>relic shelf cards</span></div>
   <div><strong>{fosilDevices}</strong><span>relic devices</span></div>
 </div>
